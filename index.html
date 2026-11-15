@@ -1,466 +1,1454 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Ajit Patra, PhD scholar in power electronics at IIT Bhubaneswar, working on triple active bridge converters.">
-<title>Ajit Patra · Power Electronics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ajit Kumar Patra · Power Electronics</title>
+<meta name="description" content="Ajit Kumar Patra — PhD scholar in power electronics at IIT Bhubaneswar. Research on triple active bridge converters, plus lectures, notes, quizzes and live classes for students.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<script>
+  /* MathJax: renders LaTeX in lecture notes and quizzes.  Inline: \( ... \)   Display: $$ ... $$ */
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+    startup: { typeset: false },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'input'] }
+  };
+</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
 <style>
 :root{
-  --bg:#f4f5f7; --surface:#ffffff; --ink:#141c28; --muted:#586475; --line:#dce1e9;
-  --copper:#b4572a; --copper-soft:#f5e4d8;
-  --band:#111a27; --band-ink:#eef1f5; --band-muted:#9aa6b6; --band-line:#2b3748; --band-copper:#e8925c;
-  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
-  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  --bg:#f7f5f0; --surface:#ffffff; --surface-2:#f0ede6; --ink:#16202e; --ink-2:#4a5566; --ink-3:#7a8494;
+  --line:#e2ddd2; --accent:#b4562a; --accent-ink:#ffffff; --accent-soft:#f6e6dc; --navy:#1d3557;
+  --ok:#2f7d4f; --ok-soft:#e2f1e7; --warn:#a86a00; --warn-soft:#fbf0d9; --bad:#b33a3a; --bad-soft:#f8e1e1;
+  --shadow:0 1px 2px rgba(22,32,46,.05),0 4px 16px rgba(22,32,46,.06);
+  --radius:12px; --serif:"Source Serif 4",Georgia,serif; --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0e131b; --surface:#151c27; --ink:#e7ebf1; --muted:#98a4b4; --line:#273141;
-  --copper:#e8925c; --copper-soft:#33221a;
-  --band:#0a0f16; --band-ink:#eef1f5; --band-muted:#8e9aab; --band-line:#243041; --band-copper:#e8925c; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0e131b; --surface:#151c27; --ink:#e7ebf1; --muted:#98a4b4; --line:#273141;
-  --copper:#e8925c; --copper-soft:#33221a;
-  --band:#0a0f16; --band-ink:#eef1f5; --band-muted:#8e9aab; --band-line:#243041; --band-copper:#e8925c; color-scheme:dark}
-
+[data-theme="dark"]{
+  --bg:#0f141b; --surface:#161d27; --surface-2:#1c2531; --ink:#e8e4dc; --ink-2:#aab2bf; --ink-3:#7d8796;
+  --line:#2a3443; --accent:#e07a45; --accent-ink:#1a0f08; --accent-soft:#3a2418; --navy:#9fb7d9;
+  --ok:#5fc489; --ok-soft:#173326; --warn:#e3a944; --warn-soft:#352914; --bad:#ec7a7a; --bad-soft:#3b1d1d;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--band)}
-img{max-width:100%}
-[hidden]{display:none!important}
-.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.wrap{max-width:1080px;margin:0 auto}
-a{color:var(--copper);text-underline-offset:3px}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--copper);outline-offset:2px;border-radius:4px}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.1;margin:0}
-.ph{background:var(--copper-soft);color:var(--ink);border-radius:3px;padding:0 4px;font-style:italic}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{font-family:var(--serif);line-height:1.2;margin:0 0 .5em;font-weight:600;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,4.5vw,3.1rem)} h2{font-size:1.75rem} h3{font-size:1.2rem}
+p{margin:0 0 1em}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+.mono{font-family:var(--mono);font-size:.86em}
+.muted{color:var(--ink-2)} .faint{color:var(--ink-3)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--band);color:var(--band-ink);border-bottom:1px solid var(--band-line)}
-nav .wrap{display:flex;align-items:center;gap:20px;height:58px;position:relative}
-.brand{font-family:var(--display);font-weight:800;font-size:18px;color:var(--band-ink);text-decoration:none;margin-right:auto;letter-spacing:-.01em}
-.brand b{color:var(--band-copper)}
-.links{display:flex;gap:22px;font-family:var(--mono);font-size:13px}
-.links a{color:var(--band-muted);text-decoration:none;padding-block:4px;border-bottom:1px solid transparent}
-.links a:hover,.links a.on{color:var(--band-ink);border-bottom-color:var(--band-copper)}
-.iconbtn{background:none;border:1px solid var(--band-line);color:var(--band-ink);border-radius:8px;width:36px;height:36px;cursor:pointer;display:grid;place-items:center;font-size:15px}
-.menubtn{display:none}
-@media (max-width:800px){
-  .menubtn{display:grid}
-  .links{display:none;position:absolute;top:58px;left:0;right:0;flex-direction:column;gap:0;background:var(--band);border-bottom:1px solid var(--band-line);padding-bottom:8px}
-  .links.open{display:flex}
-  .links a{padding:12px 0;border-bottom:1px solid var(--band-line)}
+/* ---------- header ---------- */
+header.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-family:var(--serif);font-weight:600;font-size:1.08rem}
+.brand:hover{text-decoration:none}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--navy);color:var(--bg);display:grid;place-items:center;font:600 .9rem var(--mono)}
+nav.main{display:flex;gap:2px;margin-left:auto}
+nav.main a{color:var(--ink-2);padding:7px 11px;border-radius:8px;font-size:.94rem;font-weight:500}
+nav.main a:hover{background:var(--surface-2);color:var(--ink);text-decoration:none}
+nav.main a.on{color:var(--ink);background:var(--surface-2)}
+.tools{display:flex;gap:8px;align-items:center}
+.icon-btn{width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center}
+.icon-btn:hover{border-color:var(--ink-3)}
+.menu-btn{display:none}
+@media (max-width:880px){
+  nav.main{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 16px;box-shadow:var(--shadow)}
+  nav.main.open{display:flex}
+  .menu-btn{display:grid}
+  .tools{margin-left:auto}
 }
+@media (max-width:480px){.brand span:last-child{display:none}#userSlot .btn{padding:6px 12px}}
 
-.hero{background:var(--band);color:var(--band-ink);position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(var(--band-line) 1px,transparent 1px),linear-gradient(90deg,var(--band-line) 1px,transparent 1px);
-  background-size:40px 40px;opacity:.35;-webkit-mask-image:radial-gradient(ellipse at 75% 50%,#000 10%,transparent 70%);mask-image:radial-gradient(ellipse at 75% 50%,#000 10%,transparent 70%)}
-.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;padding-block:72px 64px;position:relative;z-index:1}
-.hero .wrap > *{min-width:0}
-.idrow{display:flex;align-items:center;gap:14px;margin-bottom:22px}
-.avatar{width:56px;height:56px;border-radius:50%;background:var(--band-line);display:grid;place-items:center;font-family:var(--display);font-weight:800;color:var(--band-copper);border:2px solid var(--band-copper);flex:none}
-.status{font-family:var(--mono);font-size:12px;color:var(--band-muted);line-height:1.5}
-.status .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4cc38a;margin-right:6px;box-shadow:0 0 0 3px rgba(76,195,138,.25)}
-.hero h1{font-size:clamp(52px,9vw,104px);font-weight:800;letter-spacing:-.035em;line-height:.92}
-.hero h1 span{display:block;color:var(--band-copper)}
-.hero .lead{font-size:19px;color:var(--band-muted);max-width:32em;margin:22px 0 28px}
-.hero .lead b{color:var(--band-ink);font-weight:600}
-.cta{display:flex;flex-wrap:wrap;gap:10px}
-.btn{font-family:var(--mono);font-size:13px;padding:11px 18px;border-radius:999px;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface);cursor:pointer;transition:transform .15s,border-color .15s}
-.btn:hover{transform:translateY(-1px);border-color:var(--copper)}
-.hero .btn,.contactband .btn{background:transparent;color:var(--band-ink);border-color:var(--band-line)}
-.hero .btn:hover,.contactband .btn:hover{border-color:var(--band-copper)}
-.hero .btn.primary{background:var(--band-copper);color:#1a0f08;border-color:var(--band-copper)}
-.fig{margin:0}
-.fig svg{width:100%;height:auto;display:block}
-.fig figcaption{font-family:var(--mono);font-size:12px;color:var(--band-muted);margin-top:10px;border-top:1px solid var(--band-line);padding-top:10px}
-.fig figcaption b{color:var(--band-ink);font-weight:500}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:48px 40px}}
+/* ---------- buttons, chips, cards ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:500;font-size:.95rem}
+.btn:hover{text-decoration:none;border-color:var(--ink-3)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.small{padding:6px 13px;font-size:.86rem}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-size:.8rem;font-weight:500;border:1px solid var(--line)}
+.chip.accent{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.chip.ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.chip.warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.chip.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+section.block{padding:64px 0;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 .78rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.page-head{padding:44px 0 26px}
+.crumbs{font-size:.88rem;color:var(--ink-3);margin-bottom:12px}
+.crumbs a{color:var(--ink-2)}
+.empty{padding:28px;text-align:center;color:var(--ink-3);border:1px dashed var(--line);border-radius:var(--radius)}
 
-.strip{border-bottom:1px solid var(--line);background:var(--surface)}
-.strip .wrap{display:flex;flex-wrap:wrap;gap:6px 26px;padding-block:16px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.strip span::before{content:"◆";color:var(--copper);margin-right:10px;font-size:9px;vertical-align:2px}
+/* ---------- home ---------- */
+.hero{padding:70px 0 60px;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+@media (max-width:880px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.lead{font-size:1.12rem;color:var(--ink-2);max-width:40em}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.figure figcaption{font-size:.82rem;color:var(--ink-3);margin-top:8px;text-align:center}
+.figure svg{width:100%;height:auto;display:block}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+@media (max-width:640px){.facts{grid-template-columns:1fr}}
+.fact{border-left:3px solid var(--accent);padding:4px 0 4px 14px}
+.fact b{display:block;font-size:.78rem;font-family:var(--mono);color:var(--ink-3);font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.rcard .sym{font:600 1.5rem var(--serif);color:var(--accent);margin-bottom:10px}
+.tabs-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tab{padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:.9rem;font-weight:500}
+.tab.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pub{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.pub:first-child{border-top:0}
+.pub .t{font-family:var(--serif);font-weight:600;font-size:1.05rem}
+@media (max-width:640px){.pub{grid-template-columns:1fr;gap:4px}}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.timeline li:first-child{border-top:0}
+@media (max-width:640px){.timeline li{grid-template-columns:1fr;gap:2px}}
+.news li{list-style:none;display:flex;gap:16px;padding:10px 0;border-top:1px solid var(--line)}
+.news{padding:0;margin:0}
+.news li:first-child{border-top:0}
+.news .d{font-family:var(--mono);font-size:.85rem;color:var(--ink-3);min-width:80px}
+.contact-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 
-section{padding-block:80px}
-section + section{border-top:1px solid var(--line)}
-.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);margin-bottom:10px}
-.sec-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:36px;flex-wrap:wrap}
-.sec-head h2,.h2s{font-size:clamp(32px,4.5vw,46px);letter-spacing:-.025em;font-weight:800}
-.h2s.sm{font-size:clamp(28px,3.5vw,36px);margin-bottom:20px}
-.sec-head .aside{font-family:var(--mono);font-size:12px;color:var(--muted)}
+/* ---------- teaching ---------- */
+.course-card{display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.course-card .band{position:absolute;inset:0 0 auto 0;height:5px;background:var(--c,var(--accent))}
+.course-card h3{margin:4px 0 0}
+.course-card .meta{display:flex;gap:8px;flex-wrap:wrap}
+.bar{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok);border-radius:99px}
+.next-live{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--navy);color:var(--bg);border-radius:var(--radius);padding:20px 24px;margin-bottom:26px}
+.next-live h3{color:var(--bg);margin:2px 0}
+.next-live .faint{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.next-live .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.announce{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.announce:first-child{border-top:0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:9px;flex:none}
 
-.about{display:grid;grid-template-columns:1fr 1.15fr;gap:56px}
-.about > *{min-width:0}
-.statement{font-family:var(--display);font-size:clamp(24px,3vw,32px);line-height:1.25;letter-spacing:-.015em;font-weight:600;margin:0}
-.statement em{font-style:normal;color:var(--copper)}
-.prose p{margin:0 0 16px;max-width:60ch}
-.facts{display:grid;grid-template-columns:repeat(3,1fr);margin:28px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
-.fact{padding:14px 16px}
-.fact + .fact{border-left:1px solid var(--line)}
-.fact dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.fact dd{margin:4px 0 0;font-weight:600;font-size:16px}
-@media (max-width:860px){.about{grid-template-columns:1fr;gap:28px}}
-@media (max-width:560px){.facts{grid-template-columns:1fr}.fact + .fact{border-left:0;border-top:1px solid var(--line)}}
+/* ---------- course ---------- */
+.course-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:26px;overflow-x:auto}
+.course-tabs a{padding:11px 14px;color:var(--ink-2);font-weight:500;font-size:.94rem;border-bottom:2px solid transparent;white-space:nowrap}
+.course-tabs a:hover{text-decoration:none;color:var(--ink)}
+.course-tabs a.on{color:var(--ink);border-bottom-color:var(--accent)}
+.lec-row{display:grid;grid-template-columns:54px 1fr auto;gap:16px;align-items:center;padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);margin-bottom:10px;color:var(--ink)}
+.lec-row:hover{text-decoration:none;border-color:var(--ink-3)}
+.lec-num{width:44px;height:44px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;font:600 1rem var(--mono);color:var(--ink-2)}
+.lec-row.done .lec-num{background:var(--ok-soft);color:var(--ok)}
+.lec-row h4{margin:0 0 2px;font-size:1.05rem}
+@media (max-width:640px){.lec-row{grid-template-columns:44px 1fr}.lec-row .right{grid-column:2}}
 
-.topics{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.topic{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;transition:transform .2s,border-color .2s,box-shadow .2s}
-.topic:hover{transform:translateY(-3px);border-color:var(--copper);box-shadow:0 14px 30px -20px rgba(20,28,40,.45)}
-.topic svg{width:100%;height:84px;display:block;border-radius:10px;background:var(--bg)}
-.topic h3{font-size:21px;letter-spacing:-.01em}
-.topic p{margin:0;color:var(--muted);font-size:16px}
-.topic .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--copper)}
-.note{margin-top:18px;color:var(--muted);font-size:13px;font-family:var(--mono)}
-@media (max-width:860px){.topics{grid-template-columns:1fr}}
+/* ---------- lecture page ---------- */
+.lec-layout{display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start}
+@media (max-width:960px){.lec-layout{grid-template-columns:1fr}}
+.video{position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;background:linear-gradient(135deg,#1d3557,#16202e 60%,#3a1f12);color:#fff;display:grid;place-items:center;border:0;width:100%;padding:0}
+.video .play{width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;border:1px solid rgba(255,255,255,.35);transition:transform .15s}
+.video:hover .play{transform:scale(1.07)}
+.video .vt{position:absolute;left:20px;bottom:16px;right:20px;text-align:left;font-family:var(--serif);font-size:1.15rem}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.notes{font-size:1.02rem}
+.notes h3{margin-top:1.6em}
+.notes .box{background:var(--surface-2);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:1em 0}
+.notes figure{margin:1.2em 0;text-align:center}
+.notes figure svg{max-width:440px;width:100%}
+.notes figcaption{font-size:.85rem;color:var(--ink-3)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;padding:4px 0}
+.side h4{font-family:var(--sans);font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:0 0 10px;font-weight:600}
+.side .card{padding:18px;margin-bottom:16px}
+.doc{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line);color:var(--ink)}
+.doc:first-of-type{border-top:0}
+.doc:hover{text-decoration:none}
+.doc:hover .dt{color:var(--accent)}
+.ftype{width:38px;height:38px;border-radius:8px;display:grid;place-items:center;font:600 .68rem var(--mono);flex:none;background:var(--surface-2);color:var(--ink-2)}
+.ftype.pdf{background:var(--bad-soft);color:var(--bad)} .ftype.slides{background:var(--warn-soft);color:var(--warn)} .ftype.code{background:var(--ok-soft);color:var(--ok)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin:30px 0 10px}
 
-.featured{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:32px}
-.featured > *{min-width:0}
-.featured .badge{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);writing-mode:vertical-rl;transform:rotate(180deg);border-left:2px solid var(--copper);padding-left:8px}
-.featured h3{font-size:23px;letter-spacing:-.01em;margin-bottom:6px}
-.featured .meta{color:var(--muted);font-size:15px}
-.pubtools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.pubtools input{flex:1 1 240px;min-width:0;padding:11px 16px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:15px}
-.chip{font-family:var(--mono);font-size:12px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.pubs{list-style:none;margin:0;padding:0}
-.pub{display:grid;grid-template-columns:70px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}
-.pub > *{min-width:0}
-.pub .yr{font-family:var(--display);font-weight:800;font-size:22px;color:var(--muted);font-variant-numeric:tabular-nums;line-height:1.2}
-.pub .t{font-weight:600;font-size:18px;line-height:1.4}
-.pub .a{color:var(--muted);font-size:15px}
-.pub .v{font-style:italic;font-size:15px}
-.acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.acts a,.acts button{font-family:var(--mono);font-size:11px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;cursor:pointer}
-.acts a:hover,.acts button:hover{border-color:var(--copper)}
-.kind{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:var(--copper-soft);color:var(--copper);margin-left:8px;vertical-align:3px;font-style:normal;font-weight:500}
-pre.bib{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px;font-family:var(--mono);font-size:12px;overflow-x:auto;margin:10px 0 0;white-space:pre}
-.empty{color:var(--muted);padding:20px 0}
+/* ---------- discussion ---------- */
+.post{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.post:first-child{border-top:0}
+.ava{width:36px;height:36px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font:600 .8rem var(--mono);color:var(--ink-2)}
+.ava.inst{background:var(--accent);color:var(--accent-ink)}
+.post .who{font-weight:600;font-size:.92rem}
+.post .when{font-size:.8rem;color:var(--ink-3);margin-left:6px}
+.post .body{margin:4px 0 6px;white-space:pre-wrap}
+.replies{margin-left:6px;padding-left:16px;border-left:2px solid var(--line)}
+.replies .post{border-top:0;padding:10px 0}
+textarea,input[type=text],input[type=email],select{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+textarea:focus,input:focus,select:focus{outline:2px solid color-mix(in srgb,var(--accent) 40%,transparent);border-color:var(--accent)}
+textarea{min-height:84px;resize:vertical}
+.linkish{background:none;border:0;padding:0;color:var(--ink-3);font-size:.84rem}
+.linkish:hover{color:var(--accent)}
 
-.tl{list-style:none;margin:0;padding:0;position:relative}
-.tl::before{content:"";position:absolute;left:150px;top:6px;bottom:30px;width:2px;background:var(--line)}
-.tl li{display:grid;grid-template-columns:150px 1fr;gap:32px;padding-bottom:36px;position:relative}
-.tl li > *{min-width:0}
-.tl li::before{content:"";position:absolute;left:144px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--copper);box-sizing:border-box}
-.tl li.now::before{background:var(--copper)}
-.tl .when{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;padding-right:24px;text-align:right}
-.tl h3{font-size:21px;letter-spacing:-.01em}
-.tl p{margin:4px 0 0;color:var(--muted);font-size:16px}
-@media (max-width:600px){
-  .tl::before{left:6px}.tl li{grid-template-columns:1fr;gap:2px;padding-left:32px}.tl li::before{left:0}
-  .tl .when{text-align:left;padding-right:0}
-}
+/* ---------- quiz ---------- */
+.q{padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);margin-bottom:14px}
+.q .qn{font:500 .78rem var(--mono);color:var(--ink-3);margin-bottom:6px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-top:8px;cursor:pointer}
+.opt:hover{border-color:var(--ink-3)}
+.opt input{margin-top:5px;accent-color:var(--accent)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.why{margin-top:10px;font-size:.93rem;color:var(--ink-2);display:none}
+.checked .why{display:block}
+.score{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.score .big{font:600 2.4rem var(--serif)}
 
-.two{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-.two > *{min-width:0}
-.group + .group{margin-top:24px}
-.group h3{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:12px}
-.pills{display:flex;flex-wrap:wrap;gap:8px}
-.pills span{font-size:15px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
-.news{list-style:none;margin:0;padding:0}
-.news li{display:grid;grid-template-columns:90px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
-.news li > *{min-width:0}
-.news time{font-family:var(--mono);font-size:13px;color:var(--copper);font-variant-numeric:tabular-nums}
-@media (max-width:760px){.two{grid-template-columns:1fr;gap:48px}}
+/* ---------- live ---------- */
+.session{display:grid;grid-template-columns:86px 1fr auto;gap:18px;align-items:center;padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);margin-bottom:12px}
+.datebox{text-align:center;border-radius:10px;background:var(--surface-2);padding:8px 0}
+.datebox b{display:block;font:600 1.6rem var(--serif);line-height:1.1}
+.datebox span{font:500 .72rem var(--mono);text-transform:uppercase;color:var(--ink-3)}
+.session.now{border-color:var(--ok);box-shadow:0 0 0 3px var(--ok-soft)}
+.session.past{opacity:.7}
+.session .acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:6px;animation:p 1.4s infinite}
+@keyframes p{50%{opacity:.3}}
+@media (max-width:640px){.session{grid-template-columns:70px 1fr}.session .acts{grid-column:1/-1;justify-content:flex-start}}
 
-.contactband{background:var(--band);color:var(--band-ink)}
-.contactband .wrap{padding-block:80px 32px}
-.contactband .kicker{color:var(--band-copper)}
-.contactband h2{font-size:clamp(36px,6vw,64px);font-weight:800;letter-spacing:-.03em;max-width:14ch}
-.contactband h2 span{color:var(--band-copper)}
-.mailrow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:28px 0 40px}
-.mail{font-family:var(--mono);font-size:clamp(16px,2.4vw,22px);color:var(--band-ink);border-bottom:2px solid var(--band-copper);padding-bottom:4px;overflow-wrap:anywhere;user-select:all;min-width:0}
-.profiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.profiles a{display:flex;flex-direction:column;gap:2px;padding:16px;border:1px solid var(--band-line);border-radius:12px;text-decoration:none;color:var(--band-ink);font-family:var(--mono);font-size:13px;transition:border-color .15s}
-.profiles a small{color:var(--band-muted);font-size:11px}
-.profiles a:hover{border-color:var(--band-copper)}
-.addr{font-family:var(--mono);font-size:12px;color:var(--band-muted);margin-top:28px}
-footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--band-line);margin-top:48px;padding-top:20px;font-family:var(--mono);font-size:12px;color:var(--band-muted)}
-@media (max-width:760px){.profiles{grid-template-columns:1fr 1fr}}
+/* ---------- library ---------- */
+.filters{display:grid;grid-template-columns:1fr 200px 160px;gap:10px;margin-bottom:20px}
+@media (max-width:640px){.filters{grid-template-columns:1fr}}
+.doc-table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.doc-table th{text-align:left;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.doc-table td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:middle}
+.doc-table tr:last-child td{border-bottom:0}
+@media (max-width:640px){.doc-table .hide-sm{display:none}}
 
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:13px;padding:10px 16px;border-radius:8px;z-index:20}
-.totop{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:6;background:var(--surface);color:var(--ink);border-color:var(--line)}
+/* ---------- assignments ---------- */
+.asg{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+.asg + .asg{margin-top:12px}
+
+/* ---------- lock, modal, toast ---------- */
+.lock{max-width:520px;margin:30px auto;text-align:center;padding:40px 30px}
+.lock .ic{width:56px;height:56px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 16px}
+.modal-bg{position:fixed;inset:0;background:rgba(10,14,20,.55);display:none;place-items:center;z-index:80;padding:20px}
+.modal-bg.open{display:grid}
+.modal{background:var(--surface);border-radius:16px;max-width:440px;width:100%;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.3);border:1px solid var(--line)}
+.modal label{display:block;font-size:.88rem;font-weight:500;margin:12px 0 6px}
+.modal .row{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.note{font-size:.84rem;color:var(--ink-3);background:var(--surface-2);padding:10px 12px;border-radius:8px;margin-top:14px}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:10px;font-size:.92rem;opacity:0;pointer-events:none;transition:.2s;z-index:90;max-width:90vw}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.user-pill{display:flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:.88rem}
+.user-pill .ava{width:30px;height:30px;font-size:.72rem}
+.notes figure img{max-width:100%;border-radius:8px}
+.notes ul{padding-left:1.3em}
+/* ---------- admin ---------- */
+.admin{display:grid;grid-template-columns:220px 1fr;gap:30px;padding:30px 0 140px;align-items:start}
+@media (max-width:860px){.admin{grid-template-columns:1fr}}
+.anav{position:sticky;top:84px;display:flex;flex-direction:column;gap:2px}
+@media (max-width:860px){.anav{position:static;flex-direction:row;flex-wrap:wrap}}
+.anav button{text-align:left;background:none;border:0;padding:9px 12px;border-radius:8px;color:var(--ink-2);font-weight:500;font-size:.93rem}
+.anav button:hover{background:var(--surface-2);color:var(--ink)}
+.anav button.on{background:var(--ink);color:var(--bg)}
+.anav .sep{height:1px;background:var(--line);margin:8px 0}
+.apanel h2{font-size:1.6rem}
+.apanel h3{margin-top:26px}
+.fld{margin-bottom:14px}
+.fld label{display:block;font-size:.86rem;font-weight:600;margin-bottom:5px}
+.help{font-size:.8rem;color:var(--ink-3);margin-top:4px}
+.frow{display:flex;gap:8px;align-items:center}
+.frow input{flex:1}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 14px}
+@media (max-width:640px){.two,.three{grid-template-columns:1fr}}
+.arow{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px;background:var(--surface);display:grid;grid-template-columns:1fr auto;gap:14px}
+@media (max-width:640px){.arow{grid-template-columns:1fr}}
+.aa{display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap}
+.arow .ttl{font-weight:600}
+.icon-btn.sm{width:32px;height:32px;font-size:.9rem}
+.icon-btn[disabled]{opacity:.35;cursor:not-allowed}
+.btn.danger{color:var(--bad)}
+.ck{display:flex;gap:8px;align-items:center;font-weight:500;margin:6px 0 14px}
+.ck input{width:18px;height:18px;accent-color:var(--accent)}
+input[type=date],input[type=datetime-local],input[type=number],input[type=password]{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+input[type=color]{width:60px;height:40px;border:1px solid var(--line);border-radius:8px;background:var(--surface);padding:3px}
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 20px}
+.cheat{font-size:.84rem;background:var(--surface-2);border-radius:10px;padding:12px 14px;margin:8px 0}
+.cheat code{font-family:var(--mono);font-size:.82rem;background:var(--surface);padding:1px 5px;border-radius:4px}
+.status-ok{color:var(--ok);font-weight:600} .status-bad{color:var(--bad);font-weight:600}
+.steps{padding-left:1.2em} .steps li{margin-bottom:6px}
+#draftBar{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:70;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px 10px 18px;display:none;gap:12px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25);max-width:94vw;flex-wrap:wrap}
+#draftBar.show{display:flex}
+#draftBar .btn{padding:7px 14px;font-size:.88rem}
+#draftBar .btn.ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,transparent)}
+.modal.wide{max-width:640px}
+footer{padding:36px 0 50px;color:var(--ink-3);font-size:.88rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </style>
 </head>
 <body>
 
-<nav aria-label="Main" class="gut">
+<header class="top">
   <div class="wrap">
-    <a class="brand" href="#top">Ajit Patra<b>.</b></a>
-    <div class="links" id="links">
-      <a href="#about">About</a><a href="#research">Research</a><a href="#publications">Publications</a>
-      <a href="#experience">Experience</a><a href="#news">News</a><a href="#contact">Contact</a>
+    <a class="brand" href="#home"><span class="mark">AP</span><span>Ajit Kumar Patra</span></a>
+    <nav class="main" id="nav">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#research" data-nav="research">Research</a>
+      <a href="#publications" data-nav="publications">Publications</a>
+      <a href="#teaching" data-nav="teaching">Teaching</a>
+      <a href="#live" data-nav="live">Live classes</a>
+      <a href="#library" data-nav="library">Library</a>
+      <a href="#contact" data-nav="contact">Contact</a>
+    </nav>
+    <div class="tools">
+      <span id="userSlot"></span>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
     </div>
-    <button class="iconbtn" id="theme" aria-label="Toggle dark mode" title="Toggle theme">◐</button>
-    <button class="iconbtn menubtn" id="menu" aria-label="Open menu" aria-expanded="false">☰</button>
-  </div>
-</nav>
-
-<header class="hero gut" id="top">
-  <div class="wrap">
-    <div>
-      <div class="idrow">
-        <div class="avatar" title="Replace with your photo">AP</div>
-        <div class="status"><span class="dot"></span>PhD Scholar · Power Electronics<br>IIT Bhubaneswar</div>
-      </div>
-      <h1>Ajit<span>Patra</span></h1>
-      <p class="lead">I design modulation and optimization strategies for <b>triple active bridge converters</b>, the isolated multiport DC–DC stage behind solid-state transformers, EV chargers and DC microgrids.</p>
-      <div class="cta">
-        <a class="btn primary" href="#publications">View publications</a>
-        <a class="btn" href="#contact">Get in touch</a>
-        <a class="btn" href="#" data-placeholder="cv">Download CV ↓</a>
-      </div>
-    </div>
-
-    <figure class="fig">
-      <svg viewBox="0 0 560 380" role="img" aria-label="Schematic of a triple active bridge converter: three H-bridges coupled through a three-winding transformer">
-        <defs>
-          <g id="sw" fill="none" stroke="var(--band-muted)" stroke-width="1.6" stroke-linecap="round">
-            <rect x="62" y="148" width="22" height="22" rx="3"/><path d="M66 166 L80 152"/>
-            <rect x="116" y="148" width="22" height="22" rx="3"/><path d="M120 166 L134 152"/>
-            <rect x="62" y="210" width="22" height="22" rx="3"/><path d="M66 228 L80 214"/>
-            <rect x="116" y="210" width="22" height="22" rx="3"/><path d="M120 228 L134 214"/>
-            <path d="M73 170 V210 M127 170 V210"/>
-          </g>
-        </defs>
-        <g fill="none" stroke="var(--band-muted)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="40" y="130" width="120" height="120" rx="8"/>
-          <rect x="400" y="40" width="120" height="120" rx="8"/>
-          <rect x="400" y="220" width="120" height="120" rx="8"/>
-          <path d="M40 160 H22 M40 220 H22 M12 180 H32 M16 190 H28 M22 160 V180 M22 190 V220"/>
-          <path d="M520 70 H538 M520 130 H538 M528 90 H548 M532 100 H544 M538 70 V90 M538 100 V130"/>
-          <path d="M520 250 H538 M520 310 H538 M528 270 H548 M532 280 H544 M538 250 V270 M538 280 V310"/>
-          <path d="M160 170 H168 M198 170 H200 V150 H232 M160 210 H200 V230 H232"/>
-          <path d="M296 60 H318 M348 60 H360 V85 H400 M296 140 H360 V115 H400"/>
-          <path d="M296 240 H318 M348 240 H360 V265 H400 M296 320 H360 V295 H400"/>
-        </g>
-        <use href="#sw"/>
-        <use href="#sw" x="360" y="-90"/>
-        <use href="#sw" x="360" y="90"/>
-        <g fill="none" stroke="var(--band-copper)" stroke-width="1.8">
-          <path d="M168 170 a5 5 0 0 1 10 0 a5 5 0 0 1 10 0 a5 5 0 0 1 10 0"/>
-          <path d="M318 60 a5 5 0 0 1 10 0 a5 5 0 0 1 10 0 a5 5 0 0 1 10 0"/>
-          <path d="M318 240 a5 5 0 0 1 10 0 a5 5 0 0 1 10 0 a5 5 0 0 1 10 0"/>
-        </g>
-        <g fill="none" stroke="var(--band-copper)" stroke-width="2.2">
-          <path d="M232 150 a10 10 0 0 1 0 20 a10 10 0 0 1 0 20 a10 10 0 0 1 0 20 a10 10 0 0 1 0 20"/>
-          <path d="M296 60 a10 10 0 0 0 0 20 a10 10 0 0 0 0 20 a10 10 0 0 0 0 20 a10 10 0 0 0 0 20"/>
-          <path d="M296 240 a10 10 0 0 0 0 20 a10 10 0 0 0 0 20 a10 10 0 0 0 0 20 a10 10 0 0 0 0 20"/>
-        </g>
-        <g stroke="var(--band-ink)" stroke-width="2"><path d="M260 40 V340 M268 40 V340"/></g>
-        <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--band-muted)">
-          <text x="100" y="272" text-anchor="middle">H-BRIDGE 1</text>
-          <text x="460" y="182" text-anchor="middle">H-BRIDGE 2</text>
-          <text x="460" y="362" text-anchor="middle">H-BRIDGE 3</text>
-          <text x="4" y="152">V₁</text><text x="544" y="62">V₂</text><text x="544" y="242">V₃</text>
-          <text x="174" y="158" fill="var(--band-copper)">L₁</text>
-          <text x="324" y="48" fill="var(--band-copper)">L₂</text>
-          <text x="324" y="228" fill="var(--band-copper)">L₃</text>
-          <text x="264" y="28" text-anchor="middle">n₁ : n₂ : n₃</text>
-        </g>
-      </svg>
-      <figcaption><b>Fig. 1</b> · Triple active bridge: three ports, one magnetic core, power steered by phase shift.</figcaption>
-    </figure>
   </div>
 </header>
 
-<div class="strip gut"><div class="wrap">
-  <span>Triple active bridge</span><span>Phase-shift modulation</span><span>Zero-voltage switching</span><span>Multiport DC conversion</span><span>Loss optimization</span>
-</div></div>
+<main id="app"></main>
 
-<main class="gut">
-<div class="wrap">
-
-  <section id="about">
-    <div class="kicker">About</div>
-    <div class="about">
-      <p class="statement">Making one converter serve <em>three ports</em> efficiently, across every load and voltage it will actually see.</p>
-      <div class="prose">
-        <p>I am a doctoral researcher in power electronics at IIT Bhubaneswar. My work focuses on the triple active bridge: how to choose its phase shifts so the converter keeps soft switching, minimizes circulating current and regulates each port independently.</p>
-        <p><span class="ph">Add a line on your advisor, your lab, and the application that motivates your work.</span></p>
-        <dl class="facts">
-          <div class="fact"><dt>Institute</dt><dd>IIT Bhubaneswar</dd></div>
-          <div class="fact"><dt>Focus</dt><dd>TAB converters</dd></div>
-          <div class="fact"><dt>Advisor</dt><dd><span class="ph">Prof. Name</span></dd></div>
-        </dl>
-      </div>
-    </div>
-  </section>
-
-  <section id="research">
-    <div class="sec-head"><div><div class="kicker">Research</div><h2>What I'm working on</h2></div></div>
-    <div class="topics">
-      <article class="topic">
-        <svg viewBox="0 0 300 84" aria-hidden="true"><g fill="none" stroke-width="2">
-          <path d="M10 22 H70 V54 H130 V22 H190 V54 H250 V22 H290" stroke="var(--copper)"/>
-          <path d="M10 54 H40 V22 H100 V54 H160 V22 H220 V54 H280 V22 H290" stroke="var(--muted)" stroke-dasharray="4 3"/>
-          <path d="M70 70 H100 M70 66 V74 M100 66 V74" stroke="var(--ink)"/></g>
-          <text x="106" y="74" font-family="JetBrains Mono, monospace" font-size="11" fill="var(--ink)">φ</text></svg>
-        <span class="tag">MODULATION</span>
-        <h3>Multi-phase-shift control</h3>
-        <p>Choosing inner and outer phase shifts across three bridges to cut RMS current and widen the zero-voltage-switching range.</p>
-      </article>
-      <article class="topic">
-        <svg viewBox="0 0 300 84" aria-hidden="true"><g fill="none" stroke-width="2">
-          <path d="M20 70 H290 M20 10 V70" stroke="var(--line)"/>
-          <path d="M24 14 C80 90, 150 80, 284 18" stroke="var(--copper)"/></g>
-          <circle cx="126" cy="61" r="5" fill="var(--ink)"/>
-          <text x="136" y="56" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--ink)">min P_loss</text></svg>
-        <span class="tag">OPTIMIZATION</span>
-        <h3>Loss-minimizing operation</h3>
-        <p>Writing converter losses as an objective and solving for the best operating point over the full power range.</p>
-      </article>
-      <article class="topic">
-        <svg viewBox="0 0 300 84" aria-hidden="true"><g stroke-width="2" fill="none" stroke="var(--copper)">
-          <path d="M92 42 L200 20 M92 42 L200 64 M210 28 V56"/></g>
-          <g fill="var(--surface)" stroke="var(--ink)" stroke-width="2">
-          <circle cx="80" cy="42" r="13"/><circle cx="210" cy="18" r="11"/><circle cx="210" cy="66" r="11"/></g>
-          <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--ink)" text-anchor="middle">
-          <text x="80" y="46">1</text><text x="210" y="22">2</text><text x="210" y="70">3</text></g></svg>
-        <span class="tag">POWER FLOW</span>
-        <h3>Decoupled port control</h3>
-        <p>Handling the cross-coupling between ports so each port's power can be regulated on its own.</p>
-      </article>
-    </div>
-  </section>
-
-  <section id="publications">
-    <div class="sec-head"><div><div class="kicker">Publications</div><h2>Papers</h2></div><span class="aside" id="pubcount"></span></div>
-    <div id="featured"></div>
-    <div class="pubtools">
-      <input id="q" type="search" placeholder="Search title, venue or year" aria-label="Search publications">
-      <button class="chip" data-f="all" aria-pressed="true">All</button>
-      <button class="chip" data-f="journal" aria-pressed="false">Journal</button>
-      <button class="chip" data-f="conference" aria-pressed="false">Conference</button>
-    </div>
-    <ul class="pubs" id="pubs"></ul>
-  </section>
-
-  <section id="experience">
-    <div class="sec-head"><div><div class="kicker">Path</div><h2>Education &amp; experience</h2></div></div>
-    <ol class="tl">
-      <li class="now"><div class="when"><span class="ph">20XX</span> – now</div><div><h3>PhD, Electrical Engineering</h3><p>IIT Bhubaneswar · Power electronics, triple active bridge converters</p></div></li>
-      <li><div class="when"><span class="ph">20XX – 20XX</span></div><div><h3><span class="ph">M.Tech, specialization</span></h3><p><span class="ph">Institute</span></p></div></li>
-      <li><div class="when"><span class="ph">20XX – 20XX</span></div><div><h3><span class="ph">B.Tech, branch</span></h3><p><span class="ph">Institute</span></p></div></li>
-    </ol>
-  </section>
-
-  <section id="news">
-    <div class="two">
-      <div>
-        <div class="kicker">Toolkit</div>
-        <h2 class="h2s sm">Tools &amp; methods</h2>
-        <div class="group"><h3>Simulation &amp; analysis</h3><div class="pills"><span>MATLAB / Simulink</span><span>PLECS</span><span>Python</span><span>LTspice</span></div></div>
-        <div class="group"><h3>Hardware</h3><div class="pills"><span>TI C2000 DSP</span><span>Magnetics design</span><span>PCB layout</span><span>Double-pulse testing</span></div></div>
-      </div>
-      <div>
-        <div class="kicker">News</div>
-        <h2 class="h2s sm">Recent updates</h2>
-        <ul class="news">
-          <li><time>Oct 2026</time><span>Launched this website.</span></li>
-          <li><time><span class="ph">Mon YY</span></time><span><span class="ph">Paper accepted at …</span></span></li>
-          <li><time><span class="ph">Mon YY</span></time><span><span class="ph">Presented at …</span></span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-</div>
-</main>
-
-<div class="contactband gut" id="contact">
+<footer>
   <div class="wrap">
-    <div class="kicker">Contact</div>
-    <h2>Let's talk <span>converters.</span></h2>
-    <div class="mailrow">
-      <span class="mail" id="email">ajit.patra861@gmail.com</span>
-      <button class="btn" data-copy="email">Copy email</button>
-    </div>
-    <div class="profiles">
-      <a href="#" data-placeholder="scholar">Google Scholar<small>add link</small></a>
-      <a href="#" data-placeholder="ieee">IEEE Xplore<small>add link</small></a>
-      <a href="#" data-placeholder="orcid">ORCID<small>add link</small></a>
-      <a href="#" data-placeholder="linkedin">LinkedIn<small>add link</small></a>
-    </div>
-    <p class="addr">School of Electrical Sciences · IIT Bhubaneswar · Argul, Odisha 752050</p>
-    <footer><span>© 2026 Ajit Patra</span><span>Last updated Oct 2026</span></footer>
+    <span>© 2026 Ajit Kumar Patra · IIT Bhubaneswar</span>
+    <span><span id="updated">Last updated Nov 2026</span> · <a href="#admin" style="color:var(--ink-3)">Admin</a></span>
   </div>
-</div>
+</footer>
 
-<button class="iconbtn totop" id="totop" aria-label="Back to top" hidden>↑</button>
-<div class="toast" id="toast" role="status" hidden></div>
+<div class="modal-bg" id="modalBg"><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+<div id="toast" role="status"></div>
+<div id="draftBar"><span>You have unpublished changes</span>
+  <button class="btn primary" onclick="publish()">Publish to website</button>
+  <button class="btn ghost" onclick="location.hash='#admin'">Admin</button>
+  <button class="btn ghost" onclick="discardDraft()">Discard</button></div>
 
 <script>
-// Publications: sample entries, replace with your own. Set featured:true on the one to highlight.
-const PUBS = [
-  {kind:"journal", year:2026, featured:true, title:"Sample: Optimized multi-phase-shift modulation for triple active bridge converters", authors:"A. Patra, Co-author", venue:"IEEE Transactions on Power Electronics (sample entry)", doi:""},
-  {kind:"conference", year:2025, title:"Sample: Minimum-RMS-current operation of a three-port isolated DC–DC converter", authors:"A. Patra, Co-author", venue:"IEEE ECCE (sample entry)", doi:""},
-  {kind:"conference", year:2024, title:"Sample: ZVS range analysis of TAB converters under SPS control", authors:"A. Patra, Co-author", venue:"IEEE PEDES (sample entry)", doi:""},
-];
-let filter="all", query="";
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const me=s=>esc(s).replace("A. Patra","<b>A. Patra</b>");
-function bibtex(p,i){
-  const type=p.kind==="journal"?"article":"inproceedings", vf=p.kind==="journal"?"journal  ":"booktitle";
-  return `@${type}{patra${p.year}_${i+1},\n  title     = {${p.title}},\n  author    = {${p.authors.replace(/, /g," and ")}},\n  ${vf} = {${p.venue}},\n  year      = {${p.year}}${p.doi?`,\n  doi       = {${p.doi}}`:""}\n}`;
+/* =====================================================================
+   Built-in starting content. Once you publish from the Admin page, the
+   website reads content.json instead, so you never need to edit this.
+   ===================================================================== */
+const DEFAULT_SITE = {
+  name: "Ajit Kumar Patra",
+  email: "ajit.patra861@gmail.com",
+  headline: "PhD Scholar · Power Electronics · IIT Bhubaneswar",
+  intro: "I design modulation and optimization strategies for **triple active bridge (TAB)** converters — multiport isolated DC–DC converters for solid-state transformers, EV chargers and DC microgrids.",
+  keywords: ["triple active bridge", "phase-shift modulation", "zero-voltage switching", "multiport DC conversion", "loss optimization"],
+  heroImage: "", heroCaption: "Fig. 1 — Triple active bridge: three H-bridges linked by a three-winding high-frequency transformer.",
+  aboutTitle: "One converter, three ports, high efficiency",
+  about: "My work asks how a single isolated converter can serve three ports efficiently over a wide operating range: choosing phase shifts that keep the switches soft-switched, reduce circulating current and regulate each port independently.",
+  institute: "IIT Bhubaneswar, School of Electrical and Computer Sciences",
+  focus: "TAB converters, modulation & optimization",
+  advisor: "Prof. Name",
+  cv: "",
+  address: "School of Electrical and Computer Sciences, IIT Bhubaneswar, Argul, Odisha 752050",
+  links: { scholar: "", ieee: "", orcid: "", linkedin: "" },
+  updated: "Nov 2026",
+
+  research: [
+    { sym: "φ", title: "Multi-phase-shift control", text: "Choosing inner and outer phase shifts to reduce RMS current and widen the zero-voltage-switching range." },
+    { sym: "min P", title: "Loss-minimizing operation", text: "Framing converter losses as an objective and finding the best operating point across the power range." },
+    { sym: "1·2·3", title: "Decoupled port control", text: "Managing cross-coupling so each port's power can be regulated independently." }
+  ],
+  publications: [
+    { type: "conference", year: "2026",
+      title: "Detailed Loss Analysis of Multifunctional DT-QAB Converter as High Power EV Charger and Bipolar DC Voltage Regulator under Asymmetric Loading",
+      authors: "A. K. Patra, et al.", venue: "2026 IEEE 12th Power India International Conference (PIICON), Bhubaneswar, Dec 2026",
+      status: "Accepted", link: "" }
+  ],
+  experience: [
+    { period: "Jun 2026 – now", title: "PhD, Power Electronics", place: "IIT Bhubaneswar — triple active bridge converters" },
+    { period: "Jan – Jun 2026", title: "Project Associate-II", place: "IIT Bhubaneswar — project RP 486" },
+    { period: "20XX – 20XX", title: "M.Tech, specialization", place: "Institute" },
+    { period: "20XX – 20XX", title: "B.Tech, branch", place: "Institute" }
+  ],
+  toolsSim: ["MATLAB/Simulink", "PLECS", "Python", "LTspice"],
+  toolsHw: ["TI C2000 DSP", "SiC MOSFETs", "Magnetics design", "PCB layout", "Double-pulse testing"],
+  news: [
+    { date: "Dec 2026", text: "Presenting the DT-QAB loss-analysis paper at IEEE PIICON 2026, Bhubaneswar." },
+    { date: "Nov 2026", text: "Teaching portal launched: lectures, notes, quizzes and live classes." },
+    { date: "Oct 2026", text: "Website launched." }
+  ],
+
+  requireLogin: true,
+  allowedDomain: "iitbbs.ac.in",
+  students: ["student@iitbbs.ac.in"],
+  instructorEmail: "ajit.patra861@gmail.com",
+
+  announcements: [
+    { date: "2026-11-15", course: "pe", text: "Quiz 1 (buck converter) is open. Attempt it before the next live class." },
+    { date: "2026-11-12", course: "pe", text: "Lecture 3 notes on RCD snubbers are uploaded." }
+  ],
+
+  courses: [
+    {
+      id: "pe", code: "EE-XXXX", title: "Power Electronics", term: "Spring 2027",
+      role: "Teaching Assistant", color: "#b4562a", sample: true,
+      blurb: "Switching converters from first principles: devices, DC–DC converters, snubbers and design.",
+      lectures: [
+        { n: 1, title: "Introduction and power semiconductor switches", date: "2026-11-03", mins: 52, youtube: "",
+          summary: "Why switch-mode conversion, ideal vs real switches, diodes, MOSFETs, IGBTs and SiC devices.",
+          notes: String.raw`# Why switch-mode?
+A linear regulator drops the excess voltage across a transistor, so its efficiency can never exceed \( V_o/V_{in} \). A switch-mode converter uses switches that are either fully on or fully off, so ideally no power is lost in them.
+
+> An ideal switch has zero voltage when on, zero current when off, and switches instantly. Real devices lose energy in conduction and during each transition.
+
+# Conduction and switching loss
+$$P_{cond} = I_{rms}^2 \, R_{DS(on)}$$
+$$P_{sw} \approx \tfrac{1}{2} V_{DS} I_D \left(t_r + t_f\right) f_s$$
+Switching loss grows linearly with switching frequency, which is why soft switching (ZVS / ZCS) matters at high frequency.`,
+          docs: [ { title: "Lecture 1 slides", type: "slides", url: "", size: "2.1 MB" },
+                  { title: "Device comparison table", type: "pdf", url: "", size: "180 KB" } ] },
+
+        { n: 2, title: "Buck converter: steady-state analysis", date: "2026-11-07", mins: 61, youtube: "",
+          summary: "Volt-second balance, conversion ratio, inductor ripple and output-voltage ripple.",
+          notes: String.raw`<figure><svg viewBox="0 0 440 170" fill="none" stroke="currentColor" stroke-width="2" font-family="IBM Plex Sans" font-size="13"><path d="M40 40 V130"/><circle cx="40" cy="85" r="16"/><text x="34" y="80" stroke="none" fill="currentColor">+</text><text x="35" y="98" stroke="none" fill="currentColor">−</text><text x="6" y="90" stroke="none" fill="currentColor">V<tspan font-size="10" dy="3">in</tspan></text><path d="M40 40 H110"/><path d="M110 40 L135 28"/><path d="M140 40 H190"/><text x="112" y="22" stroke="none" fill="currentColor">S</text><path d="M190 40 c6-12 12-12 18 0 c6-12 12-12 18 0 c6-12 12-12 18 0 c6-12 12-12 18 0"/><text x="210" y="22" stroke="none" fill="currentColor">L</text><path d="M262 40 H380"/><path d="M170 40 V75"/><path d="M158 75 H182"/><path d="M158 95 L170 75 L182 95 Z"/><path d="M170 95 V130"/><text x="132" y="92" stroke="none" fill="currentColor">D</text><path d="M300 40 V78"/><path d="M286 78 H314"/><path d="M286 88 H314"/><path d="M300 88 V130"/><text x="320" y="88" stroke="none" fill="currentColor">C</text><path d="M380 40 V68"/><rect x="370" y="68" width="20" height="36" rx="2"/><path d="M380 104 V130"/><text x="398" y="90" stroke="none" fill="currentColor">R</text><path d="M40 130 H380"/></svg><figcaption>Buck converter</figcaption></figure>
+
+# Volt-second balance
+In steady state the average inductor voltage over one switching period is zero. With duty ratio \(D\):
+$$\langle v_L \rangle = D\,(V_{in} - V_o) + (1-D)(-V_o) = 0$$
+$$\Rightarrow \quad V_o = D\,V_{in}$$
+
+# Inductor current ripple
+During the on-time the inductor sees \(V_{in}-V_o\), so its current rises linearly:
+$$\Delta i_L = \frac{(V_{in}-V_o)\,D}{L\,f_s} = \frac{V_o\,(1-D)}{L\,f_s}$$
+
+# Output voltage ripple
+The ripple current flows into the capacitor; integrating the charge over half a period gives
+$$\Delta v_o = \frac{\Delta i_L}{8\,C\,f_s}$$
+
+> **Design check:** choose \(L\) for a ripple of about 20–40% of the load current, then choose \(C\) for the allowed \(\Delta v_o\).`,
+          docs: [ { title: "Lecture 2 slides", type: "slides", url: "", size: "1.6 MB" },
+                  { title: "Buck design worked example", type: "pdf", url: "", size: "420 KB" },
+                  { title: "buck_design.m (MATLAB)", type: "code", url: "", size: "3 KB" } ] },
+
+        { n: 3, title: "Snubber circuits: RCD turn-off snubber", date: "2026-11-11", mins: 48, youtube: "",
+          summary: "Why snubbers, the RCD turn-off snubber, choosing the capacitor and resistor, and snubber loss.",
+          notes: String.raw`# Purpose
+At turn-off the switch voltage rises while current is still flowing, so the switch carries high power. An RCD snubber diverts the current into a capacitor, slowing the voltage rise.
+
+# Choosing the capacitor
+If the current falls linearly in time \(t_f\) and the capacitor should reach the full voltage \(V_d\) just as the current reaches zero:
+$$C_s = \frac{I_o \, t_f}{2\,V_d}$$
+
+# Choosing the resistor
+The capacitor must discharge through \(R_s\) during the minimum on-time. Allowing about \(2.3\,R_sC_s\) (discharge to 10%):
+$$R_s \le \frac{t_{on,min}}{2.3\,C_s}$$
+
+# Snubber loss
+$$P_{R} = \tfrac{1}{2}\, C_s V_d^2 \, f_s$$
+
+> A larger \(C_s\) lowers turn-off loss in the switch but raises the loss in \(R_s\). The best value balances the two.`,
+          docs: [ { title: "Lecture 3 handwritten notes", type: "pdf", url: "", size: "3.4 MB" } ] }
+      ],
+      live: [
+        { title: "Doubt-clearing: buck converter design", start: "2026-11-20T17:00:00+05:30", mins: 60, link: "", lecture: "" },
+        { title: "Lecture 4: Boost and buck-boost converters", start: "2026-11-27T17:00:00+05:30", mins: 75, link: "", lecture: "" },
+        { title: "Lecture 3: Snubber circuits (live)", start: "2026-11-11T17:00:00+05:30", mins: 60, link: "", lecture: 3 }
+      ],
+      quizzes: [
+        { id: "q1", title: "Quiz 1 — Buck converter", lecture: 2, questions: [
+          { q: String.raw`A buck converter has \(V_{in} = 48\) V and \(D = 0.25\). What is \(V_o\) in steady state?`,
+            options: ["6 V", "12 V", "36 V", "192 V"], answer: 1,
+            why: String.raw`\(V_o = D\,V_{in} = 0.25 \times 48 = 12\) V.` },
+          { q: "Volt-second balance on the inductor follows from which steady-state condition?",
+            options: ["Average capacitor current is zero", "Average inductor voltage is zero", "Input power equals output power", "Inductor current is constant"], answer: 1,
+            why: "In steady state the inductor current returns to the same value each period, so the average inductor voltage over a period is zero." },
+          { q: String.raw`If the switching frequency \(f_s\) is doubled (everything else fixed), the inductor ripple \(\Delta i_L\)…`,
+            options: ["doubles", "stays the same", "halves", "falls to a quarter"], answer: 2,
+            why: String.raw`\(\Delta i_L = V_o(1-D)/(L f_s)\), so it is inversely proportional to \(f_s\).` },
+          { q: String.raw`For the same \(\Delta i_L\), the output ripple \(\Delta v_o\) depends on \(C\) and \(f_s\) as…`,
+            options: [String.raw`\(\propto 1/(C f_s)\)`, String.raw`\(\propto C f_s\)`, String.raw`\(\propto 1/C\) only`, String.raw`independent of \(f_s\)`], answer: 0,
+            why: String.raw`\(\Delta v_o = \Delta i_L/(8 C f_s)\).` }
+        ]},
+        { id: "q2", title: "Quiz 2 — Snubbers", lecture: 3, questions: [
+          { q: "The main job of an RCD turn-off snubber is to…",
+            options: ["raise the switching frequency", "slow the voltage rise across the switch at turn-off", "reduce conduction loss", "increase the output voltage"], answer: 1,
+            why: "The capacitor takes the load current while the switch turns off, so the switch voltage rises slowly and turn-off loss falls." },
+          { q: "Power dissipated in the snubber resistor is approximately",
+            options: [String.raw`\(\tfrac12 C_s V_d^2 f_s\)`, String.raw`\(C_s V_d f_s\)`, String.raw`\(I_o^2 R_s\)`, "zero"], answer: 0,
+            why: "The capacitor's stored energy ½CV² is dumped in the resistor once every switching period." }
+        ]}
+      ],
+      assignments: [
+        { id: "a1", title: "Assignment 1 — Design a 48 V → 12 V buck converter", due: "2026-11-24T23:59:00+05:30",
+          desc: "Choose L and C for 100 kHz, 5 A load, 30% current ripple and 1% voltage ripple. Verify in MATLAB/Simulink and submit a PDF report with waveforms.", form: "" },
+        { id: "a2", title: "Assignment 2 — RCD snubber for a 400 V MOSFET switch", due: "2026-12-05T23:59:00+05:30",
+          desc: "Size Cs and Rs for the given device data and estimate the snubber loss at 50 kHz.", form: "" }
+      ],
+      discussion: {
+        2: [ { who: "Student A", t: "2026-11-08T10:12:00+05:30", text: "In the ripple formula, why do we use (1−D) in the second form?",
+               replies: [ { who: "Ajit Kumar Patra", inst: true, t: "2026-11-08T12:40:00+05:30", text: "During the off-time the inductor sees −Vo for (1−D)Ts. The rise during on-time equals the fall during off-time, so both forms give the same ripple." } ] } ]
+      }
+    },
+    {
+      id: "dab", code: "Short course", title: "Dual and Triple Active Bridge Converters", term: "Self-paced",
+      role: "Instructor", color: "#1d3557", sample: true,
+      blurb: "Isolated bidirectional DC–DC conversion: phase-shift modulation, power flow and soft switching.",
+      lectures: [
+        { n: 1, title: "DAB converter and single phase shift (SPS)", date: "2026-11-14", mins: 45, youtube: "",
+          summary: "Operating principle, power transfer equation and the role of the series inductance.",
+          notes: String.raw`# Power transfer under SPS
+With both bridges producing square waves shifted by \(\varphi\) (radians), the transferred power is
+$$P = \frac{n\,V_1 V_2}{2\pi f_s L}\;\varphi\left(1 - \frac{|\varphi|}{\pi}\right)$$
+Maximum power occurs at \(\varphi = \pi/2\). The direction of power flow follows the sign of \(\varphi\).
+
+> The series inductance \(L\) sets the power capability: a smaller \(L\) transfers more power at the same phase shift but raises the peak current.`,
+          docs: [ { title: "DAB lecture slides", type: "slides", url: "", size: "2.8 MB" } ] },
+        { n: 2, title: "From DAB to TAB: three-port power flow", date: "2026-11-15", mins: 50, youtube: "",
+          summary: "Three-winding transformer, the delta-equivalent model and coupled power flow between ports.",
+          notes: String.raw`# Delta-equivalent model
+A TAB can be modelled as three bridges connected through an equivalent delta of inductances \(L_{12}, L_{13}, L_{23}\). Each link behaves like a DAB:
+$$P_{ij} = \frac{V_i V_j}{2\pi f_s L_{ij}}\;\varphi_{ij}\left(1 - \frac{|\varphi_{ij}|}{\pi}\right)$$
+The power at a port is the sum over its two links, e.g. \(P_1 = P_{12} + P_{13}\). Because the links share phase shifts, changing one port's power disturbs the others: this is the cross-coupling that decoupled control must handle.`,
+          docs: [] }
+      ],
+      live: [ { title: "Q&A on phase-shift modulation", start: "2026-12-02T18:00:00+05:30", mins: 60, link: "", lecture: "" } ],
+      quizzes: [
+        { id: "q1", title: "DAB basics", lecture: 1, questions: [
+          { q: "Under SPS, the DAB transfers maximum power at a phase shift of…",
+            options: ["0", "π/4", "π/2", "π"], answer: 2,
+            why: String.raw`\(\varphi(1-\varphi/\pi)\) is largest at \(\varphi=\pi/2\).` }
+        ]}
+      ],
+      assignments: [],
+      discussion: {}
+    }
+  ]
+};
+
+/* =====================================================================
+   APP — no need to edit anything below
+   ===================================================================== */
+const clone = o => JSON.parse(JSON.stringify(o));
+let SITE = clone(DEFAULT_SITE);
+const $ = (s, el = document) => el.querySelector(s);
+const app = $('#app');
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('ap_' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { if (v === null) localStorage.removeItem('ap_' + k); else localStorage.setItem('ap_' + k, JSON.stringify(v)); } catch (e) {} }
+};
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+/* inline text: escapes HTML, keeps maths, supports **bold** and [text](link) */
+const inl = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+const courseById = id => SITE.courses.find(c => c.id === id);
+const fmtDate = (d, o = { day: 'numeric', month: 'short', year: 'numeric' }) => { const x = new Date(d); return isNaN(x) ? '' : x.toLocaleDateString('en-IN', o); };
+const fmtTime = d => { const x = new Date(d); return isNaN(x) ? '' : x.toLocaleTimeString('en-IN', { hour: 'numeric', minute: '2-digit' }); };
+const initials = n => String(n || '?').split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+function normalize(s) {
+  for (const k in DEFAULT_SITE) if (!(k in s)) s[k] = clone(DEFAULT_SITE[k]);
+  s.links = Object.assign({ scholar: '', ieee: '', orcid: '', linkedin: '' }, s.links);
+  s.courses.forEach(c => {
+    ['lectures', 'live', 'quizzes', 'assignments'].forEach(k => c[k] = c[k] || []);
+    c.discussion = c.discussion || {};
+    c.lectures.forEach(l => l.docs = l.docs || []);
+    c.lectures.sort((a, b) => (+a.n || 0) - (+b.n || 0));
+  });
+  return s;
 }
-const acts=(p,i,key)=>`<div class="acts">${p.doi?`<a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">DOI ↗</a>`:""}
-  <button data-bib="${key}" aria-expanded="false">BibTeX</button><button data-copybib="${i}">Copy citation</button></div>
-  <pre class="bib" id="bib-${key}" hidden>${esc(bibtex(p,i))}</pre>`;
-const fi=PUBS.findIndex(p=>p.featured);
-if(fi>=0){const p=PUBS[fi];document.getElementById("featured").innerHTML=
-  `<article class="featured"><span class="badge">Featured</span><div><h3>${esc(p.title)}</h3>
-  <div class="meta">${me(p.authors)} · <i>${esc(p.venue)}</i>, ${p.year}</div>${acts(p,fi,"f"+fi)}</div></article>`;}
-function renderPubs(){
-  const el=document.getElementById("pubs");
-  const list=PUBS.map((p,i)=>({p,i})).filter(({p})=>(filter==="all"||p.kind===filter)&&
-    (!query||(p.title+" "+p.venue+" "+p.year+" "+p.authors).toLowerCase().includes(query)));
-  document.getElementById("pubcount").textContent=`${list.length} of ${PUBS.length} shown`;
-  el.innerHTML=list.length?list.map(({p,i})=>`<li class="pub"><div class="yr">${p.year}</div><div>
-    <div class="t">${esc(p.title)}<span class="kind">${p.kind}</span></div>
-    <div class="a">${me(p.authors)}</div><div class="v">${esc(p.venue)}</div>${acts(p,i,"l"+i)}</div></li>`).join("")
-    :'<li class="empty">No publications match that search.</li>';
+
+/* Notes format: "# Heading", "> highlighted box", "- list item", "$$ maths $$",
+   "![caption](files/picture.png)", blank line = new paragraph. Blocks starting with < are raw HTML. */
+function mdLite(src) {
+  if (!src) return '';
+  const out = [];
+  for (const blk of String(src).replace(/\r/g, '').split(/\n[ \t]*\n/)) {
+    const t = blk.trim(); if (!t) continue;
+    if (t[0] === '<') { out.push(t); continue; }
+    const lines = t.split('\n'); let mode = null, buf = [];
+    const flush = () => {
+      if (!buf.length) return;
+      if (mode === 'p') out.push(`<p>${inl(buf.join(' '))}</p>`);
+      else if (mode === 'ul') out.push('<ul>' + buf.map(x => `<li>${inl(x)}</li>`).join('') + '</ul>');
+      else if (mode === 'box') out.push(`<div class="box">${inl(buf.join(' '))}</div>`);
+      buf = []; mode = null;
+    };
+    const add = (m, x) => { if (mode !== m) flush(); mode = m; buf.push(x); };
+    for (let i = 0; i < lines.length; i++) {
+      const L = lines[i].trim(); let m;
+      if (!L) continue;
+      if ((m = L.match(/^(#{1,3})\s+(.*)/))) { flush(); const tag = m[1].length === 1 ? 'h3' : 'h4'; out.push(`<${tag}>${inl(m[2])}</${tag}>`); }
+      else if (L.startsWith('$$')) { flush(); let math = L; while (!(math.length > 2 && math.endsWith('$$')) && i + 1 < lines.length) math += '\n' + lines[++i]; out.push(`<div class="math">${esc(math)}</div>`); }
+      else if ((m = L.match(/^!\[(.*?)\]\((.*?)\)$/))) { flush(); out.push(`<figure><img src="${esc(m[2])}" alt="${esc(m[1])}">${m[1] ? `<figcaption>${esc(m[1])}</figcaption>` : ''}</figure>`); }
+      else if (/^[-*] /.test(L)) add('ul', L.slice(2));
+      else if (L.startsWith('>')) add('box', L.replace(/^>\s?/, ''));
+      else add('p', L);
+    }
+    flush();
+  }
+  return out.join('\n');
 }
-renderPubs();
-document.getElementById("q").addEventListener("input",e=>{query=e.target.value.trim().toLowerCase();renderPubs();});
-document.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{
-  filter=b.dataset.f;document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c===b));renderPubs();}));
-document.addEventListener("click",e=>{
-  const t=e.target;
-  if(t.dataset.bib!==undefined){const pre=document.getElementById("bib-"+t.dataset.bib);pre.hidden=!pre.hidden;t.setAttribute("aria-expanded",!pre.hidden);}
-  if(t.dataset.copybib!==undefined){const p=PUBS[+t.dataset.copybib];copy(`${p.authors}, "${p.title}," ${p.venue}, ${p.year}.`,"Citation copied");}
+
+function toast(msg, ms = 2800) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('show'), ms);
+}
+function openModal(html, wide) { $('#modal').innerHTML = html; $('#modal').classList.toggle('wide', !!wide); $('#modalBg').classList.add('open'); }
+function closeModal() { $('#modalBg').classList.remove('open'); }
+function confirmBox(msg, yes, label = 'Delete') {
+  openModal(`<h3>Are you sure?</h3><p class="muted">${msg}</p><div class="row"><button class="btn" onclick="closeModal()">Cancel</button><button class="btn primary" id="yesBtn">${label}</button></div>`);
+  $('#yesBtn').onclick = () => { closeModal(); yes(); };
+}
+$('#modalBg').addEventListener('click', e => { if (e.target.id === 'modalBg') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ---------- theme ---------- */
+function setTheme(t) { document.documentElement.dataset.theme = t; store.set('theme', t); }
+setTheme(store.get('theme', matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+$('#themeBtn').onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+$('#menuBtn').onclick = () => $('#nav').classList.toggle('open');
+
+/* ---------- sign-in (preview) ---------- */
+const user = () => store.get('user', null);
+function canSignIn(email) {
+  email = email.trim().toLowerCase();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return false;
+  if (email === String(SITE.instructorEmail).toLowerCase()) return true;
+  if ((SITE.students || []).map(s => s.toLowerCase()).includes(email)) return true;
+  return !!SITE.allowedDomain && email.endsWith('@' + SITE.allowedDomain.toLowerCase());
+}
+function showSignIn() {
+  openModal(`
+    <h3>Student sign-in</h3>
+    <p class="muted" style="margin:0">Course videos, notes, quizzes and assignments are for enrolled students.</p>
+    <form id="signForm">
+      <label for="sName">Name</label><input type="text" id="sName" required autocomplete="name">
+      <label for="sEmail">Institute email</label><input type="email" id="sEmail" required placeholder="you@${esc(SITE.allowedDomain)}" autocomplete="email">
+      <p id="sErr" style="color:var(--bad);font-size:.88rem;margin:8px 0 0;display:none">This email is not enrolled. Use your @${esc(SITE.allowedDomain)} address or contact the instructor.</p>
+      <div class="row"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Sign in</button></div>
+    </form>
+    <div class="note">Preview mode: sign-in is checked in your browser only. Try <span class="mono">student@${esc(SITE.allowedDomain)}</span>. Secure Google sign-in will be added later.</div>`);
+  $('#sName').focus();
+  $('#signForm').onsubmit = e => {
+    e.preventDefault();
+    const email = $('#sEmail').value.trim().toLowerCase(), name = $('#sName').value.trim();
+    if (!canSignIn(email)) { $('#sErr').style.display = 'block'; return; }
+    store.set('user', { name, email, inst: email === String(SITE.instructorEmail).toLowerCase() });
+    closeModal(); renderUser(); route(); toast('Signed in as ' + name);
+  };
+}
+function signOut() { store.set('user', null); renderUser(); route(); toast('Signed out'); }
+function renderUser() {
+  const u = user();
+  $('#userSlot').innerHTML = u
+    ? `<button class="user-pill" onclick="userMenu()"><span class="ava ${u.inst ? 'inst' : ''}">${esc(initials(u.name))}</span><span>${esc(u.name.split(' ')[0])}</span></button>`
+    : `<button class="btn small primary" onclick="showSignIn()">Student sign-in</button>`;
+}
+function userMenu() {
+  const u = user();
+  openModal(`<h3>${esc(u.name)}</h3><p class="muted mono" style="margin:0">${esc(u.email)}</p>
+    <p style="margin-top:12px">${u.inst ? '<span class="chip accent">Instructor</span>' : '<span class="chip">Student</span>'}</p>
+    <div class="row">${u.inst ? '<a class="btn" href="#admin" onclick="closeModal()">Admin</a>' : ''}<button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="closeModal();signOut()">Sign out</button></div>`);
+}
+const locked = () => SITE.requireLogin && !user();
+function lockCard(what) {
+  return `<div class="card lock"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+    <h3>${what} are for enrolled students</h3><p class="muted">Sign in with your institute email to watch lectures, read notes, take quizzes and submit assignments.</p>
+    <button class="btn primary" onclick="showSignIn()">Student sign-in</button></div>`;
+}
+
+/* ---------- helpers ---------- */
+const done = cid => store.get('done_' + cid, []);
+function toggleDone(cid, n) {
+  let d = done(cid); d = d.includes(n) ? d.filter(x => x !== n) : [...d, n];
+  store.set('done_' + cid, d); route();
+}
+function progress(c) { return c.lectures.length ? Math.round(done(c.id).filter(n => c.lectures.some(l => l.n === n)).length / c.lectures.length * 100) : 0; }
+function allLive() {
+  return SITE.courses.flatMap(c => c.live.filter(s => s.start).map(s => ({ ...s, course: c })))
+    .sort((a, b) => new Date(a.start) - new Date(b.start));
+}
+function liveState(s) {
+  const now = Date.now(), st = new Date(s.start).getTime(), en = st + (+s.mins || 60) * 60000;
+  return now < st ? 'upcoming' : now <= en ? 'now' : 'past';
+}
+function countdown(iso) {
+  const ms = new Date(iso).getTime() - Date.now();
+  if (isNaN(ms)) return '';
+  if (ms <= 0) return 'now';
+  const d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4);
+  return d ? `in ${d}d ${h}h` : h ? `in ${h}h ${m}m` : `in ${m} min`;
+}
+function gcalLink(s) {
+  const f = d => new Date(d).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const end = new Date(new Date(s.start).getTime() + (+s.mins || 60) * 60000);
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(s.course.title + ': ' + s.title) +
+    '&dates=' + f(s.start) + '/' + f(end) + '&details=' + encodeURIComponent('Join: ' + (s.link || 'link will be shared on the course page')) +
+    (s.link ? '&location=' + encodeURIComponent(s.link) : '');
+}
+function allDocs() {
+  const out = [];
+  SITE.courses.forEach(c => c.lectures.forEach(l => (l.docs || []).forEach(d => out.push({ ...d, course: c, lecture: l }))));
+  return out;
+}
+const TYPE_LABEL = { pdf: 'PDF', slides: 'PPT', code: 'CODE', notes: 'TXT', image: 'IMG', other: 'FILE' };
+function docLink(d) {
+  return d.url ? `href="${esc(d.url)}" target="_blank" rel="noopener"` : `href="javascript:void 0" onclick="toast('File not uploaded yet')"`;
+}
+function openLink(url, what) {
+  if (!url) { toast(what + ' link will be added before the class'); return; }
+  const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.click();
+}
+function typeset(el) { if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(() => {}); else if ((typeset.n = (typeset.n || 0) + 1) < 30) setTimeout(() => typeset(el), 400); }
+
+/* =====================================================================
+   PUBLIC PAGES
+   ===================================================================== */
+function pageHome() {
+  const L = SITE.links, lk = (u, n) => u ? `<a class="btn small" href="${esc(u)}" target="_blank" rel="noopener">${n}</a>` : '';
+  const next = allLive().find(s => liveState(s) !== 'past');
+  const parts = String(SITE.name).trim().split(/\s+/), last = parts.pop();
+  const linkBtns = lk(L.scholar, 'Google Scholar') + lk(L.ieee, 'IEEE Xplore') + lk(L.orcid, 'ORCID') + lk(L.linkedin, 'LinkedIn');
+  return `
+  <section class="hero"><div class="wrap">
+    <div>
+      <div class="eyebrow">${esc(SITE.headline)}</div>
+      <h1>${esc(parts.join(' '))} <em>${esc(last)}</em></h1>
+      <p class="lead">${inl(SITE.intro)}</p>
+      <div class="btn-row">
+        <a class="btn primary" href="#teaching">Lectures &amp; courses</a>
+        <a class="btn" href="#publications">Publications</a>
+        ${SITE.cv ? `<a class="btn" href="${esc(SITE.cv)}" target="_blank" rel="noopener">Download CV</a>` : ''}
+      </div>
+      <div class="tags">${(SITE.keywords || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>
+    </div>
+    <figure class="figure">
+      ${SITE.heroImage ? `<img src="${esc(SITE.heroImage)}" alt="" style="width:100%;border-radius:8px;display:block">` : tabSvg()}
+      ${SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : ''}
+    </figure>
+  </div></section>
+
+  ${next ? `<div class="wrap" style="padding-top:28px"><div class="next-live">
+    <div><div class="faint mono" style="font-size:.8rem">NEXT LIVE CLASS · ${esc(next.course.title)}</div><h3>${esc(next.title)}</h3>
+    <div class="faint">${fmtDate(next.start, { weekday: 'short', day: 'numeric', month: 'short' })}, ${fmtTime(next.start)} · <span data-cd="${esc(next.start)}">${countdown(next.start)}</span></div></div>
+    <a class="btn" href="#live">See schedule</a></div></div>` : ''}
+
+  <section class="block" id="s-about"><div class="wrap">
+    <div class="eyebrow">About</div>
+    <h2>${esc(SITE.aboutTitle)}</h2>
+    <p class="lead">${inl(SITE.about)}</p>
+    <div class="facts">
+      <div class="fact"><b>Institute</b>${esc(SITE.institute)}</div>
+      <div class="fact"><b>Focus</b>${esc(SITE.focus)}</div>
+      <div class="fact"><b>Advisor</b>${esc(SITE.advisor)}</div>
+    </div>
+  </div></section>
+
+  <section class="block" id="s-research"><div class="wrap">
+    <div class="eyebrow">Research</div><h2>Research themes</h2>
+    <div class="grid g3" style="margin-top:20px">
+      ${(SITE.research || []).map(r => `<div class="card rcard"><div class="sym">${esc(r.sym)}</div><h3>${esc(r.title)}</h3><p class="muted">${inl(r.text)}</p></div>`).join('')}
+    </div>
+  </div></section>
+
+  <section class="block" id="s-publications"><div class="wrap">
+    <div class="eyebrow">Publications</div><h2>Papers</h2>
+    <div class="tabs-row" id="pubTabs">${['all', 'journal', 'conference'].map(t => `<button class="tab ${t === 'all' ? 'on' : ''}" data-f="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join('')}</div>
+    <div class="card" id="pubList"></div>
+  </div></section>
+
+  <section class="block"><div class="wrap grid g2" style="align-items:start">
+    <div><div class="eyebrow">Experience &amp; education</div><h2>Path so far</h2>
+      <ul class="timeline">${(SITE.experience || []).map(x => `<li><span class="mono faint">${esc(x.period)}</span><div><b>${esc(x.title)}</b><br><span class="muted">${esc(x.place)}</span></div></li>`).join('')}</ul></div>
+    <div><div class="eyebrow">Toolkit</div><h2>Tools I use</h2>
+      <p><b>Simulation &amp; analysis</b></p><div class="tags" style="margin-bottom:16px">${(SITE.toolsSim || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>
+      <p><b>Hardware</b></p><div class="tags" style="margin-bottom:26px">${(SITE.toolsHw || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>
+      <div class="eyebrow">News</div>
+      <ul class="news">${(SITE.news || []).map(n => `<li><span class="d">${esc(n.date)}</span><span>${inl(n.text)}</span></li>`).join('')}</ul>
+    </div>
+  </div></section>
+
+  <section class="block" id="s-contact" style="border-bottom:0"><div class="wrap">
+    <div class="eyebrow">Contact</div><h2>Get in touch</h2>
+    <p class="muted">For research collaboration, or if you are a student with a question about a course.</p>
+    <div class="contact-row"><span class="mono" style="font-size:1rem">${esc(SITE.email)}</span><button class="btn small" onclick="copyEmail()">Copy email</button></div>
+    ${linkBtns ? `<div class="links">${linkBtns}</div>` : ''}
+    <p class="faint" style="margin-top:18px">${esc(SITE.address)}</p>
+  </div></section>`;
+}
+function copyEmail() { navigator.clipboard.writeText(SITE.email).then(() => toast('Email copied'), () => toast(SITE.email)); }
+function renderPubs(f) {
+  const list = SITE.publications.filter(p => f === 'all' || p.type === f);
+  $('#pubList').innerHTML = list.length ? list.map(p => `<div class="pub"><div><span class="chip ${p.type === 'journal' ? 'accent' : ''}">${esc(p.type)}</span><div class="mono faint" style="margin-top:6px">${esc(p.year)}</div></div>
+    <div><div class="t">${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)}</div><div class="muted">${esc(p.authors)}</div><div class="faint" style="font-style:italic">${esc(p.venue)}</div>${p.status ? `<span class="chip ok" style="margin-top:6px">${esc(p.status)}</span>` : ''}</div></div>`).join('')
+    : `<div class="empty">No ${f === 'all' ? '' : f + ' '}papers yet.</div>`;
+  document.querySelectorAll('#pubTabs .tab').forEach(b => b.classList.toggle('on', b.dataset.f === f));
+}
+function tabSvg() {
+  const br = (x, y, l) => `<g><rect x="${x}" y="${y}" width="78" height="56" rx="6" fill="var(--surface-2)" stroke="var(--ink-3)"/>
+    <path d="M${x + 14} ${y + 36} h12 v-16 h12 v16 h12 v-16 h12" stroke="var(--accent)" stroke-width="2" fill="none"/>
+    <text x="${x + 39}" y="${y + 72}" text-anchor="middle" font-size="11" fill="var(--ink-2)" font-family="IBM Plex Mono">${l}</text></g>`;
+  const ind = (x, y) => `<path d="M${x} ${y} c4-9 9-9 13 0 c4-9 9-9 13 0 c4-9 9-9 13 0" stroke="var(--ink)" stroke-width="1.8" fill="none"/>`;
+  return `<svg viewBox="0 0 400 250" font-family="IBM Plex Sans">
+    ${br(10, 24, 'Bridge 1 · V₁')}${br(10, 160, 'Bridge 2 · V₂')}${br(312, 92, 'Bridge 3 · V₃')}
+    <g stroke="var(--ink)" stroke-width="1.6" fill="none">
+      <path d="M88 52 H112"/>${ind(112, 52)}<path d="M151 52 H176 V70"/>
+      <path d="M88 188 H112"/>${ind(112, 188)}<path d="M151 188 H176 V168"/>
+      <path d="M312 120 H290"/>${ind(251, 120)}<path d="M251 120 H232"/>
+    </g>
+    <rect x="186" y="58" width="36" height="124" rx="4" fill="none" stroke="var(--navy)" stroke-width="3"/>
+    <g stroke="var(--ink)" stroke-width="1.6" fill="none">
+      <path d="M176 70 c10 0 10 12 0 12 c10 0 10 12 0 12 c10 0 10 12 0 12"/>
+      <path d="M176 140 c10 0 10 12 0 12 c10 0 10 12 0 12"/>
+      <path d="M232 100 c-10 0 -10 12 0 12 c-10 0 -10 12 0 12 c-10 0 -10 12 0 12"/>
+    </g>
+    <text x="132" y="40" font-size="12" fill="var(--ink-2)" text-anchor="middle">L₁</text>
+    <text x="132" y="212" font-size="12" fill="var(--ink-2)" text-anchor="middle">L₂</text>
+    <text x="270" y="108" font-size="12" fill="var(--ink-2)" text-anchor="middle">L₃</text>
+    <text x="204" y="200" font-size="11" fill="var(--ink-3)" text-anchor="middle" font-family="IBM Plex Mono">HFT</text>
+  </svg>`;
+}
+
+function pageTeaching() {
+  const next = allLive().find(s => liveState(s) !== 'past');
+  return `<div class="wrap">
+  <div class="page-head"><div class="eyebrow">Teaching</div><h1>Courses &amp; lectures</h1>
+    <p class="lead">Recorded lectures, written notes with derivations, quizzes, assignments and live classes.</p></div>
+  ${next ? `<div class="next-live"><div><div class="faint mono" style="font-size:.8rem">NEXT LIVE CLASS · ${esc(next.course.title)}</div><h3>${esc(next.title)}</h3>
+    <div class="faint">${fmtDate(next.start, { weekday: 'long', day: 'numeric', month: 'short' })}, ${fmtTime(next.start)} · <span data-cd="${esc(next.start)}">${countdown(next.start)}</span></div></div>
+    <a class="btn" href="#live">Live schedule</a></div>` : ''}
+  <div class="grid g2">
+    ${SITE.courses.length ? SITE.courses.map(c => {
+      const p = progress(c);
+      return `<a class="card course-card" href="#course-${c.id}" style="--c:${esc(c.color || '#b4562a')};color:var(--ink)"><span class="band"></span>
+        <div class="meta">${c.code ? `<span class="chip mono">${esc(c.code)}</span>` : ''}${c.term ? `<span class="chip">${esc(c.term)}</span>` : ''}${c.role ? `<span class="chip accent">${esc(c.role)}</span>` : ''}${c.sample ? '<span class="chip warn">sample content</span>' : ''}</div>
+        <h3>${esc(c.title)}</h3><p class="muted" style="margin:0">${esc(c.blurb)}</p>
+        <div class="faint" style="font-size:.88rem">${c.lectures.length} lectures · ${c.quizzes.length} quizzes · ${c.assignments.length} assignments</div>
+        ${user() ? `<div><div class="bar"><i style="width:${p}%"></i></div><div class="faint" style="font-size:.8rem;margin-top:4px">${p}% watched</div></div>` : ''}
+      </a>`; }).join('') : '<div class="empty">No courses yet.</div>'}
+  </div>
+  <div class="card" style="margin:28px 0 60px"><h3>Announcements</h3>
+    ${SITE.announcements.length ? SITE.announcements.map(a => `<div class="announce"><span class="dot"></span><div><div>${inl(a.text)}</div><div class="faint" style="font-size:.84rem">${fmtDate(a.date)}${courseById(a.course) ? ' · ' + esc(courseById(a.course).title) : ''}</div></div></div>`).join('') : '<div class="empty">No announcements.</div>'}
+  </div></div>`;
+}
+
+const CTABS = [['lectures', 'Lectures'], ['live', 'Live classes'], ['documents', 'Documents'], ['quizzes', 'Quizzes'], ['assignments', 'Assignments'], ['discussion', 'Q&A']];
+function pageCourse(c, tab) {
+  if (!CTABS.some(t => t[0] === tab)) tab = 'lectures';
+  let body = '';
+  if (locked() && tab !== 'live') body = lockCard(CTABS.find(t => t[0] === tab)[1]);
+  else if (tab === 'lectures') {
+    const d = done(c.id);
+    body = c.lectures.map(l => `<a class="lec-row ${d.includes(l.n) ? 'done' : ''}" href="#lec-${c.id}-${l.n}">
+      <span class="lec-num">${d.includes(l.n) ? '✓' : String(l.n).padStart(2, '0')}</span>
+      <div><h4>${esc(l.title)}</h4><div class="muted" style="font-size:.92rem">${esc(l.summary)}</div></div>
+      <div class="right faint" style="font-size:.85rem;text-align:right">${fmtDate(l.date, { day: 'numeric', month: 'short' })}<br>${l.youtube ? (l.mins ? l.mins + ' min video' : 'video') : 'notes'}</div></a>`).join('') || '<div class="empty">No lectures yet.</div>';
+  } else if (tab === 'live') body = liveList(c.live.filter(s => s.start).map(s => ({ ...s, course: c })).sort((a, b) => new Date(a.start) - new Date(b.start)));
+  else if (tab === 'documents') body = docTable(allDocs().filter(d => d.course.id === c.id), false);
+  else if (tab === 'quizzes') body = c.quizzes.length ? `<div class="grid g2">${c.quizzes.map(q => {
+      const best = store.get(`quiz_${c.id}_${q.id}`, null);
+      return `<div class="card"><h3>${esc(q.title)}</h3><p class="muted">${q.questions.length} questions${q.lecture ? ` · on lecture ${esc(q.lecture)}` : ''}</p>
+        <div style="display:flex;justify-content:space-between;align-items:center">${best !== null ? `<span class="chip ${best === q.questions.length ? 'ok' : 'warn'}">Best: ${best}/${q.questions.length}</span>` : '<span class="chip">Not attempted</span>'}
+        <a class="btn small primary" href="#quiz-${c.id}-${q.id}">${best !== null ? 'Retake' : 'Start quiz'}</a></div></div>`; }).join('')}</div>` : '<div class="empty">No quizzes yet.</div>';
+  else if (tab === 'assignments') body = c.assignments.length ? c.assignments.map(a => asgCard(c, a)).join('') : '<div class="empty">No assignments yet.</div>';
+  else if (tab === 'discussion') {
+    body = `<p class="muted">Ask questions under each lecture. Pick a lecture to read or post.</p>` +
+      (c.lectures.map(l => { const n = countPosts(posts(c, l.n)); return `<a class="lec-row" href="#lec-${c.id}-${l.n}"><span class="lec-num">${String(l.n).padStart(2, '0')}</span><div><h4>${esc(l.title)}</h4></div><div class="right"><span class="chip ${n ? 'accent' : ''}">${n} ${n === 1 ? 'post' : 'posts'}</span></div></a>`; }).join('') || '<div class="empty">No lectures yet.</div>');
+  }
+  return `<div class="wrap">
+    <div class="page-head" style="padding-bottom:18px"><div class="crumbs"><a href="#teaching">Teaching</a> / ${esc(c.code || c.title)}</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${c.term ? `<span class="chip">${esc(c.term)}</span>` : ''}${c.role ? `<span class="chip accent">${esc(c.role)}</span>` : ''}${c.sample ? '<span class="chip warn">sample content</span>' : ''}</div>
+      <h1 style="font-size:2.2rem">${esc(c.title)}</h1><p class="lead" style="margin:0">${esc(c.blurb)}</p></div>
+    <nav class="course-tabs">${CTABS.map(([k, n]) => `<a href="#course-${c.id}-${k}" class="${k === tab ? 'on' : ''}">${n}</a>`).join('')}</nav>
+    <div style="padding-bottom:60px">${body}</div></div>`;
+}
+
+function liveList(list) {
+  if (!list.length) return '<div class="empty">No live classes scheduled.</div>';
+  const up = list.filter(s => liveState(s) !== 'past'), past = list.filter(s => liveState(s) === 'past').reverse();
+  const row = s => {
+    const st = liveState(s), d = new Date(s.start);
+    const acts = st === 'past'
+      ? (s.lecture ? `<a class="btn small" href="#lec-${s.course.id}-${esc(s.lecture)}">Watch recording</a>` : '<span class="chip">Ended</span>')
+      : `<a class="btn small" href="${gcalLink(s)}" target="_blank" rel="noopener">Add to calendar</a>
+         <button class="btn small ${st === 'now' ? 'primary' : ''}" onclick="joinLive('${s.course.id}','${esc(s.start)}')">${st === 'now' ? 'Join now' : 'Join link'}</button>`;
+    return `<div class="session ${st}"><div class="datebox"><span>${d.toLocaleDateString('en-IN', { month: 'short' })}</span><b>${d.getDate()}</b><span>${d.toLocaleDateString('en-IN', { weekday: 'short' })}</span></div>
+      <div><div class="faint" style="font-size:.82rem">${esc(s.course.title)}</div><h4 style="margin:2px 0 4px;font-size:1.08rem">${esc(s.title)}</h4>
+      <div class="muted" style="font-size:.9rem">${st === 'now' ? '<span class="pulse"></span><b style="color:var(--ok)">Live now</b> · ' : ''}${fmtTime(s.start)} · ${esc(s.mins)} min${st === 'upcoming' ? ` · <span data-cd="${esc(s.start)}">${countdown(s.start)}</span>` : ''}</div></div>
+      <div class="acts">${acts}</div></div>`;
+  };
+  return (up.length ? `<h3>Upcoming</h3>${up.map(row).join('')}` : '') + (past.length ? `<h3 style="margin-top:28px">Past sessions</h3>${past.map(row).join('')}` : '');
+}
+function joinLive(cid, start) {
+  if (locked()) { showSignIn(); return; }
+  const s = courseById(cid).live.find(x => x.start === start);
+  openLink(s && s.link, 'Meeting');
+}
+function pageLive() {
+  return `<div class="wrap"><div class="page-head"><div class="eyebrow">Live classes</div><h1>Schedule</h1>
+    <p class="lead">All times are IST. Add a class to your Google Calendar, and join from here when it starts. Recordings appear under each lecture.</p></div>
+    <div style="padding-bottom:60px">${liveList(allLive())}</div></div>`;
+}
+
+function docTable(docs, showCourse) {
+  if (!docs.length) return '<div class="empty">No documents yet.</div>';
+  return `<table class="doc-table"><thead><tr><th>Document</th>${showCourse ? '<th class="hide-sm">Course</th>' : ''}<th class="hide-sm">Lecture</th><th class="hide-sm">Size</th><th></th></tr></thead><tbody>
+    ${docs.map(d => `<tr><td><div style="display:flex;gap:12px;align-items:center"><span class="ftype ${esc(d.type)}">${TYPE_LABEL[d.type] || 'FILE'}</span><b style="font-weight:500">${esc(d.title)}</b></div></td>
+      ${showCourse ? `<td class="hide-sm muted">${esc(d.course.title)}</td>` : ''}<td class="hide-sm"><a href="#lec-${d.course.id}-${d.lecture.n}">L${esc(d.lecture.n)}</a></td>
+      <td class="hide-sm faint mono">${esc(d.size || '')}</td><td style="text-align:right"><a class="btn small" ${docLink(d)}>Open</a></td></tr>`).join('')}</tbody></table>`;
+}
+function pageLibrary() {
+  if (locked()) return `<div class="wrap"><div class="page-head"><div class="eyebrow">Library</div><h1>Documents</h1></div>${lockCard('Course documents')}</div>`;
+  return `<div class="wrap"><div class="page-head"><div class="eyebrow">Library</div><h1>Documents</h1><p class="lead">Slides, notes, worked examples and code from every lecture.</p></div>
+    <div class="filters"><input type="text" id="fq" placeholder="Search documents…" aria-label="Search documents">
+      <select id="fc" aria-label="Course"><option value="">All courses</option>${SITE.courses.map(c => `<option value="${c.id}">${esc(c.title)}</option>`).join('')}</select>
+      <select id="ft" aria-label="Type"><option value="">All types</option><option value="pdf">PDF</option><option value="slides">Slides</option><option value="code">Code</option><option value="image">Image</option></select></div>
+    <div id="docOut" style="padding-bottom:60px"></div></div>`;
+}
+function filterDocs() {
+  const q = $('#fq').value.toLowerCase(), c = $('#fc').value, t = $('#ft').value;
+  const r = allDocs().filter(d => (!c || d.course.id === c) && (!t || d.type === t) && (!q || (d.title + ' ' + d.lecture.title).toLowerCase().includes(q)));
+  $('#docOut').innerHTML = r.length ? docTable(r, true) : '<div class="empty">No documents match.</div>';
+}
+
+/* ---------- lecture page ---------- */
+function posts(c, n) { return store.get(`qa_${c.id}_${n}`, null) || clone((c.discussion || {})[n] || []); }
+function countPosts(p) { return p.reduce((s, x) => s + 1 + (x.replies || []).length, 0); }
+function pageLecture(c, n) {
+  const i = c.lectures.findIndex(l => +l.n === n), l = c.lectures[i];
+  if (!l) return notFound();
+  const head = `<div class="crumbs"><a href="#teaching">Teaching</a> / <a href="#course-${c.id}">${esc(c.title)}</a> / Lecture ${esc(l.n)}</div>`;
+  if (locked()) return `<div class="wrap"><div class="page-head">${head}<h1 style="font-size:2rem">${esc(l.title)}</h1></div>${lockCard('Lectures')}</div>`;
+  const isDone = done(c.id).includes(l.n), prev = c.lectures[i - 1], nxt = c.lectures[i + 1];
+  const quiz = c.quizzes.find(q => +q.lecture === +l.n);
+  return `<div class="wrap"><div class="page-head" style="padding-bottom:20px">${head}
+    <div class="eyebrow">Lecture ${esc(l.n)}${l.date ? ' · ' + fmtDate(l.date) : ''}</div><h1 style="font-size:2.1rem">${esc(l.title)}</h1></div>
+    <div class="lec-layout"><div>
+      ${l.youtube ? `<button class="video" id="vid" data-yt="${esc(l.youtube)}" aria-label="Play video"><span class="play"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="vt">${esc(l.title)}${l.mins ? ' · ' + esc(l.mins) + ' min' : ''}</span></button>`
+        : `<div class="video" style="cursor:default"><span class="vt" style="position:static;text-align:center;padding:20px"><span style="color:#cbd3df;font-family:var(--sans);font-size:.95rem">Video recording will appear here</span></span></div>`}
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0 26px">
+        <button class="btn small ${isDone ? '' : 'primary'}" onclick="toggleDone('${c.id}',${+l.n})">${isDone ? '✓ Completed' : 'Mark as completed'}</button>
+        ${quiz ? `<a class="btn small" href="#quiz-${c.id}-${quiz.id}">Take quiz: ${esc(quiz.title)}</a>` : ''}
+      </div>
+      <div class="card notes" id="notes"><h2 style="font-size:1.4rem">Lecture notes</h2>${l.summary ? `<p class="muted">${esc(l.summary)}</p>` : ''}${l.notes ? mdLite(l.notes) : '<div class="empty">Notes coming soon.</div>'}</div>
+      <div class="pager">${prev ? `<a class="btn" href="#lec-${c.id}-${prev.n}">← L${esc(prev.n)}: ${esc(prev.title)}</a>` : '<span></span>'}${nxt ? `<a class="btn" href="#lec-${c.id}-${nxt.n}">L${esc(nxt.n)}: ${esc(nxt.title)} →</a>` : ''}</div>
+      <div class="card" style="margin:20px 0 60px" id="qa"></div>
+    </div>
+    <aside class="side">
+      <div class="card"><h4>Documents</h4>${l.docs.length ? l.docs.map(d => `<a class="doc" ${docLink(d)}><span class="ftype ${esc(d.type)}">${TYPE_LABEL[d.type] || 'FILE'}</span><span><span class="dt">${esc(d.title)}</span><br><span class="faint mono" style="font-size:.76rem">${esc(d.size || '')}</span></span></a>`).join('') : '<p class="faint" style="margin:0">No files for this lecture.</p>'}</div>
+      <div class="card"><h4>In this course</h4>${c.lectures.map(x => `<a class="doc" href="#lec-${c.id}-${x.n}" style="${x.n === l.n ? 'font-weight:600' : ''}"><span class="ftype" style="${done(c.id).includes(x.n) ? 'background:var(--ok-soft);color:var(--ok)' : ''}">${done(c.id).includes(x.n) ? '✓' : 'L' + esc(x.n)}</span><span class="dt">${esc(x.title)}</span></a>`).join('')}</div>
+    </aside></div></div>`;
+}
+function renderQA(c, n) {
+  const el = $('#qa'); if (!el) return;
+  const u = user(), p = posts(c, n);
+  const post = (x, pi, ri) => `<div class="post"><span class="ava ${x.inst ? 'inst' : ''}">${esc(initials(x.who))}</span><div>
+    <span class="who">${esc(x.who)}</span>${x.inst ? ' <span class="chip accent" style="font-size:.7rem;padding:1px 7px">Instructor</span>' : ''}<span class="when">${fmtDate(x.t, { day: 'numeric', month: 'short' })}, ${fmtTime(x.t)}</span>
+    <div class="body">${esc(x.text)}</div>${ri === undefined ? `<button class="linkish" onclick="replyBox(${pi})">Reply</button><div id="rb${pi}"></div>` : ''}</div></div>`;
+  el.innerHTML = `<h3>Questions &amp; discussion <span class="chip" style="vertical-align:middle">${countPosts(p)}</span></h3>
+    ${p.length ? p.map((x, pi) => post(x, pi) + ((x.replies || []).length ? `<div class="replies">${x.replies.map((r, ri) => post(r, pi, ri)).join('')}</div>` : '')).join('') : '<p class="faint">No questions yet. Be the first to ask.</p>'}
+    ${!u ? `<p style="margin-top:16px"><button class="btn small primary" onclick="showSignIn()">Sign in to ask a question</button></p>` : `<form id="askForm" style="margin-top:16px"><textarea id="askTxt" placeholder="Ask a question about this lecture…" required></textarea>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:10px;flex-wrap:wrap"><span class="faint" style="font-size:.8rem">Preview: posts are saved in this browser only. Shared discussion comes with secure sign-in.</span><button class="btn small primary">Post question</button></div></form>`}`;
+  if (!u) { window.replyBox = () => showSignIn(); return; }
+  $('#askForm').onsubmit = e => {
+    e.preventDefault(); const t = $('#askTxt').value.trim(); if (!t) return;
+    p.push({ who: u.name, inst: u.inst, t: new Date().toISOString(), text: t, replies: [] });
+    store.set(`qa_${c.id}_${n}`, p); renderQA(c, n); toast('Question posted');
+  };
+  window.replyBox = pi => {
+    $('#rb' + pi).innerHTML = `<form style="margin-top:8px"><textarea placeholder="Write a reply…" required style="min-height:60px"></textarea><div style="text-align:right;margin-top:6px"><button class="btn small">Reply</button></div></form>`;
+    const f = $('#rb' + pi + ' form'); f.querySelector('textarea').focus();
+    f.onsubmit = e => { e.preventDefault(); const t = f.querySelector('textarea').value.trim(); if (!t) return;
+      (p[pi].replies = p[pi].replies || []).push({ who: u.name, inst: u.inst, t: new Date().toISOString(), text: t });
+      store.set(`qa_${c.id}_${n}`, p); renderQA(c, n); };
+  };
+}
+
+/* ---------- quiz ---------- */
+function pageQuiz(c, qid) {
+  const q = c.quizzes.find(x => x.id === qid); if (!q) return notFound();
+  const head = `<div class="crumbs"><a href="#teaching">Teaching</a> / <a href="#course-${c.id}-quizzes">${esc(c.title)}</a> / Quiz</div>`;
+  if (locked()) return `<div class="wrap"><div class="page-head">${head}<h1 style="font-size:2rem">${esc(q.title)}</h1></div>${lockCard('Quizzes')}</div>`;
+  return `<div class="wrap" style="max-width:780px"><div class="page-head" style="padding-bottom:20px">${head}<h1 style="font-size:2rem">${esc(q.title)}</h1>
+    <p class="muted">${q.questions.length} questions · instant feedback with explanations · your best score is saved${q.lecture ? ` · <a href="#lec-${c.id}-${esc(q.lecture)}">review lecture ${esc(q.lecture)}</a>` : ''}</p></div>
+    <form id="quizForm">${q.questions.map((x, i) => `<div class="q" id="qq${i}"><div class="qn">QUESTION ${i + 1} OF ${q.questions.length}</div><div style="font-weight:500">${inl(x.q)}</div>
+      ${x.options.map((o, j) => o === '' || o == null ? '' : `<label class="opt" id="o${i}_${j}"><input type="radio" name="q${i}" value="${j}"><span>${inl(o)}</span></label>`).join('')}
+      ${x.why ? `<div class="why"><b>Explanation:</b> ${inl(x.why)}</div>` : ''}</div>`).join('')}
+      <div id="quizRes" style="margin:20px 0"></div>
+      <div style="display:flex;gap:10px;margin-bottom:60px"><button class="btn primary" id="qSubmit">Check answers</button><button type="button" class="btn" onclick="route()">Reset</button></div></form></div>`;
+}
+function bindQuiz(c, qid) {
+  const q = c.quizzes.find(x => x.id === qid), f = $('#quizForm'); if (!f) return;
+  f.onsubmit = e => {
+    e.preventDefault();
+    const ans = q.questions.map((x, i) => { const s = f.querySelector(`input[name=q${i}]:checked`); return s ? +s.value : null; });
+    if (ans.includes(null)) { toast('Answer all questions first'); $('#qq' + ans.indexOf(null)).scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    let score = 0;
+    q.questions.forEach((x, i) => {
+      $('#qq' + i).classList.add('checked');
+      const r = $(`#o${i}_${x.answer}`); if (r) r.classList.add('right');
+      if (ans[i] === +x.answer) score++; else $(`#o${i}_${ans[i]}`).classList.add('wrong');
+      f.querySelectorAll(`input[name=q${i}]`).forEach(r => r.disabled = true);
+    });
+    const key = `quiz_${c.id}_${q.id}`, best = Math.max(score, store.get(key, 0)); store.set(key, best);
+    const pct = Math.round(score / q.questions.length * 100);
+    $('#quizRes').innerHTML = `<div class="card score"><span class="big">${score}/${q.questions.length}</span><div><b>${pct >= 80 ? 'Well done!' : pct >= 50 ? 'Good effort.' : 'Review the lecture and try again.'}</b><br><span class="muted">Best score: ${best}/${q.questions.length}</span></div></div>`;
+    $('#qSubmit').disabled = true;
+    $('#quizRes').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+}
+
+/* ---------- assignments ---------- */
+function asgCard(c, a) {
+  const sub = store.get(`sub_${c.id}_${a.id}`, null), over = a.due && Date.now() > new Date(a.due).getTime();
+  const status = sub ? `<span class="chip ok">Submitted ${fmtDate(sub.t, { day: 'numeric', month: 'short' })}</span>` : over ? '<span class="chip bad">Past due</span>' : a.due ? `<span class="chip warn">Due <span data-cd="${esc(a.due)}">${countdown(a.due)}</span></span>` : '';
+  return `<div class="card asg"><div><h3 style="margin-bottom:6px">${esc(a.title)}</h3><p class="muted" style="margin-bottom:8px">${inl(a.desc)}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">${status}${a.due ? `<span class="faint" style="font-size:.86rem">Due ${fmtDate(a.due, { weekday: 'short', day: 'numeric', month: 'short' })}, ${fmtTime(a.due)}</span>` : ''}</div>
+    ${sub ? `<div class="faint" style="font-size:.84rem;margin-top:8px">File: ${esc(sub.files.join(', '))}</div>` : ''}</div>
+    <div><button class="btn ${sub ? '' : 'primary'}" onclick="submitAsg('${c.id}','${a.id}')">${a.form ? 'Open submission form' : sub ? 'Resubmit' : 'Submit'}</button></div></div>`;
+}
+function submitAsg(cid, aid) {
+  const c = courseById(cid), a = c.assignments.find(x => x.id === aid);
+  if (a.form) { openLink(a.form, 'Submission form'); return; }
+  openModal(`<h3>Submit: ${esc(a.title)}</h3><form id="subForm">
+    <label for="subFile">Your file (PDF, ZIP or .m)</label><input type="file" id="subFile" required accept=".pdf,.zip,.m,.slx,.docx" multiple>
+    <label for="subNote">Note to instructor (optional)</label><textarea id="subNote" style="min-height:60px"></textarea>
+    <div class="row"><button type="button" class="btn" onclick="closeModal()">Cancel</button><button class="btn primary">Submit</button></div></form>
+    <div class="note">Preview: the file is not uploaded anywhere. Add a Google Form link to this assignment in Admin to collect real submissions.</div>`);
+  $('#subForm').onsubmit = e => {
+    e.preventDefault(); const files = [...$('#subFile').files].map(f => f.name);
+    store.set(`sub_${cid}_${aid}`, { t: new Date().toISOString(), files }); closeModal(); route(); toast('Assignment submitted (preview)');
+  };
+}
+function notFound() { return `<div class="wrap"><div class="page-head"><h1>Page not found</h1><p><a href="#home">Back to home</a></p></div></div>`; }
+
+/* =====================================================================
+   GITHUB — saves content.json and uploaded files into your repository
+   ===================================================================== */
+const GH = {
+  cfg() { return Object.assign({ owner: 'ajitpatra861-creator', repo: 'ajitpatra861-creator.github.io', token: '', branch: '', ok: false }, store.get('gh', {})); },
+  save(c) { store.set('gh', c); },
+  async api(path, opts = {}) {
+    const c = this.cfg();
+    let r;
+    try {
+      r = await fetch(`https://api.github.com/repos/${encodeURIComponent(c.owner)}/${encodeURIComponent(c.repo)}${path}`, {
+        ...opts, cache: 'no-store',
+        headers: { Authorization: 'Bearer ' + c.token, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opts.body ? { 'Content-Type': 'application/json' } : {}) }
+      });
+    } catch (e) { throw new Error('Could not reach GitHub. Check your internet, or open the Admin page on your live website (this preview cannot connect).'); }
+    if (r.status === 401) throw new Error('GitHub did not accept the key. It may be mistyped or expired — create a new one.');
+    if (r.status === 403) throw new Error('The key does not have permission. Give it "Contents: Read and write" for this repository.');
+    return r;
+  },
+  async connect() {
+    const r = await this.api('');
+    if (r.status === 404) throw new Error('Repository not found. Check the user name and repository name, and that the key includes this repository.');
+    const j = await r.json();
+    if (j.permissions && !j.permissions.push) throw new Error('The key can read but not write. Set "Contents" to "Read and write".');
+    const c = this.cfg(); c.branch = j.default_branch || 'main'; c.ok = true; this.save(c);
+  },
+  pathUrl(p) { return '/contents/' + p.split('/').map(encodeURIComponent).join('/'); },
+  async get(p) {
+    const r = await this.api(this.pathUrl(p) + '?ref=' + encodeURIComponent(this.cfg().branch));
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error('GitHub error ' + r.status);
+    return r.json();
+  },
+  async put(p, b64, msg) {
+    const old = await this.get(p);
+    const r = await this.api(this.pathUrl(p), { method: 'PUT', body: JSON.stringify({ message: msg, content: b64, branch: this.cfg().branch, ...(old ? { sha: old.sha } : {}) }) });
+    if (!r.ok) { let m = ''; try { m = (await r.json()).message; } catch (e) {} throw new Error('Saving failed (' + r.status + ') ' + m); }
+    return r.json();
+  }
+};
+function b64utf8(s) {
+  const bytes = new TextEncoder().encode(s); let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+function fromB64utf8(b) { const bin = atob(b.replace(/\s/g, '')); return new TextDecoder().decode(Uint8Array.from(bin, ch => ch.charCodeAt(0))); }
+const fileB64 = f => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(f); });
+const fmtSize = b => b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB';
+
+async function uploadFile(file) {
+  if (!GH.cfg().ok) { needGitHub('upload files'); return null; }
+  if (file.size > 25 * 1048576) { toast('That file is over 25 MB. Put it on Google Drive and paste the share link instead.', 5000); return null; }
+  const name = file.name.replace(/[^\w.\-]+/g, '_'), path = 'files/' + name;
+  toast('Uploading ' + name + '…', 60000);
+  try { await GH.put(path, await fileB64(file), 'Upload ' + name); toast('Uploaded ' + name + ' (visible on the site in about a minute)', 4000); return path; }
+  catch (e) { toast(e.message, 6000); return null; }
+}
+function needGitHub(what) {
+  openModal(`<h3>Connect GitHub first</h3><p class="muted">To ${what}, connect this admin page to your GitHub repository (one-time setup).</p>
+    <div class="row"><button class="btn" onclick="closeModal()">Later</button><button class="btn primary" onclick="closeModal();A.sec='github';location.hash='#admin';renderAdmin()">Set up now</button></div>`);
+}
+
+/* ---------- drafts & publishing ---------- */
+const hasDraft = () => !!store.get('draft', null);
+let draftTimer;
+function dirty() {
+  clearTimeout(draftTimer);
+  draftTimer = setTimeout(() => { store.set('draft', SITE); updateDraftBar(); }, 250);
+}
+function updateDraftBar() { $('#draftBar').classList.toggle('show', hasDraft() && location.hash !== '#admin'); }
+async function publish() {
+  clearTimeout(draftTimer); store.set('draft', SITE);
+  if (!GH.cfg().ok) { needGitHub('publish'); return; }
+  SITE.updated = new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+  toast('Publishing…', 60000);
+  try {
+    await GH.put('content.json', b64utf8(JSON.stringify(SITE, null, 2)), 'Update website content');
+    store.set('draft', null); updateDraftBar(); if (A.on) renderAdmin();
+    toast('Published! Your website updates in about 1 minute.', 5000);
+  } catch (e) { toast(e.message, 6000); }
+}
+function discardDraft() {
+  confirmBox('All changes since your last publish will be lost.', async () => {
+    store.set('draft', null); SITE = normalize(await loadPublished()); updateDraftBar(); route(); toast('Changes discarded');
+  }, 'Discard changes');
+}
+async function loadPublished() {
+  /* live content: from GitHub if connected (always fresh), else content.json next to this page, else built-in */
+  try {
+    if (GH.cfg().ok) { const f = await GH.get('content.json'); if (f && f.content) return JSON.parse(fromB64utf8(f.content)); }
+  } catch (e) {}
+  try {
+    const ctl = new AbortController(); setTimeout(() => ctl.abort(), 5000);
+    const r = await fetch('content.json?v=' + Date.now(), { cache: 'no-store', signal: ctl.signal });
+    if (r.ok) return await r.json();
+  } catch (e) {}
+  return clone(DEFAULT_SITE);
+}
+
+/* =====================================================================
+   ADMIN PANEL
+   ===================================================================== */
+const A = { on: false, sec: 'start', cid: null, sub: 'details', edit: null };
+let B = {}, LISTS = {}, bid = 0;
+const SECS = [['start', 'Start here'], ['profile', 'Profile & home'], ['research', 'Research'], ['pubs', 'Publications'], ['exp', 'Experience & tools'], ['news', 'News'],
+  ['-'], ['courses', 'Courses & lectures'], ['ann', 'Announcements'], ['students', 'Students & access'], ['-'], ['github', 'GitHub connection'], ['backup', 'Backup']];
+
+function toLocal(iso) { const d = new Date(iso); return iso && !isNaN(d) ? new Date(d.getTime() + 330 * 60000).toISOString().slice(0, 16) : ''; }
+function ytId(v) { v = String(v || '').trim(); if (!v) return ''; if (/^[\w-]{11}$/.test(v)) return v; const m = v.match(/(?:youtu\.be\/|[?&]v=|embed\/|shorts\/|live\/)([\w-]{11})/); return m ? m[1] : ''; }
+const uid = p => p + Date.now().toString(36) + Math.floor(Math.random() * 99);
+
+function F(label, obj, key, type = 'text', x = {}) {
+  const id = 'b' + (bid++); B[id] = { obj, key, type, after: x.after, onUpload: x.onUpload };
+  const v = obj[key], ph = x.ph ? ` placeholder="${esc(x.ph)}"` : '';
+  let input;
+  if (type === 'textarea' || type === 'notes') input = `<textarea id="${id}" data-b="${id}" rows="${x.rows || 3}"${ph}${type === 'notes' ? ' style="font-family:var(--mono);font-size:.88rem;min-height:300px"' : ''}>${esc(v || '')}</textarea>`;
+  else if (type === 'lines') input = `<textarea id="${id}" data-b="${id}" rows="${x.rows || 3}"${ph}>${esc((v || []).join('\n'))}</textarea>`;
+  else if (type === 'select') input = `<select id="${id}" data-b="${id}">${x.options.map(([val, lab]) => `<option value="${esc(val)}" ${String(v ?? '') === String(val) ? 'selected' : ''}>${esc(lab)}</option>`).join('')}</select>`;
+  else if (type === 'check') return `<label class="ck"><input type="checkbox" data-b="${id}" ${v ? 'checked' : ''}> ${label}</label>`;
+  else if (type === 'dt') input = `<input type="datetime-local" id="${id}" data-b="${id}" value="${esc(toLocal(v))}">`;
+  else if (type === 'date') input = `<input type="date" id="${id}" data-b="${id}" value="${esc(v || '')}">`;
+  else if (type === 'num') input = `<input type="number" min="0" id="${id}" data-b="${id}" value="${esc(v ?? '')}">`;
+  else if (type === 'yt') input = `<input type="text" id="${id}" data-b="${id}" value="${v ? 'https://youtu.be/' + esc(v) : ''}" placeholder="Paste the YouTube link here">`;
+  else if (type === 'color') input = `<input type="color" id="${id}" data-b="${id}" value="${esc(v || '#b4562a')}">`;
+  else input = `<input type="text" id="${id}" data-b="${id}" value="${esc(v ?? '')}"${ph}>`;
+  const up = x.upload ? `<button type="button" class="btn small" data-up="${id}" data-accept="${esc(x.upload)}">Upload…</button>` : '';
+  return `<div class="fld"><label for="${id}">${label}</label>${up ? `<div class="frow">${input}${up}</div>` : input}${x.help ? `<div class="help">${x.help}</div>` : ''}</div>`;
+}
+function onBind(e) {
+  const id = e.target.dataset && e.target.dataset.b; if (!id || !B[id]) return;
+  const b = B[id]; let v = b.type === 'check' ? e.target.checked : e.target.value;
+  if (b.type === 'num') v = v === '' ? '' : Number(v);
+  if (b.type === 'lines') v = v.split('\n').map(s => s.trim()).filter(Boolean);
+  if (b.type === 'dt') v = v ? v + ':00+05:30' : '';
+  if (b.type === 'yt') { v = ytId(v); e.target.style.borderColor = e.target.value && !v ? 'var(--bad)' : ''; }
+  b.obj[b.key] = v; dirty(); if (b.after) b.after();
+}
+document.addEventListener('input', onBind);
+document.addEventListener('change', onBind);
+
+function listUI(arr, rowFn, o = {}) {
+  const lid = 'l' + (bid++); LISTS[lid] = { arr, o };
+  const btn = (act, i, txt, cls = 'icon-btn sm', dis = false) => `<button type="button" class="${cls}" data-act="${act}" data-l="${lid}" data-i="${i}" ${dis ? 'disabled' : ''} title="${act}">${txt}</button>`;
+  return `<div>${arr.length ? arr.map((x, i) => `<div class="arow"><div>${rowFn(x, i)}</div><div class="aa">
+      ${o.reorder !== false ? btn('up', i, '↑', 'icon-btn sm', i === 0) + btn('down', i, '↓', 'icon-btn sm', i === arr.length - 1) : ''}
+      ${o.edit ? btn('edit', i, 'Edit', 'btn small') : ''}${btn('del', i, 'Delete', 'btn small danger')}</div></div>`).join('')
+    : `<div class="empty" style="margin-bottom:12px">${o.empty || 'Nothing here yet.'}</div>`}
+    <button type="button" class="btn small primary" data-act="add" data-l="${lid}">+ ${o.addLabel || 'Add'}</button></div>`;
+}
+document.addEventListener('click', async e => {
+  const t = e.target.closest('[data-act],[data-up],[data-asec],[data-a]'); if (!t || !A.on) return;
+  if (t.dataset.asec) { A.sec = t.dataset.asec; A.edit = null; A.cid = null; renderAdmin(true); return; }
+  if (t.dataset.a) { await ADMIN_ACTIONS[t.dataset.a](t); return; }
+  if (t.dataset.up) {
+    const b = B[t.dataset.up]; if (!GH.cfg().ok) { needGitHub('upload files'); return; }
+    const inp = document.createElement('input'); inp.type = 'file'; if (t.dataset.accept && t.dataset.accept !== '*') inp.accept = t.dataset.accept;
+    inp.onchange = async () => { const f = inp.files[0]; if (!f) return; const p = await uploadFile(f); if (!p) return;
+      b.obj[b.key] = p; if (b.onUpload) b.onUpload(f, p); dirty(); renderAdmin(); };
+    inp.click(); return;
+  }
+  const L = LISTS[t.dataset.l]; if (!L) return; const i = +t.dataset.i, arr = L.arr;
+  if (t.dataset.act === 'add') { arr.push(L.o.add()); dirty(); if (L.o.edit) L.o.edit(arr.length - 1); else renderAdmin(); }
+  else if (t.dataset.act === 'del') confirmBox(`Delete “${esc(L.o.name ? L.o.name(arr[i]) : 'this item')}”?`, () => { arr.splice(i, 1); dirty(); renderAdmin(); });
+  else if (t.dataset.act === 'up' && i > 0) { [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; dirty(); renderAdmin(); }
+  else if (t.dataset.act === 'down' && i < arr.length - 1) { [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]]; dirty(); renderAdmin(); }
+  else if (t.dataset.act === 'edit') L.o.edit(i);
 });
 
-const toast=document.getElementById("toast");let tt;
-function show(msg){toast.textContent=msg;toast.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toast.hidden=true,1800);}
-function copy(text,msg){
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(()=>show(msg)).catch(()=>show("Select the text and copy it manually"));
-  } else show("Select the text and copy it manually");
+const ADMIN_ACTIONS = {
+  async publish() { await publish(); },
+  discard() { discardDraft(); },
+  async connect() {
+    const c = GH.cfg(); c.owner = $('#ghOwner').value.trim(); c.repo = $('#ghRepo').value.trim();
+    const tk = $('#ghToken').value.trim(); if (tk) c.token = tk; c.ok = false; GH.save(c);
+    if (!c.token) { toast('Paste your GitHub key first'); return; }
+    toast('Connecting…', 30000);
+    try {
+      await GH.connect();
+      if (!hasDraft()) { SITE = normalize(await loadPublished()); }
+      toast('Connected to GitHub ✓', 3000); renderAdmin();
+    } catch (e) { toast(e.message, 7000); renderAdmin(); }
+  },
+  disconnect() { confirmBox('This removes the GitHub key from this browser. Your website is not affected.', () => { GH.save({ owner: GH.cfg().owner, repo: GH.cfg().repo }); renderAdmin(); }, 'Disconnect'); },
+  back() { A.edit = null; renderAdmin(true); },
+  course(t) { A.cid = t.dataset.c; A.sub = 'details'; A.edit = null; renderAdmin(true); },
+  sub(t) { A.sub = t.dataset.s; A.edit = null; renderAdmin(true); },
+  addCourse() {
+    const c = { id: uid('c'), code: '', title: 'New course', term: '', role: 'Instructor', color: '#1d3557', sample: false, blurb: '', lectures: [], live: [], quizzes: [], assignments: [], discussion: {} };
+    SITE.courses.push(c); dirty(); A.cid = c.id; A.sub = 'details'; renderAdmin(true);
+  },
+  delCourse() {
+    const c = courseById(A.cid);
+    confirmBox(`Delete the course “${esc(c.title)}” with all its lectures, quizzes and assignments? Uploaded files stay in your repository.`, () => {
+      SITE.courses = SITE.courses.filter(x => x !== c); A.cid = null; dirty(); renderAdmin(true);
+    });
+  },
+  preview() { const v = $('#notesPrev'), ta = $('#notesTa'); if (!v) return; if (v.style.display === 'block') { v.style.display = 'none'; return; }
+    v.innerHTML = mdLite(ta.value) || '<p class="faint">Nothing to preview.</p>'; v.style.display = 'block'; typeset(v); },
+  async insertImg() {
+    if (!GH.cfg().ok) { needGitHub('upload pictures'); return; }
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*';
+    inp.onchange = async () => { const f = inp.files[0]; if (!f) return; const p = await uploadFile(f); if (!p) return;
+      const ta = $('#notesTa'), pos = ta.selectionStart || ta.value.length, ins = `\n\n![Figure caption](${p})\n\n`;
+      ta.value = ta.value.slice(0, pos) + ins + ta.value.slice(pos); ta.dispatchEvent(new Event('input', { bubbles: true })); };
+    inp.click();
+  },
+  copyBackup() { navigator.clipboard.writeText(JSON.stringify(SITE, null, 2)).then(() => toast('All content copied. Paste it into a text file to keep it safe.', 4000), () => toast('Copy was blocked by the browser')); },
+  restore() {
+    let j; try { j = JSON.parse($('#restoreTa').value); if (!j.courses) throw 0; } catch (e) { toast('That text is not a valid backup'); return; }
+    confirmBox('Replace all current content with this backup? (You still need to Publish afterwards.)', () => { SITE = normalize(j); dirty(); toast('Backup restored — click Publish to put it live'); renderAdmin(); }, 'Restore');
+  },
+  reset() { confirmBox('Replace everything with the original starter content?', () => { SITE = normalize(clone(DEFAULT_SITE)); dirty(); renderAdmin(); }, 'Reset'); }
+};
+
+function adminSection() {
+  const s = SITE, gh = GH.cfg();
+  switch (A.sec) {
+    case 'start': return `<h2>Admin</h2>
+      <p class="lead">Change anything on your website here. Edits are saved in this browser as you type; click <b>Publish</b> to put them live.</p>
+      <div class="card" style="margin:18px 0">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div><b>Status</b><br>${hasDraft() ? '<span class="chip warn">Unpublished changes</span>' : '<span class="chip ok">Everything published</span>'}
+          ${gh.ok ? ' <span class="chip ok">GitHub connected</span>' : ' <span class="chip bad">GitHub not connected</span>'}</div>
+          <div style="display:flex;gap:8px">${hasDraft() ? '<button class="btn" data-a="discard">Discard changes</button>' : ''}<button class="btn primary" data-a="publish">Publish to website</button></div></div></div>
+      ${gh.ok ? '' : `<div class="card" style="border-color:var(--warn)"><b>First time?</b> Connect your GitHub repository once so that Publish and file uploads work. <button class="btn small primary" data-asec="github" style="margin-left:8px">Set up GitHub</button></div>`}
+      <h3>How it works</h3>
+      <ol class="steps">
+        <li>Pick a section on the left and edit the boxes. Changes show on the site right away (only for you) — open any page to check.</li>
+        <li>Upload PDFs, slides and pictures with the <b>Upload…</b> buttons. Videos go on YouTube (Unlisted); paste the link.</li>
+        <li>Click <b>Publish to website</b>. Everyone sees the update in about a minute.</li>
+      </ol>
+      <h3>Writing lecture notes</h3>${cheat()}`;
+
+    case 'profile': return `<h2>Profile &amp; home page</h2>
+      ${F('Your name', s, 'name')}${F('Line above your name', s, 'headline')}
+      ${F('Introduction', s, 'intro', 'textarea', { help: 'Wrap words in **double stars** to make them bold.' })}
+      ${F('Keywords (one per line)', s, 'keywords', 'lines', { rows: 5 })}
+      ${F('Picture beside your name (optional)', s, 'heroImage', 'text', { upload: 'image/*', help: 'Leave empty to show the TAB converter drawing.' })}
+      ${F('Picture caption', s, 'heroCaption')}
+      <h3>About</h3>${F('About heading', s, 'aboutTitle')}${F('About text', s, 'about', 'textarea', { rows: 4 })}
+      <div class="three">${F('Institute', s, 'institute')}${F('Focus', s, 'focus')}${F('Advisor', s, 'advisor')}</div>
+      <h3>Contact</h3><div class="two">${F('Email', s, 'email')}${F('CV (PDF)', s, 'cv', 'text', { upload: '.pdf', ph: 'Upload your CV' })}</div>
+      ${F('Address', s, 'address')}
+      <div class="two">${F('Google Scholar link', s.links, 'scholar')}${F('IEEE Xplore link', s.links, 'ieee')}${F('ORCID link', s.links, 'orcid')}${F('LinkedIn link', s.links, 'linkedin')}</div>`;
+
+    case 'research': return `<h2>Research themes</h2><p class="muted">Cards in the Research section.</p>` +
+      listUI(s.research, r => `<div class="two">${F('Symbol (short)', r, 'sym')}${F('Title', r, 'title')}</div>${F('Description', r, 'text', 'textarea')}`,
+        { add: () => ({ sym: '★', title: 'New theme', text: '' }), addLabel: 'Add theme', name: r => r.title });
+
+    case 'pubs': return `<h2>Publications</h2>` +
+      listUI(s.publications, p => `${F('Title', p, 'title')}<div class="three">${F('Type', p, 'type', 'select', { options: [['journal', 'Journal'], ['conference', 'Conference'], ['other', 'Other']] })}${F('Year', p, 'year')}${F('Status (e.g. Accepted)', p, 'status')}</div>
+        ${F('Authors', p, 'authors')}${F('Journal / conference', p, 'venue')}${F('Link (DOI or PDF)', p, 'link', 'text', { upload: '.pdf' })}`,
+        { add: () => ({ type: 'journal', year: String(new Date().getFullYear()), title: '', authors: 'A. K. Patra', venue: '', status: '', link: '' }), addLabel: 'Add publication', name: p => p.title || 'publication' });
+
+    case 'exp': return `<h2>Experience &amp; education</h2>` +
+      listUI(s.experience, x => `<div class="three">${F('Period', x, 'period', 'text', { ph: '2020 – 2022' })}${F('Title / degree', x, 'title')}${F('Place', x, 'place')}</div>`,
+        { add: () => ({ period: '', title: '', place: '' }), addLabel: 'Add entry', name: x => x.title || 'entry' }) +
+      `<h3>Tools</h3><div class="two">${F('Simulation & analysis (one per line)', s, 'toolsSim', 'lines', { rows: 5 })}${F('Hardware (one per line)', s, 'toolsHw', 'lines', { rows: 5 })}</div>`;
+
+    case 'news': return `<h2>News</h2><p class="muted">Newest first. Use ↑ ↓ to reorder.</p>` +
+      listUI(s.news, n => `<div class="two" style="grid-template-columns:160px 1fr">${F('Date', n, 'date', 'text', { ph: 'Dec 2026' })}${F('Text', n, 'text')}</div>`,
+        { add: () => ({ date: new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }), text: '' }), addLabel: 'Add news', name: n => n.text || 'news item' });
+
+    case 'ann': return `<h2>Announcements</h2><p class="muted">Shown on the Teaching page.</p>` +
+      listUI(s.announcements, a => `<div class="two">${F('Date', a, 'date', 'date')}${F('Course', a, 'course', 'select', { options: [['', '— General —'], ...s.courses.map(c => [c.id, c.title])] })}</div>${F('Message', a, 'text', 'textarea', { rows: 2 })}`,
+        { add: () => ({ date: new Date().toISOString().slice(0, 10), course: '', text: '' }), addLabel: 'Add announcement', name: a => a.text || 'announcement' });
+
+    case 'students': return `<h2>Students &amp; access</h2>
+      ${F('Only signed-in students can see lectures, notes, quizzes and assignments', s, 'requireLogin', 'check')}
+      ${F('Any email ending with', s, 'allowedDomain', 'text', { ph: 'iitbbs.ac.in', help: 'Everyone with this email domain can sign in. Leave empty to allow only the list below.' })}
+      ${F('Other allowed emails (one per line)', s, 'students', 'lines', { rows: 6 })}
+      ${F('Your email (signs in as instructor)', s, 'instructorEmail')}
+      <div class="note">Sign-in is a simple check for now: it keeps casual visitors out but is not secure, and files you upload can be opened by anyone with the link. Keep exam papers off the site.</div>`;
+
+    case 'github': return `<h2>GitHub connection</h2>
+      <p>Status: ${gh.ok ? `<span class="status-ok">Connected ✓</span> to <span class="mono">${esc(gh.owner)}/${esc(gh.repo)}</span> (branch ${esc(gh.branch)})` : '<span class="status-bad">Not connected</span>'}</p>
+      <div class="card" style="margin:16px 0"><h3 style="margin-top:0">One-time setup (about 3 minutes)</h3>
+      <ol class="steps">
+        <li>Open <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → Settings → Developer settings → Fine-grained tokens → Generate new token</a> (sign in if asked).</li>
+        <li><b>Token name:</b> Website admin. <b>Expiration:</b> 1 year (or "No expiration").</li>
+        <li><b>Repository access:</b> choose <i>Only select repositories</i> → pick <span class="mono">${esc(gh.repo)}</span>.</li>
+        <li><b>Permissions → Repository permissions → Contents:</b> set to <b>Read and write</b>.</li>
+        <li>Click <b>Generate token</b>, copy it (starts with <span class="mono">github_pat_</span>), paste it below and click Connect.</li>
+      </ol>
+      <div class="note">The key is saved only in this browser. Never share it — anyone with it can change your website. Use Admin on your own laptop; on a new computer, create or paste the key again.</div></div>
+      <div class="two"><div class="fld"><label for="ghOwner">GitHub user name</label><input type="text" id="ghOwner" value="${esc(gh.owner)}"></div>
+      <div class="fld"><label for="ghRepo">Repository</label><input type="text" id="ghRepo" value="${esc(gh.repo)}"></div></div>
+      <div class="fld"><label for="ghToken">GitHub key (token)</label><input type="password" id="ghToken" placeholder="${gh.token ? 'Saved — paste a new key only to replace it' : 'github_pat_…'}" autocomplete="off"></div>
+      <div style="display:flex;gap:8px"><button class="btn primary" data-a="connect">${gh.ok ? 'Reconnect' : 'Connect'}</button>${gh.token ? '<button class="btn" data-a="disconnect">Disconnect</button>' : ''}</div>`;
+
+    case 'backup': return `<h2>Backup</h2>
+      <p class="muted">GitHub keeps every published version, so mistakes can always be undone there. You can also keep your own copy.</p>
+      <button class="btn" data-a="copyBackup">Copy all content</button>
+      <h3>Restore</h3><div class="fld"><label for="restoreTa">Paste a backup here</label><textarea id="restoreTa" rows="5" style="font-family:var(--mono);font-size:.82rem"></textarea></div>
+      <div style="display:flex;gap:8px"><button class="btn" data-a="restore">Restore backup</button><button class="btn danger" data-a="reset">Reset to starter content</button></div>`;
+
+    case 'courses': return adminCourses();
+  }
+  return '';
 }
-document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>copy(document.getElementById(b.dataset.copy).textContent,"Email copied")));
-document.querySelectorAll("[data-placeholder]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();show("Link not added yet");}));
+function cheat() {
+  return `<div class="cheat">
+    <div><code># Heading</code> &nbsp;a section heading</div>
+    <div><code>$$ V_o = D\\,V_{in} $$</code> &nbsp;an equation on its own line (LaTeX)</div>
+    <div><code>\\( f_s \\)</code> &nbsp;maths inside a sentence</div>
+    <div><code>&gt; text</code> &nbsp;a highlighted box &nbsp;·&nbsp; <code>- item</code> &nbsp;a bullet list &nbsp;·&nbsp; <code>**bold**</code></div>
+    <div><code>![Caption](files/fig1.png)</code> &nbsp;a picture (use “Insert picture”)</div>
+    <div>Leave an empty line between paragraphs.</div></div>`;
+}
 
-const root=document.documentElement;
-try{const s=localStorage.getItem("theme");if(s)root.dataset.theme=s;}catch(e){}
-document.getElementById("theme").addEventListener("click",()=>{
-  const dark=root.dataset.theme?root.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
-  root.dataset.theme=dark?"light":"dark";try{localStorage.setItem("theme",root.dataset.theme);}catch(e){}
-});
+function adminCourses() {
+  const c = A.cid && courseById(A.cid);
+  if (!c) return `<h2>Courses &amp; lectures</h2><p class="muted">Pick a course to edit its lectures, live classes, quizzes and assignments.</p>
+    ${SITE.courses.map(x => `<div class="arow"><div><div class="ttl">${esc(x.title)}</div><div class="faint" style="font-size:.86rem">${x.lectures.length} lectures · ${x.live.length} live classes · ${x.quizzes.length} quizzes · ${x.assignments.length} assignments${x.sample ? ' · <span class="chip warn">sample</span>' : ''}</div></div>
+      <div class="aa"><button class="btn small primary" data-a="course" data-c="${x.id}">Open</button></div></div>`).join('')}
+    <button class="btn small primary" data-a="addCourse">+ Add course</button>`;
 
-const links=document.getElementById("links"),menu=document.getElementById("menu");
-menu.addEventListener("click",()=>{const o=links.classList.toggle("open");menu.setAttribute("aria-expanded",o);});
-links.addEventListener("click",e=>{if(e.target.tagName==="A"){links.classList.remove("open");menu.setAttribute("aria-expanded","false");}});
-const navA=[...links.querySelectorAll("a")],secs=navA.map(a=>document.querySelector(a.getAttribute("href")));
-const totop=document.getElementById("totop");
-addEventListener("scroll",()=>{
-  totop.hidden=scrollY<600;
-  let cur=null;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<140)cur=i;});
-  navA.forEach((a,i)=>a.classList.toggle("on",i===cur));
-},{passive:true});
-totop.addEventListener("click",()=>scrollTo({top:0}));
+  const SUBS = [['details', 'Course details'], ['lectures', 'Lectures'], ['live', 'Live classes'], ['quizzes', 'Quizzes'], ['assignments', 'Assignments']];
+  const lecOpts = [['', '— none —'], ...c.lectures.map(l => [l.n, 'Lecture ' + l.n + ': ' + l.title])];
+  let body = '';
+
+  if (A.sub === 'details') body = `${F('Course title', c, 'title')}<div class="three">${F('Course code', c, 'code')}${F('Term', c, 'term', 'text', { ph: 'Spring 2027' })}${F('Your role', c, 'role', 'text', { ph: 'Instructor / TA' })}</div>
+    ${F('Short description', c, 'blurb', 'textarea', { rows: 2 })}<div class="two">${F('Colour', c, 'color', 'color')}<div style="padding-top:26px">${F('Show “sample content” tag', c, 'sample', 'check')}</div></div>
+    <button class="btn danger" data-a="delCourse" style="margin-top:12px">Delete this course</button>`;
+
+  else if (A.sub === 'lectures') {
+    if (A.edit !== null && c.lectures[A.edit]) {
+      const l = c.lectures[A.edit];
+      body = `<button class="btn small" data-a="back">← All lectures</button><h3>Lecture ${esc(l.n)}: ${esc(l.title)}</h3>
+        <div class="two" style="grid-template-columns:120px 1fr">${F('Lecture no.', l, 'n', 'num')}${F('Title', l, 'title')}</div>
+        <div class="two">${F('Date', l, 'date', 'date')}${F('Video length (minutes)', l, 'mins', 'num')}</div>
+        ${F('YouTube video', l, 'youtube', 'yt', { help: 'Upload to YouTube as <b>Unlisted</b>, then paste the link (e.g. https://youtu.be/abc123XYZ00). Leave empty if there is no video.' })}
+        ${F('One-line summary', l, 'summary')}
+        <div class="fld"><label for="notesTa">Lecture notes</label>
+          <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap"><button type="button" class="btn small" data-a="insertImg">Insert picture</button><button type="button" class="btn small" data-a="preview">Preview notes</button></div>
+          ${F('', l, 'notes', 'notes').replace('<div class="fld"><label for="', '<div><label style="display:none" for="').replace(/id="(b\d+)" data-b/, 'id="notesTa" data-b')}
+          <div id="notesPrev" class="card notes" style="display:none;margin-top:10px"></div>${cheat()}</div>
+        <h3>Documents for this lecture</h3>` +
+        listUI(l.docs, d => `<div class="two">${F('Title', d, 'title')}${F('Type', d, 'type', 'select', { options: [['pdf', 'PDF'], ['slides', 'Slides'], ['code', 'Code'], ['image', 'Image'], ['other', 'Other']] })}</div>
+          ${F('File', d, 'url', 'text', { upload: '*', ph: 'Upload, or paste a Google Drive link', onUpload: (f) => { d.size = fmtSize(f.size); if (!d.title) d.title = f.name; const ext = f.name.split('.').pop().toLowerCase(); d.type = ext === 'pdf' ? 'pdf' : /pptx?|key/.test(ext) ? 'slides' : /^(m|py|c|slx|zip)$/.test(ext) ? 'code' : /png|jpe?g|gif|svg|webp/.test(ext) ? 'image' : 'other'; } })}`,
+          { add: () => ({ title: '', type: 'pdf', url: '', size: '' }), addLabel: 'Add document', name: d => d.title || 'document' });
+    } else body = `<p class="muted">Lectures are listed by their number.</p>` + listUI(c.lectures, l => `<div class="ttl">Lecture ${esc(l.n)}: ${esc(l.title)}</div><div class="faint" style="font-size:.86rem">${fmtDate(l.date)} · ${l.youtube ? 'video ✓' : 'no video'} · ${l.notes ? 'notes ✓' : 'no notes'} · ${l.docs.length} documents</div>`,
+      { reorder: false, add: () => ({ n: c.lectures.reduce((m, l) => Math.max(m, +l.n || 0), 0) + 1, title: 'New lecture', date: new Date().toISOString().slice(0, 10), mins: '', youtube: '', summary: '', notes: '', docs: [] }),
+        edit: i => { A.edit = i; renderAdmin(true); }, addLabel: 'Add lecture', name: l => l.title });
+  }
+
+  else if (A.sub === 'live') body = `<p class="muted">Times are IST. Paste the Google Meet / Zoom / YouTube Live link. After the class, choose the lecture that has the recording.</p>` +
+    listUI(c.live, s => `${F('Title', s, 'title')}<div class="three">${F('Date & time', s, 'start', 'dt')}${F('Duration (min)', s, 'mins', 'num')}${F('Recording', s, 'lecture', 'select', { options: lecOpts })}</div>${F('Meeting link', s, 'link', 'text', { ph: 'https://meet.google.com/…' })}`,
+      { reorder: false, add: () => ({ title: 'Live class', start: '', mins: 60, link: '', lecture: '' }), addLabel: 'Schedule live class', name: s => s.title });
+
+  else if (A.sub === 'quizzes') {
+    if (A.edit !== null && c.quizzes[A.edit]) {
+      const q = c.quizzes[A.edit];
+      q.questions.forEach(x => { while (x.options.length < 4) x.options.push(''); });
+      body = `<button class="btn small" data-a="back">← All quizzes</button><h3>${esc(q.title)}</h3>
+        <div class="two">${F('Quiz title', q, 'title')}${F('Linked lecture', q, 'lecture', 'select', { options: lecOpts })}</div>
+        <h3>Questions</h3><p class="muted" style="font-size:.9rem">Maths works here too: \\( V_o \\). Leave unused options empty.</p>` +
+        listUI(q.questions, x => `${F('Question', x, 'q', 'textarea', { rows: 2 })}<div class="two">${F('Option A', x.options, 0)}${F('Option B', x.options, 1)}${F('Option C', x.options, 2)}${F('Option D', x.options, 3)}</div>
+          <div class="two" style="grid-template-columns:180px 1fr">${F('Correct answer', x, 'answer', 'select', { options: [[0, 'A'], [1, 'B'], [2, 'C'], [3, 'D']] })}${F('Explanation (shown after answering)', x, 'why')}</div>`,
+          { add: () => ({ q: '', options: ['', '', '', ''], answer: 0, why: '' }), addLabel: 'Add question', name: x => x.q || 'question' });
+    } else body = listUI(c.quizzes, q => `<div class="ttl">${esc(q.title)}</div><div class="faint" style="font-size:.86rem">${q.questions.length} questions${q.lecture ? ' · lecture ' + esc(q.lecture) : ''}</div>`,
+      { add: () => ({ id: uid('q'), title: 'New quiz', lecture: '', questions: [{ q: '', options: ['', '', '', ''], answer: 0, why: '' }] }), edit: i => { A.edit = i; renderAdmin(true); }, addLabel: 'Add quiz', name: q => q.title });
+  }
+
+  else if (A.sub === 'assignments') body = `<p class="muted">To collect real submissions, make a <a href="https://forms.google.com" target="_blank" rel="noopener">Google Form</a> with a “File upload” question and paste its link. Files then arrive in your Google Drive.</p>` +
+    listUI(c.assignments, a => `${F('Title', a, 'title')}${F('Instructions', a, 'desc', 'textarea', { rows: 3 })}<div class="two">${F('Due date & time', a, 'due', 'dt')}${F('Google Form link', a, 'form', 'text', { ph: 'https://forms.gle/…' })}</div>`,
+      { add: () => ({ id: uid('a'), title: 'New assignment', desc: '', due: '', form: '' }), addLabel: 'Add assignment', name: a => a.title });
+
+  return `<div class="crumbs"><a href="javascript:void 0" data-asec="courses">Courses</a> / ${esc(c.title)}</div><h2>${esc(c.title)}</h2>
+    <div class="subtabs">${SUBS.map(([k, n]) => `<button class="tab ${A.sub === k ? 'on' : ''}" data-a="sub" data-s="${k}">${n}</button>`).join('')}
+    <a class="btn small" href="#course-${c.id}" style="margin-left:auto">View on site →</a></div>${body}`;
+}
+
+function pageAdmin() {
+  return `<div class="wrap admin">
+    <nav class="anav">${SECS.map(([k, n]) => k === '-' ? '<div class="sep"></div>' : `<button data-asec="${k}" class="${A.sec === k ? 'on' : ''}">${n}</button>`).join('')}
+      <div class="sep"></div><button data-a="publish" style="background:var(--accent);color:var(--accent-ink)">Publish to website</button></nav>
+    <div class="apanel" id="apanel"></div></div>`;
+}
+function renderAdmin(scrollTop) {
+  if (!A.on) return;
+  B = {}; LISTS = {};
+  const p = $('#apanel'); if (!p) return;
+  p.innerHTML = adminSection();
+  document.querySelectorAll('.anav button[data-asec]').forEach(b => b.classList.toggle('on', b.dataset.asec === A.sec));
+  if (scrollTop) window.scrollTo(0, 0);
+}
+
+/* =====================================================================
+   ROUTER — #teaching, #course-pe-quizzes, #lec-pe-2, #quiz-pe-q1, #admin
+   ===================================================================== */
+function route() {
+  const h = (location.hash || '#home').slice(1), p = h.split('-');
+  let html, nav = p[0], after = null;
+  A.on = p[0] === 'admin';
+  switch (p[0]) {
+    case 'about': case 'research': case 'publications': case 'contact':
+      html = pageHome(); after = () => { const s = $('#s-' + p[0]); if (s) s.scrollIntoView(); }; break;
+    case 'teaching': html = pageTeaching(); break;
+    case 'live': html = pageLive(); break;
+    case 'library': html = pageLibrary(); after = () => { if ($('#fq')) { ['fq', 'fc', 'ft'].forEach(id => $('#' + id).addEventListener('input', filterDocs)); filterDocs(); } }; break;
+    case 'course': { const c = courseById(p[1]); html = c ? pageCourse(c, p[2] || 'lectures') : notFound(); nav = 'teaching'; break; }
+    case 'lec': { const c = courseById(p[1]); html = c ? pageLecture(c, +p[2]) : notFound(); nav = 'teaching'; if (c) after = () => renderQA(c, +p[2]); break; }
+    case 'quiz': { const c = courseById(p[1]); html = c ? pageQuiz(c, p[2]) : notFound(); nav = 'teaching'; if (c) after = () => bindQuiz(c, p[2]); break; }
+    case 'admin': html = pageAdmin(); after = () => renderAdmin(); break;
+    default: html = pageHome(); nav = 'home';
+  }
+  app.innerHTML = html;
+  if (!['about', 'research', 'publications', 'contact'].includes(p[0])) window.scrollTo(0, 0);
+  if ($('#pubTabs')) { renderPubs('all'); $('#pubTabs').onclick = e => { if (e.target.dataset.f) renderPubs(e.target.dataset.f); }; }
+  const v = $('#vid'); if (v) v.onclick = () => { v.outerHTML = `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.dataset.yt)}?autoplay=1&rel=0" title="Lecture video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`; };
+  after && after();
+  document.querySelectorAll('nav.main a').forEach(a => a.classList.toggle('on', a.dataset.nav === nav));
+  $('#nav').classList.remove('open');
+  $('#updated').textContent = 'Last updated ' + (SITE.updated || '');
+  updateDraftBar();
+  if (!A.on) typeset(app);
+}
+setInterval(() => document.querySelectorAll('[data-cd]').forEach(el => el.textContent = countdown(el.dataset.cd)), 30000);
+window.addEventListener('hashchange', route);
+
+(async function init() {
+  renderUser();
+  const d = store.get('draft', null);
+  SITE = normalize(d ? d : await loadPublished());
+  route();
+})();
+
 </script>
 </body>
 </html>
