@@ -414,5 +414,51 @@
   ],
   "registerForm": "",
   "theme": "academic",
-  "accent": ""
+  "accent": "",
+  "projects": [
+    {
+      "id": "p1",
+      "title": "Triple active bridge converter prototype",
+      "status": "Ongoing",
+      "period": "2026 – now",
+      "role": "PhD research",
+      "funding": "",
+      "image": "",
+      "link": "",
+      "sample": true,
+      "summary": "A SiC-based hardware prototype used to validate phase-shift modulation, soft-switching and loss models on the bench.",
+      "body": "# Goal\nBuild a hardware platform that shows the modulation strategies from simulation working on a real converter, across the full power range.\n\n# What it covers\n- Phase-shift gate generation on a real-time controller\n- Soft-switching (ZVS) checks at light and full load\n- Measured efficiency compared with the loss model\n\n> Photos and results will be added as testing progresses."
+    },
+    {
+      "id": "p2",
+      "title": "Sponsored project RP 486",
+      "status": "Completed",
+      "period": "Jan – Jun 2026",
+      "role": "Project Associate-II",
+      "funding": "Add funding agency",
+      "image": "",
+      "link": "",
+      "sample": true,
+      "summary": "Add a one-line description of the project and your contribution.",
+      "body": ""
+    }
+  ],
+  "blog": [
+    {
+      "id": "b1",
+      "title": "Why phase shift controls power in a dual active bridge",
+      "date": "2026-11-15",
+      "cover": "",
+      "tags": "DAB, basics",
+      "sample": true,
+      "hidden": false,
+      "summary": "A short, visual explanation of how the phase shift between two square waves moves power across an inductor.",
+      "body": "A dual active bridge has two full bridges, one on each side of a high-frequency transformer. Each bridge produces a square wave. The only thing that separates them is a series inductance \\(L\\).\n\n# The key idea\nIf both square waves are identical and in phase, the inductor sees no voltage and no current flows. Shift one wave by an angle \\(\\varphi\\), and a voltage appears across the inductor for part of every half-cycle. That drives current, and with it, power.\n\n$$P = \\frac{n\\,V_1 V_2}{2\\pi f_s L}\\;\\varphi\\left(1 - \\frac{|\\varphi|}{\\pi}\\right)$$\n\n# What the equation tells us\n- Power flows from the leading bridge to the lagging one.\n- It peaks at \\(\\varphi = \\pi/2\\).\n- A smaller \\(L\\) gives more power for the same shift, but higher peak current.\n\n> In a triple active bridge the same idea applies to every pair of ports, which is why the phase shifts are coupled."
+    }
+  ],
+  "gallery": [],
+  "firebase": "",
+  "photo": "",
+  "formspree": "",
+  "goatcounter": "akp"
 }
