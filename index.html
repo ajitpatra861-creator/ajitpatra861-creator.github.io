@@ -5,6 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ajit Kumar Patra · Power Electronics</title>
 <meta name="description" content="Ajit Kumar Patra — PhD scholar in power electronics at IIT Bhubaneswar. Research on triple active bridge converters, plus lectures, notes, quizzes and live classes for students.">
+<meta name="author" content="Ajit Kumar Patra">
+<link rel="canonical" href="https://ajitpatra861-creator.github.io/">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Ajit Kumar Patra">
+<meta property="og:title" content="Ajit Kumar Patra · Power Electronics, IIT Bhubaneswar">
+<meta property="og:description" content="PhD scholar working on triple active bridge converters. Research, publications, lectures and notes.">
+<meta property="og:url" content="https://ajitpatra861-creator.github.io/">
+<meta property="og:image" content="https://ajitpatra861-creator.github.io/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ajitpatra861-creator.github.io/assets/og.png">
+<meta name="theme-color" content="#13203b">
+<link rel="icon" type="image/png" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Ajit Kumar Patra","jobTitle":"PhD Scholar, Power Electronics","affiliation":{"@type":"CollegeOrUniversity","name":"Indian Institute of Technology Bhubaneswar"},"url":"https://ajitpatra861-creator.github.io/","knowsAbout":["Power electronics","Triple active bridge converter","Dual active bridge converter","Phase-shift modulation","Zero-voltage switching"]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -184,6 +200,19 @@ a.card:hover,.rcard:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0
 .lb-x:hover,.lb-nav:hover{background:rgba(255,255,255,.2)}
 .thumb{width:72px;height:54px;border-radius:8px;background:var(--surface-2) center/cover no-repeat;border:1px solid var(--line);flex:none}
 .teach-links{display:flex;gap:10px;flex-wrap:wrap;margin:-6px 0 26px}
+.avatar{width:108px;height:108px;border-radius:50%;object-fit:cover;display:block;margin-bottom:22px;border:3px solid var(--surface);box-shadow:0 0 0 1px var(--line)}
+[data-skin="signature"] .avatar{border-color:var(--band);box-shadow:0 0 0 1.5px var(--brass)}
+.pub .acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+pre.cite{white-space:pre-wrap;word-break:break-word;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:.82rem/1.5 var(--mono);margin:6px 0 10px;max-height:240px;overflow:auto}
+.cform{display:grid;gap:12px;max-width:560px;margin-top:22px}
+.cform .two{gap:12px}
+.sr-res{max-height:60vh;overflow:auto;margin-top:12px}
+.sr-res a{display:block;padding:10px 12px;border-radius:10px;color:var(--ink)}
+.sr-res a:hover,.sr-res a.hl{background:var(--surface-2);text-decoration:none}
+.sr-res .ty{font-size:.76rem;color:var(--accent);font-weight:600}
+.sr-res .sn{font-size:.86rem;color:var(--ink-3);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sm-only{display:none}
+@media (max-width:520px){.lg-only{display:none}.sm-only{display:inline}}
 .skins{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:10px 0 18px}
 .skin{border:2px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);text-align:left;color:var(--ink)}
 .skin.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
@@ -421,6 +450,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </nav>
     <div class="tools">
       <span id="userSlot"></span>
+      <button class="icon-btn" id="searchBtn" aria-label="Search the site (Ctrl+K)" title="Search (Ctrl+K)" onclick="openSearch()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
       <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode" title="Toggle dark mode">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
@@ -436,7 +468,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <footer>
   <div class="wrap">
     <span>© 2026 Ajit Kumar Patra · IIT Bhubaneswar</span>
-    <span><span id="updated">Last updated Nov 2026</span> · <a href="#admin" style="color:var(--ink-3)">Admin</a></span>
+    <span><span id="updated">Last updated Nov 2026</span> · <a href="javascript:void 0" id="installLink" style="color:var(--ink-3);display:none" onclick="installApp()">Install app</a><span id="installSep" style="display:none"> · </span><a href="#admin" style="color:var(--ink-3)">Admin</a></span>
   </div>
 </footer>
 
@@ -543,6 +575,8 @@ $$P = \frac{n\,V_1 V_2}{2\pi f_s L}\;\varphi\left(1 - \frac{|\varphi|}{\pi}\righ
   instructorEmail: "ajit.patra861@gmail.com",
   registerForm: "",            // Google Form link for student registration
   theme: "signature", accent: "",
+  firebase: "",
+  photo: "", formspree: "", goatcounter: "",
 
   announcements: [
     { date: "2026-11-15", course: "pe", text: "Quiz 1 (buck converter) is open. Attempt it before the next live class." },
@@ -770,7 +804,7 @@ $('#themeBtn').onclick = () => setTheme(document.documentElement.dataset.theme =
 $('#menuBtn').onclick = () => $('#nav').classList.toggle('open');
 
 /* ---------- sign-in (preview) ---------- */
-const user = () => store.get('user', null);
+const user = () => fbCfg() ? FB.user : store.get('user', null);
 function canSignIn(email) {
   email = email.trim().toLowerCase();
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return false;
@@ -779,6 +813,12 @@ function canSignIn(email) {
   return !!SITE.allowedDomain && email.endsWith('@' + SITE.allowedDomain.toLowerCase());
 }
 function showSignIn() {
+  if (fbCfg()) {
+    openModal(`<h3>Student sign-in</h3><p class="muted">Sign in with the Google account you registered with.</p>
+      <button class="btn primary" onclick="fbSignIn()" style="margin-top:6px">${G_ICON} Continue with Google</button>
+      <p style="margin:18px 0 0;font-size:.92rem">New student? <a href="#register" onclick="closeModal()"><b>Register for a course</b></a></p>`);
+    fbInit(); return;
+  }
   openModal(`
     <h3>Student sign-in</h3>
     <p class="muted" style="margin:0">Course videos, notes, quizzes and assignments are for enrolled students.</p>
@@ -798,38 +838,243 @@ function showSignIn() {
     closeModal(); renderUser(); route(); toast('Signed in as ' + name);
   };
 }
-function signOut() { store.set('user', null); renderUser(); route(); toast('Signed out'); }
+function signOut() { if (fbCfg() && FB.on) { FB.auth.signOut().then(() => toast('Signed out')); return; } store.set('user', null); renderUser(); route(); toast('Signed out'); }
 function renderUser() {
   const u = user();
   $('#userSlot').innerHTML = u
     ? `<button class="user-pill" onclick="userMenu()"><span class="ava ${u.inst ? 'inst' : ''}">${esc(initials(u.name))}</span><span>${esc(u.name.split(' ')[0])}</span></button>`
-    : `<button class="btn small primary" onclick="showSignIn()">Student sign-in</button>`;
+    : `<button class="btn small primary" onclick="showSignIn()" style="white-space:nowrap"><span class="lg-only">Student sign-in</span><span class="sm-only">Sign in</span></button>`;
 }
 function userMenu() {
   const u = user();
   openModal(`<h3>${esc(u.name)}</h3><p class="muted mono" style="margin:0">${esc(u.email)}</p>
-    <p style="margin-top:12px">${u.inst ? '<span class="chip accent">Instructor</span>' : '<span class="chip">Student</span>'}</p>
+    <p style="margin-top:12px">${u.inst ? '<span class="chip accent">Instructor</span>' : fbCfg() ? (u.approved ? '<span class="chip ok">Approved student</span>' : u.pending ? '<span class="chip warn">Waiting for approval</span>' : '<span class="chip">Not registered</span>') : '<span class="chip">Student</span>'}</p>
     <div class="row">${u.inst ? '<a class="btn" href="#admin" onclick="closeModal()">Admin</a>' : ''}<button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="closeModal();signOut()">Sign out</button></div>`);
 }
-const locked = () => SITE.requireLogin && !user();
+const locked = () => SITE.requireLogin && !(user() && (!fbCfg() || user().approved));
 function lockCard(what) {
   return `<div class="card lock"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
     <h3>${what} are for enrolled students</h3><p class="muted">Sign in with your institute email to watch lectures, read notes, take quizzes and submit assignments.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn primary" onclick="showSignIn()">Student sign-in</button><a class="btn" href="#register">Register</a></div></div>`;
 }
 function pageRegister() {
-  const steps = [['Fill in the form', 'Your name, roll number, institute email and the course you want to join.'],
+  const steps = fbCfg() ? [['Sign in with Google', 'Use your institute Google account if you have one.'], ['Send your details', 'Your name, roll number and the course you want to join.'], ['Get approved', 'Once the instructor approves you, the course material opens automatically.']] : [['Fill in the form', 'Your name, roll number, institute email and the course you want to join.'],
     ['Wait for approval', 'The instructor checks the list and approves enrolled students, usually within a day.'],
     ['Sign in', 'Use <b>Student sign-in</b> (top right) with the same email you registered with.']];
   return `<div class="wrap" style="max-width:820px"><div class="page-head"><div class="eyebrow">Students</div><h1>Register for a course</h1>
     <p class="lead">Register once to get access to lecture videos, notes, quizzes, assignments and live classes.</p></div>
     <div class="grid" style="margin-bottom:26px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">${steps.map((s, i) => `<div class="card"><div class="mono" style="color:var(--accent);font-weight:600;margin-bottom:6px">STEP ${i + 1}</div><h3>${s[0]}</h3><p class="muted" style="margin:0">${s[1]}</p></div>`).join('')}</div>
     <div class="card" style="text-align:center;padding:34px;margin-bottom:22px">
-      ${SITE.registerForm ? `<h3>Ready?</h3><p class="muted">The form opens in a new tab and takes about a minute.</p><a class="btn primary" href="${esc(SITE.registerForm)}" target="_blank" rel="noopener">Open registration form</a>`
+      ${fbCfg() ? registerFb() : SITE.registerForm ? `<h3>Ready?</h3><p class="muted">The form opens in a new tab and takes about a minute.</p><a class="btn primary" href="${esc(SITE.registerForm)}" target="_blank" rel="noopener">Open registration form</a>`
         : `<h3>Registration opens soon</h3><p class="muted" style="margin:0">Please check back later, or email <span class="mono">${esc(SITE.email)}</span>.</p>`}
     </div>
     ${SITE.courses.length ? `<h3>Courses open for registration</h3>${SITE.courses.map(c => `<div class="lec-row" style="grid-template-columns:1fr auto"><div><h4>${esc(c.title)}</h4><div class="muted" style="font-size:.9rem">${[c.code, c.term].filter(Boolean).map(esc).join(' · ')}</div></div><a class="btn small" href="#course-${c.id}">View</a></div>`).join('')}` : ''}
     <p class="muted" style="margin:24px 0 60px">Already approved? <a href="javascript:void 0" onclick="showSignIn()">Sign in here</a>.</p></div>`;
+}
+
+/* =====================================================================
+   SECURE SIGN-IN (Firebase) — switched on by pasting the Firebase config
+   in Admin → Secure sign-in. Without it, the simple sign-in above is used.
+   ===================================================================== */
+const FB = { on: false, ready: null, user: null, priv: null, justSigned: false };
+function fbCfg() {
+  const t = String(SITE.firebase || '');
+  const g = k => { const m = t.match(new RegExp(k + '["\']?\\s*[:=]\\s*["\']([^"\']+)')); return m ? m[1] : ''; };
+  const c = { apiKey: g('apiKey'), authDomain: g('authDomain'), projectId: g('projectId'), appId: g('appId') };
+  return c.apiKey && c.projectId ? c : null;
+}
+function loadScript(src) { return new Promise((ok, no) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = no; document.head.appendChild(s); }); }
+function fbInit() {
+  const cfg = fbCfg(); if (!cfg) return Promise.resolve(false);
+  if (FB.ready) return FB.ready;
+  FB.ready = (async () => {
+    const base = 'https://www.gstatic.com/firebasejs/10.12.2/';
+    if (!window.firebase) { await loadScript(base + 'firebase-app-compat.js'); await loadScript(base + 'firebase-auth-compat.js'); await loadScript(base + 'firebase-firestore-compat.js'); }
+    if (!firebase.apps.length) firebase.initializeApp(cfg);
+    FB.auth = firebase.auth(); FB.db = firebase.firestore(); FB.on = true;
+    await new Promise(res => {
+      let first = true;
+      FB.auth.onAuthStateChanged(async u => {
+        await fbSetUser(u);
+        if (first) { first = false; res(); return; }
+        renderUser(); route();
+        if (FB.justSigned && FB.user) { FB.justSigned = false; fbStatusModal(); }
+      });
+    });
+    return true;
+  })().catch(e => { console.warn('Firebase', e); FB.on = false; return false; });
+  return FB.ready;
+}
+async function fbSetUser(u) {
+  if (!u) { FB.user = null; FB.priv = null; return; }
+  const email = String(u.email || '').toLowerCase(), inst = email === String(SITE.instructorEmail).toLowerCase();
+  const dom = String(SITE.allowedDomain || '').toLowerCase();
+  let approved = inst || (!!dom && email.endsWith('@' + dom)), pending = false;
+  try {
+    if (!approved) approved = (await FB.db.doc('roster/' + email).get()).exists;
+    if (!approved) pending = (await FB.db.doc('registrations/' + email).get()).exists;
+  } catch (e) {}
+  FB.user = { name: u.displayName || email, email, inst, approved, pending, uid: u.uid };
+  if (approved) {
+    try { const d = await FB.db.doc('private/content').get(); FB.priv = d.exists ? d.data() : null; } catch (e) { FB.priv = null; }
+    mergePrivate();
+  }
+}
+async function fbSignIn() {
+  try {
+    await fbInit(); if (!FB.on) throw new Error('Sign-in is not available right now. Please try again later.');
+    FB.justSigned = true;
+    await FB.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    closeModal();
+  } catch (e) {
+    FB.justSigned = false;
+    if (e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) return;
+    toast(e && e.code === 'auth/unauthorized-domain' ? 'This website is not yet allowed in Firebase. Add it under Authentication → Settings → Authorized domains.' : (e && e.message) || 'Sign-in failed', 7000);
+  }
+}
+function fbStatusModal() {
+  const u = FB.user; if (!u || u.approved) { if (u) toast('Signed in as ' + u.name); return; }
+  openModal(u.pending
+    ? `<h3>Registration received</h3><p class="muted">Thanks, ${esc(u.name.split(' ')[0])}. The instructor will approve your registration soon. Sign in again after that to open the course material.</p><div class="row"><button class="btn primary" onclick="closeModal()">OK</button></div>`
+    : `<h3>Register first</h3><p class="muted">You're signed in as <b>${esc(u.email)}</b>, but this account isn't registered for a course yet.</p><div class="row"><button class="btn" onclick="closeModal()">Later</button><a class="btn primary" href="#register" onclick="closeModal()">Register now</a></div>`);
+}
+const G_ICON = '<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>';
+
+/* split into public (GitHub) and private (Firestore, approved students only) */
+function splitContent(full) {
+  const pub = clone(full), priv = { courses: {} };
+  pub.students = [];
+  pub.courses.forEach(c => {
+    const pc = priv.courses[c.id] = { lectures: {}, quizzes: clone(c.quizzes || []), forms: {}, liveLinks: {} };
+    c.lectures.forEach(l => {
+      pc.lectures[String(l.n)] = { youtube: l.youtube || '', notes: l.notes || '', docs: l.docs || [] };
+      l.youtube = l.youtube ? 'locked' : ''; l.notes = l.notes ? 'locked' : '';
+      l.docs = (l.docs || []).map(d => ({ title: d.title, type: d.type, size: d.size || '', url: '' }));
+    });
+    c.quizzes = (c.quizzes || []).map(q => ({ id: q.id, title: q.title, lecture: q.lecture, questions: q.questions.map(() => ({ q: '', options: [], answer: 0, why: '' })) }));
+    (c.assignments || []).forEach(a => { pc.forms[a.id] = a.form || ''; a.form = ''; });
+    (c.live || []).forEach(s => { if (s.start) pc.liveLinks[s.start] = s.link || ''; s.link = ''; });
+    c.discussion = {};
+  });
+  return { pub, priv: JSON.parse(JSON.stringify(priv)) };
+}
+function mergePrivate() {
+  if (!FB.priv || hasDraft()) return;
+  const P = FB.priv.courses || {};
+  SITE.courses.forEach(c => {
+    const pc = P[c.id]; if (!pc) return;
+    c.lectures.forEach(l => { const x = (pc.lectures || {})[String(l.n)]; if (x) { l.youtube = x.youtube || ''; l.notes = x.notes || ''; l.docs = x.docs || []; } });
+    if (pc.quizzes) c.quizzes = pc.quizzes;
+    c.assignments.forEach(a => { if (pc.forms && pc.forms[a.id] !== undefined) a.form = pc.forms[a.id]; });
+    c.live.forEach(s => { if (pc.liveLinks && pc.liveLinks[s.start] !== undefined) s.link = pc.liveLinks[s.start]; });
+  });
+}
+function fbRules() {
+  const adm = String(SITE.instructorEmail || '').toLowerCase().replace(/'/g, '');
+  const dom = String(SITE.allowedDomain || '').toLowerCase().replace(/[^a-z0-9.-]/g, '');
+  return `rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null && request.auth.token.email_verified == true; }
+    function myEmail() { return request.auth.token.email.lower(); }
+    function isAdmin() { return signedIn() && myEmail() == '${adm}'; }
+    function approved() { return signedIn() && (exists(/databases/$(database)/documents/roster/$(myEmail()))${dom ? ` || myEmail().matches('.*@${dom.replace(/\./g, '[.]')}')` : ''}); }
+    match /roster/{email} {
+      allow read: if isAdmin() || (signedIn() && email == myEmail());
+      allow write: if isAdmin();
+    }
+    match /registrations/{email} {
+      allow read: if isAdmin() || (signedIn() && email == myEmail());
+      allow create, update: if signedIn() && email == myEmail();
+      allow delete: if isAdmin();
+    }
+    match /private/{doc} {
+      allow read: if approved() || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /qa/{thread}/posts/{post} {
+      allow read: if approved() || isAdmin();
+      allow create: if (approved() || isAdmin()) && request.resource.data.uid == request.auth.uid
+                    && (request.resource.data.inst == false || isAdmin());
+      allow delete: if isAdmin();
+    }
+  }
+}`;
+}
+
+/* shared Q&A */
+async function renderQAfb(c, n) {
+  const el = $('#qa'); if (!el) return;
+  const u = FB.user, col = FB.db.collection(`qa/${c.id}_${n}/posts`);
+  el.innerHTML = '<h3>Questions &amp; discussion</h3><p class="faint">Loading…</p>';
+  let docs = [];
+  try { docs = (await col.get()).docs.map(d => Object.assign({ id: d.id }, d.data())); }
+  catch (e) { el.innerHTML = '<h3>Questions &amp; discussion</h3><p class="faint">The discussion could not be loaded. Refresh the page to try again.</p>'; return; }
+  docs.sort((a, b) => String(a.t).localeCompare(String(b.t)));
+  const top = docs.filter(d => !d.parent), rep = id => docs.filter(d => d.parent === id);
+  const one = (x, reply) => `<div class="post"><span class="ava ${x.inst ? 'inst' : ''}">${esc(initials(x.who))}</span><div>
+    <span class="who">${esc(x.who)}</span>${x.inst ? ' <span class="chip accent" style="font-size:.7rem;padding:1px 7px">Instructor</span>' : ''}<span class="when">${fmtDate(x.t, { day: 'numeric', month: 'short' })}, ${fmtTime(x.t)}</span>
+    <div class="body">${esc(x.text)}</div>
+    ${reply ? '' : `<button class="linkish" data-reply="${esc(x.id)}">Reply</button>`}${u && u.inst ? ` <button class="linkish" data-delpost="${esc(x.id)}" style="margin-left:10px">Delete</button>` : ''}
+    ${reply ? '' : `<div id="rb_${esc(x.id)}"></div>`}</div></div>`;
+  el.innerHTML = `<h3>Questions &amp; discussion <span class="chip" style="vertical-align:middle">${docs.length}</span></h3>
+    ${top.length ? top.map(x => one(x) + (rep(x.id).length ? `<div class="replies">${rep(x.id).map(r => one(r, true)).join('')}</div>` : '')).join('') : '<p class="faint">No questions yet. Be the first to ask.</p>'}
+    <form id="askForm" style="margin-top:16px"><textarea id="askTxt" placeholder="Ask a question about this lecture…" required maxlength="4000"></textarea>
+    <div style="text-align:right;margin-top:8px"><button class="btn small primary">Post question</button></div></form>`;
+  const add = async (text, parent) => {
+    try { await col.add({ uid: u.uid, who: u.name, inst: !!u.inst, t: new Date().toISOString(), text: text.slice(0, 4000), parent: parent || null }); renderQAfb(c, n); }
+    catch (e) { toast('Could not post: ' + e.message, 5000); }
+  };
+  $('#askForm').onsubmit = e => { e.preventDefault(); const t = $('#askTxt').value.trim(); if (t) add(t); };
+  el.onclick = e => {
+    const r = e.target.dataset && e.target.dataset.reply, d = e.target.dataset && e.target.dataset.delpost;
+    if (r) { const box = $('#rb_' + CSS.escape(r)); box.innerHTML = `<form style="margin-top:8px"><textarea placeholder="Write a reply…" required style="min-height:60px" maxlength="4000"></textarea><div style="text-align:right;margin-top:6px"><button class="btn small">Reply</button></div></form>`;
+      const f = box.querySelector('form'); f.querySelector('textarea').focus();
+      f.onsubmit = ev => { ev.preventDefault(); const t = f.querySelector('textarea').value.trim(); if (t) add(t, r); }; }
+    if (d) confirmBox('Delete this post?', async () => { try { await col.doc(d).delete(); renderQAfb(c, n); } catch (er) { toast(er.message); } });
+  };
+}
+
+/* in-site registration */
+function registerFb() {
+  const u = FB.user;
+  if (!FB.on) return `<h3>Loading…</h3><p class="muted" style="margin:0">One moment.</p>`;
+  if (!u) return `<h3>Step 1: sign in with Google</h3><p class="muted">Use your institute Google account if you have one.</p><button class="btn primary" onclick="fbSignIn()">${G_ICON} Continue with Google</button>`;
+  if (u.approved) return `<h3>You're approved</h3><p class="muted">Signed in as ${esc(u.email)}. The course material is open to you.</p><a class="btn primary" href="#teaching">Go to courses</a>`;
+  if (u.pending) return `<h3>Registration received</h3><p class="muted" style="margin:0">Signed in as ${esc(u.email)}. The instructor will approve you soon; then the course material opens automatically.</p>`;
+  return `<h3>Step 2: your details</h3><p class="muted">Signed in as <b>${esc(u.email)}</b>.</p>
+    <form id="regForm" style="text-align:left;max-width:420px;margin:0 auto">
+      <div class="fld"><label for="rName">Full name</label><input type="text" id="rName" required value="${esc(u.name)}"></div>
+      <div class="fld"><label for="rRoll">Roll number</label><input type="text" id="rRoll" required></div>
+      <div class="fld"><label for="rCourse">Course</label><select id="rCourse">${SITE.courses.map(c => `<option value="${esc(c.id)}">${esc(c.title)}</option>`).join('')}</select></div>
+      <button class="btn primary">Send registration</button></form>`;
+}
+function bindRegister() {
+  const f = $('#regForm'); if (!f) return;
+  f.onsubmit = async e => {
+    e.preventDefault(); const u = FB.user;
+    try {
+      await FB.db.doc('registrations/' + u.email).set({ name: $('#rName').value.trim().slice(0, 120), roll: $('#rRoll').value.trim().slice(0, 40), course: $('#rCourse').value, t: new Date().toISOString() });
+      u.pending = true; route(); toast('Registration sent');
+    } catch (er) { toast('Could not send: ' + er.message, 6000); }
+  };
+}
+
+/* admin: registrations and roster */
+async function fbAdminLists() {
+  if (!$('#pendList')) return;
+  if (!(FB.on && FB.user && FB.user.inst)) { $('#pendList').innerHTML = $('#rosList').innerHTML = '<p class="faint">Sign in with Google as the instructor (Admin → Secure sign-in) to see students.</p>'; return; }
+  let R, S;
+  try { const [a, b] = await Promise.all([FB.db.collection('registrations').get(), FB.db.collection('roster').get()]);
+    R = a.docs.map(d => Object.assign({ id: d.id }, d.data())); S = b.docs.map(d => Object.assign({ id: d.id }, d.data())); }
+  catch (e) { $('#pendList').innerHTML = `<p class="status-bad">${esc(e.message)}</p>`; return; }
+  FB.regs = R;
+  const cname = id => esc((courseById(id) || {}).title || id || '');
+  $('#pendCount').textContent = `(${R.length})`; $('#rosCount').textContent = `(${S.length})`;
+  $('#pendList').innerHTML = R.length ? R.map(r => `<div class="arow"><div><div class="ttl">${esc(r.name || r.id)}</div><div class="faint" style="font-size:.86rem">${esc(r.id)} · Roll ${esc(r.roll || '—')} · ${cname(r.course)}</div></div>
+    <div class="aa"><button class="btn small primary" data-a="fbApprove" data-e="${esc(r.id)}">Approve</button><button class="btn small danger" data-a="fbReject" data-e="${esc(r.id)}">Reject</button></div></div>`).join('') : '<div class="empty">No one is waiting.</div>';
+  $('#rosList').innerHTML = S.length ? S.map(r => `<div class="arow"><div><div class="ttl">${esc(r.name || r.id)}</div><div class="faint" style="font-size:.86rem">${esc(r.id)}${r.roll ? ' · Roll ' + esc(r.roll) : ''}${r.course ? ' · ' + cname(r.course) : ''}</div></div>
+    <div class="aa"><button class="btn small danger" data-a="fbRemove" data-e="${esc(r.id)}">Remove</button></div></div>`).join('') : '<div class="empty">No approved students yet.</div>';
 }
 
 /* ---------- helpers ---------- */
@@ -887,6 +1132,7 @@ function pageHome() {
   return `
   <section class="hero"><div class="wrap">
     <div>
+      ${SITE.photo ? `<img class="avatar" src="${esc(SITE.photo)}" alt="${esc(SITE.name)}">` : ''}
       <div class="eyebrow">${esc(SITE.headline)}</div>
       <h1>${esc(parts.join(' '))} <em>${esc(last)}</em></h1>
       <p class="lead">${inl(SITE.intro)}</p>
@@ -958,17 +1204,53 @@ function pageHome() {
     <p class="muted">For research collaboration, or if you are a student with a question about a course.</p>
     <div class="contact-row"><span class="mono" style="font-size:1rem">${esc(SITE.email)}</span><button class="btn small" onclick="copyEmail()">Copy email</button></div>
     ${linkBtns ? `<div class="links">${linkBtns}</div>` : ''}
+    ${SITE.formspree ? `<form class="cform" id="cform">
+      <div class="two"><div><label class="sr" for="cfName">Your name</label><input type="text" id="cfName" name="name" placeholder="Your name" required></div>
+      <div><label class="sr" for="cfEmail">Your email</label><input type="email" id="cfEmail" name="email" placeholder="Your email" required></div></div>
+      <label class="sr" for="cfMsg">Message</label><textarea id="cfMsg" name="message" placeholder="Your message" required style="min-height:120px"></textarea>
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <div><button class="btn primary" id="cfBtn">Send message</button></div></form>` : ''}
     <p class="faint" style="margin-top:18px">${esc(SITE.address)}</p>
   </div></section>`;
+}
+function bindContact() {
+  const f = $('#cform'); if (!f) return;
+  f.onsubmit = async e => {
+    e.preventDefault(); const b = $('#cfBtn'); b.disabled = true; b.textContent = 'Sending…';
+    const id = String(SITE.formspree).trim().replace(/^.*\/f\//, '');
+    try {
+      const r = await fetch('https://formspree.io/f/' + encodeURIComponent(id), { method: 'POST', headers: { Accept: 'application/json' }, body: new FormData(f) });
+      if (!r.ok) throw new Error();
+      f.outerHTML = '<div class="card" style="margin-top:22px;max-width:560px"><b>Message sent.</b><p class="muted" style="margin:6px 0 0">Thanks — I\'ll reply to your email soon.</p></div>';
+    } catch (er) { b.disabled = false; b.textContent = 'Send message'; toast('The message could not be sent. Please email ' + SITE.email + ' instead.', 6000); }
+  };
 }
 function copyEmail() { navigator.clipboard.writeText(SITE.email).then(() => toast('Email copied'), () => toast(SITE.email)); }
 function renderPubs(f) {
   const list = SITE.publications.filter(p => f === 'all' || p.type === f);
   $('#pubList').innerHTML = list.length ? list.map(p => `<div class="pub"><div><span class="chip ${p.type === 'journal' ? 'accent' : ''}">${esc(p.type)}</span><div class="mono faint" style="margin-top:6px">${esc(p.year)}</div></div>
-    <div><div class="t">${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)}</div><div class="muted">${esc(p.authors)}</div><div class="faint" style="font-style:italic">${esc(p.venue)}</div>${p.status ? `<span class="chip ok" style="margin-top:6px">${esc(p.status)}</span>` : ''}</div></div>`).join('')
+    <div><div class="t">${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)}</div><div class="muted">${esc(p.authors)}</div><div class="faint" style="font-style:italic">${esc(p.venue)}</div>${p.status ? `<span class="chip ok" style="margin-top:6px">${esc(p.status)}</span>` : ''}
+    <div class="acts"><button class="btn small" onclick="citeModal(${SITE.publications.indexOf(p)})">Cite</button>${p.doi ? `<a class="btn small" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">DOI</a>` : ''}</div></div></div>`).join('')
     : `<div class="empty">No ${f === 'all' ? '' : f + ' '}papers yet.</div>`;
   document.querySelectorAll('#pubTabs .tab').forEach(b => b.classList.toggle('on', b.dataset.f === f));
 }
+function citeData(p) {
+  const authors = String(p.authors || '').replace(/\s+et al\.?/i, ', others').split(/\s*,\s*(?:and\s+)?|\s+and\s+/).map(a => a.trim()).filter(Boolean);
+  const first = (authors[0] || 'author').split(/\s+/).pop().replace(/[^A-Za-z]/g, '').toLowerCase();
+  const word = (String(p.title).match(/[A-Za-z]{4,}/) || ['paper'])[0].toLowerCase();
+  const key = first + (p.year || '') + word, conf = p.type === 'conference';
+  const ieeeAuth = authors.map(a => a === 'others' ? 'et al.' : a).join(', ').replace(/, et al\./, ' et al.');
+  const ieee = `${ieeeAuth}, "${p.title}," ${conf ? 'in Proc. ' : ''}${p.venue}${p.year && !String(p.venue).includes(p.year) ? ', ' + p.year : ''}${p.doi ? ', doi: ' + p.doi : ''}.`;
+  const bib = `@${conf ? 'inproceedings' : 'article'}{${key},\n  author = {${authors.join(' and ')}},\n  title = {${p.title}},\n  ${conf ? 'booktitle' : 'journal'} = {${p.venue}},\n  year = {${p.year}}${p.doi ? `,\n  doi = {${p.doi}}` : ''}\n}`;
+  return { ieee, bib };
+}
+function citeModal(i) {
+  const c = citeData(SITE.publications[i]);
+  openModal(`<h3>Cite this paper</h3><p class="muted" style="margin:0">IEEE</p><pre class="cite" id="ciIeee">${esc(c.ieee)}</pre><button class="btn small" onclick="copyText('ciIeee')">Copy IEEE</button>
+    <p class="muted" style="margin:16px 0 0">BibTeX</p><pre class="cite" id="ciBib">${esc(c.bib)}</pre><button class="btn small" onclick="copyText('ciBib')">Copy BibTeX</button>
+    <div class="row"><button class="btn" onclick="closeModal()">Close</button></div>`, true);
+}
+function copyText(id) { navigator.clipboard.writeText($('#' + id).textContent).then(() => toast('Copied'), () => toast('Select the text and copy it')); }
 function scopeSvg() {
   const P = 200, A = 24, X0 = 50, X1 = 450;
   const lvl = (x, sh) => ((((x - sh) % P) + P) % P) < P / 2 ? -A : A;
@@ -1220,6 +1502,7 @@ function pageLecture(c, n) {
     </aside></div></div>`;
 }
 function renderQA(c, n) {
+  if (fbCfg()) { if (FB.on && FB.user) renderQAfb(c, n); return; }
   const el = $('#qa'); if (!el) return;
   const u = user(), p = posts(c, n);
   const post = (x, pi, ri) => `<div class="post"><span class="ava ${x.inst ? 'inst' : ''}">${esc(initials(x.who))}</span><div>
@@ -1389,9 +1672,15 @@ async function publish() {
   clearTimeout(draftTimer); store.set('draft', SITE);
   if (!GH.cfg().ok) { needGitHub('publish'); return; }
   SITE.updated = new Date().toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+  if (fbCfg()) {
+    await fbInit();
+    if (!(FB.on && FB.user && FB.user.inst)) { toast('Sign in with Google as the instructor first (Admin → Secure sign-in).', 6000); A.sec = 'secure'; location.hash = '#admin'; renderAdmin(true); return; }
+  }
   toast('Publishing…', 60000);
   try {
-    await GH.put('content.json', b64utf8(JSON.stringify(SITE, null, 2)), 'Update website content');
+    let out = SITE;
+    if (fbCfg()) { const sp = splitContent(SITE); await FB.db.doc('private/content').set(sp.priv); out = sp.pub; FB.priv = sp.priv; }
+    await GH.put('content.json', b64utf8(JSON.stringify(out, null, 2)), 'Update website content');
     store.set('draft', null); updateDraftBar(); if (A.on) renderAdmin();
     toast('Published! Your website updates in about 1 minute.', 5000);
   } catch (e) { toast(e.message, 6000); }
@@ -1420,7 +1709,7 @@ async function loadPublished() {
 const A = { on: false, sec: 'start', cid: null, sub: 'details', edit: null };
 let B = {}, LISTS = {}, bid = 0;
 const SECS = [['start', 'Start here'], ['profile', 'Profile & home'], ['look', 'Look & theme'], ['research', 'Research'], ['pubs', 'Publications'], ['exp', 'Experience & tools'], ['news', 'News'], ['projects', 'Projects'], ['blog', 'Blog'], ['gallery', 'Gallery'],
-  ['-'], ['courses', 'Courses & lectures'], ['ann', 'Announcements'], ['students', 'Students & registration'], ['-'], ['github', 'GitHub connection'], ['backup', 'Backup']];
+  ['-'], ['courses', 'Courses & lectures'], ['ann', 'Announcements'], ['students', 'Students & registration'], ['secure', 'Secure sign-in'], ['stats', 'Visitors'], ['seo', 'Google search'], ['-'], ['github', 'GitHub connection'], ['backup', 'Backup']];
 
 function toLocal(iso) { const d = new Date(iso); return iso && !isNaN(d) ? new Date(d.getTime() + 330 * 60000).toISOString().slice(0, 16) : ''; }
 function ytId(v) { v = String(v || '').trim(); if (!v) return ''; if (/^[\w-]{11}$/.test(v)) return v; const m = v.match(/(?:youtu\.be\/|[?&]v=|embed\/|shorts\/|live\/)([\w-]{11})/); return m ? m[1] : ''; }
@@ -1535,9 +1824,40 @@ const ADMIN_ACTIONS = {
     };
     inp.click();
   },
-  approve() {
+  gscUpload() {
+    if (!GH.cfg().ok) { needGitHub('upload the file'); return; }
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = '.html';
+    inp.onchange = async () => { const f = inp.files[0]; if (!f) return;
+      if (!/^google[\w-]+\.html$/.test(f.name)) { toast('That is not the Google verification file (it starts with “google” and ends with .html).', 6000); return; }
+      try { toast('Uploading…', 30000); await GH.put(f.name, await fileB64(f), 'Google Search Console verification'); toast('Uploaded. Wait 2 minutes, then tap Verify in Search Console.', 6000); } catch (e) { toast(e.message, 6000); } };
+    inp.click();
+  },
+  copyRules() { navigator.clipboard.writeText(fbRules()).then(() => toast('Rules copied — paste them in Firebase → Firestore → Rules'), () => toast('Copy blocked: select the text and copy it')); },
+  async fbApprove(t) {
+    const e = t.dataset.e, r = (FB.regs || []).find(x => x.id === e) || {};
+    try { await FB.db.doc('roster/' + e).set({ name: r.name || '', roll: r.roll || '', course: r.course || '', t: new Date().toISOString() }); await FB.db.doc('registrations/' + e).delete(); toast('Approved ' + e); fbAdminLists(); }
+    catch (er) { toast(er.message, 6000); }
+  },
+  fbReject(t) { const e = t.dataset.e; confirmBox(`Reject the registration from ${esc(e)}?`, async () => { try { await FB.db.doc('registrations/' + e).delete(); fbAdminLists(); } catch (er) { toast(er.message); } }, 'Reject'); },
+  fbRemove(t) { const e = t.dataset.e; confirmBox(`Remove ${esc(e)}? They lose access to course material.`, async () => { try { await FB.db.doc('roster/' + e).delete(); fbAdminLists(); } catch (er) { toast(er.message); } }, 'Remove'); },
+  async fbMigrate() {
+    if (!(FB.on && FB.user && FB.user.inst)) { toast('Sign in with Google first'); return; }
+    try {
+      const list = (SITE.students || []).map(x => x.toLowerCase()).filter(x => x !== 'student@iitbbs.ac.in');
+      for (const e of list) await FB.db.doc('roster/' + e).set({ name: '', roll: '', course: '', t: new Date().toISOString() });
+      SITE.students = []; dirty(); toast(`${list.length} students moved. Publishing…`, 4000);
+      await publish();
+    } catch (er) { toast(er.message, 6000); }
+  },
+  async approve() {
     const found = ($('#approveTa').value.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || []).map(e => e.toLowerCase());
     if (!found.length) { toast('No email addresses found in that text'); return; }
+    if (fbCfg()) {
+      if (!(FB.on && FB.user && FB.user.inst)) { toast('Sign in with Google as the instructor first'); return; }
+      try { for (const e of new Set(found)) await FB.db.doc('roster/' + e).set({ name: '', roll: '', course: '', t: new Date().toISOString() }, { merge: true });
+        $('#approveTa').value = ''; toast(`Approved ${new Set(found).size} student(s)`); fbAdminLists(); } catch (er) { toast(er.message, 6000); }
+      return;
+    }
     const have = new Set((SITE.students || []).map(e => e.toLowerCase()));
     const fresh = [...new Set(found)].filter(e => !have.has(e));
     SITE.students = [...(SITE.students || []), ...fresh]; dirty(); renderAdmin();
@@ -1577,6 +1897,7 @@ function adminSection() {
       <p class="muted">Visitors can still switch between light and dark mode with the moon button.</p>`;
 
     case 'profile': return `<h2>Profile &amp; home page</h2>
+      ${F('Your photo', s, 'photo', 'text', { upload: 'image/*', ph: 'Upload a square, professional photo', help: 'Shown as a circle above your name.' })}
       ${F('Your name', s, 'name')}${F('Line above your name', s, 'headline')}
       ${F('Introduction', s, 'intro', 'textarea', { help: 'Wrap words in **double stars** to make them bold.' })}
       ${F('Keywords (one per line)', s, 'keywords', 'lines', { rows: 5 })}
@@ -1586,7 +1907,30 @@ function adminSection() {
       <div class="three">${F('Institute', s, 'institute')}${F('Focus', s, 'focus')}${F('Advisor', s, 'advisor')}</div>
       <h3>Contact</h3><div class="two">${F('Email', s, 'email')}${F('CV (PDF)', s, 'cv', 'text', { upload: '.pdf', ph: 'Upload your CV' })}</div>
       ${F('Address', s, 'address')}
-      <div class="two">${F('Google Scholar link', s.links, 'scholar')}${F('IEEE Xplore link', s.links, 'ieee')}${F('ORCID link', s.links, 'orcid')}${F('LinkedIn link', s.links, 'linkedin')}</div>`;
+      <div class="two">${F('Google Scholar link', s.links, 'scholar')}${F('IEEE Xplore link', s.links, 'ieee')}${F('ORCID link', s.links, 'orcid')}${F('LinkedIn link', s.links, 'linkedin')}</div>
+      <h3>Contact form</h3>
+      <div class="card" style="margin-bottom:12px"><ol class="steps" style="margin:0"><li>Sign up free at <a href="https://formspree.io" target="_blank" rel="noopener">formspree.io</a> with ${esc(s.email)}.</li><li><b>+ New form</b> → name it “Website”.</li><li>Copy the form link (looks like <span class="mono">https://formspree.io/f/abcdwxyz</span>) and paste it below. Messages arrive in your email.</li></ol></div>
+      ${F('Formspree form link', s, 'formspree', 'text', { ph: 'https://formspree.io/f/…', help: 'Leave empty to hide the contact form.' })}`;
+
+    case 'seo': return `<h2>Google search</h2>
+      <p class="lead">Your site already has a search-friendly title and description, a share preview picture, and a sitemap. Registering it with Google Search Console helps Google list it when people search your name.</p>
+      <div class="card"><ol class="steps" style="margin:0">
+        <li>Open <a href="https://search.google.com/search-console" target="_blank" rel="noopener">Google Search Console</a> → <b>Add property</b> → choose <b>URL prefix</b> → type <span class="mono">https://ajitpatra861-creator.github.io/</span> → Continue.</li>
+        <li>Under <b>HTML file</b>, download the file (named like <span class="mono">google1234abcd.html</span>).</li>
+        <li>Tap <b>Upload verification file</b> below and pick that file. Wait 2 minutes, then tap <b>Verify</b> in Search Console.</li>
+        <li>In Search Console, open <b>Sitemaps</b>, type <span class="mono">sitemap.xml</span> and tap <b>Submit</b>.</li></ol>
+      <p style="margin:14px 0 0"><button class="btn primary" data-a="gscUpload">Upload verification file</button></p></div>
+      <p class="muted" style="margin-top:14px">Google usually starts showing a new site within a few days to a few weeks.</p>`;
+
+    case 'stats': return `<h2>Visitors</h2>
+      <p class="lead">See how many people visit and which pages they open, with GoatCounter. It's free for personal sites and doesn't track people or use cookies.</p>
+      <div class="card" style="margin-bottom:14px"><ol class="steps" style="margin:0">
+        <li>Open <a href="https://www.goatcounter.com/signup" target="_blank" rel="noopener">goatcounter.com/signup</a>.</li>
+        <li>Choose a <b>code</b>, e.g. <span class="mono">ajitpatra</span> (your dashboard will be ajitpatra.goatcounter.com), add your email and a password, and sign up.</li>
+        <li>Type the same code below and Publish.</li></ol></div>
+      ${F('GoatCounter code', s, 'goatcounter', 'text', { ph: 'ajitpatra' })}
+      ${s.goatcounter ? `<a class="btn primary" href="https://${esc(s.goatcounter)}.goatcounter.com" target="_blank" rel="noopener">Open my visitor dashboard</a>` : ''}
+      <p class="muted" style="margin-top:14px">Your own visits to the Admin page are not counted.</p>`;
 
     case 'research': return `<h2>Research themes</h2><p class="muted">Cards in the Research section.</p>` +
       listUI(s.research, r => `<div class="two">${F('Symbol (short)', r, 'sym')}${F('Title', r, 'title')}</div>${F('Description', r, 'text', 'textarea')}`,
@@ -1594,7 +1938,7 @@ function adminSection() {
 
     case 'pubs': return `<h2>Publications</h2>` +
       listUI(s.publications, p => `${F('Title', p, 'title')}<div class="three">${F('Type', p, 'type', 'select', { options: [['journal', 'Journal'], ['conference', 'Conference'], ['other', 'Other']] })}${F('Year', p, 'year')}${F('Status (e.g. Accepted)', p, 'status')}</div>
-        ${F('Authors', p, 'authors')}${F('Journal / conference', p, 'venue')}${F('Link (DOI or PDF)', p, 'link', 'text', { upload: '.pdf' })}`,
+        ${F('Authors (separate with commas)', p, 'authors')}${F('Journal / conference', p, 'venue')}<div class="two">${F('DOI (e.g. 10.1109/…)', p, 'doi')}${F('Link (PDF or paper page)', p, 'link', 'text', { upload: '.pdf' })}</div>`,
         { add: () => ({ type: 'journal', year: String(new Date().getFullYear()), title: '', authors: 'A. K. Patra', venue: '', status: '', link: '' }), addLabel: 'Add publication', name: p => p.title || 'publication' });
 
     case 'exp': return `<h2>Experience &amp; education</h2>` +
@@ -1657,7 +2001,17 @@ function adminSection() {
           { add: () => ({ image: '', caption: '', album: albums[0] || 'Lab' }), addLabel: 'Add by link', name: g => g.caption || 'photo' });
     }
 
-    case 'students': return `<h2>Students &amp; registration</h2>
+    case 'students': if (fbCfg()) return `<h2>Students &amp; registration</h2>
+      ${F('Only approved students can see lectures, notes, quizzes and assignments', s, 'requireLogin', 'check')}
+      <p class="muted">Students register on the <a href="#register">Register page</a> with their Google account. Approve them here; it takes effect immediately, no Publish needed.</p>
+      <h3>Waiting for approval <span id="pendCount"></span></h3><div id="pendList"><p class="faint">Loading…</p></div>
+      <h3>Approve by email</h3><p class="muted">Paste one or more email addresses (any format).</p>
+      <div class="fld"><textarea id="approveTa" rows="3" placeholder="Paste emails here"></textarea></div><button class="btn primary" data-a="approve">Approve</button>
+      <h3>Approved students <span id="rosCount"></span></h3><div id="rosList"><p class="faint">Loading…</p></div>
+      <h3>Other access</h3>
+      ${F('Also let in anyone whose email ends with', s, 'allowedDomain', 'text', { ph: 'leave empty for approved students only', help: 'If you change this, also copy the new rules from <b>Secure sign-in</b> into Firebase.' })}
+      ${F('Your email (instructor; must be the Google account you sign in with)', s, 'instructorEmail')}`;
+      return `<h2>Students &amp; registration</h2>
       ${F('Only signed-in students can see lectures, notes, quizzes and assignments', s, 'requireLogin', 'check')}
 
       <h3>1. Registration form</h3>
@@ -1680,6 +2034,30 @@ function adminSection() {
       ${F('Also let in anyone whose email ends with', s, 'allowedDomain', 'text', { ph: 'leave empty for approved students only', help: 'If you fill this (e.g. iitbbs.ac.in), every student with that email can sign in without approval. <b>Leave it empty</b> if only approved students should get in.' })}
       ${F('Your email (signs in as instructor)', s, 'instructorEmail')}
       <div class="note">Sign-in is a simple check for now: it keeps casual visitors out but is not secure, and files you upload can be opened by anyone with the link. Keep exam papers off the site.</div>`;
+
+    case 'secure': {
+      const on = !!fbCfg(), u = FB.user;
+      return `<h2>Secure sign-in</h2>
+      <p class="lead">Real Google sign-in for students. Lecture videos, notes, documents, quizzes and meeting links become visible only to approved students, the student list stays private, and Q&amp;A is shared between all students. Free (Firebase Spark plan; no card needed).</p>
+      <p>Status: ${!on ? '<span class="status-bad">Not set up</span> — the simple sign-in is in use.' : !FB.on ? '<span class="status-bad">Set up, but Firebase did not load</span>. Check the settings below and reload the page.' : u && u.inst ? `<span class="status-ok">Active ✓</span> — signed in as ${esc(u.email)}` : `<span class="chip warn">Active</span> — sign in as the instructor to manage it.`}</p>
+      ${on && FB.on && !(u && u.inst) ? `<p><button class="btn primary" onclick="fbSignIn()">${G_ICON} Sign in with Google (${esc(SITE.instructorEmail)})</button></p>` : ''}
+      <div class="card" style="margin:16px 0"><h3 style="margin-top:0">One-time setup (about 20 minutes)</h3>
+      <ol class="steps">
+        <li>Open <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> (sign in as ${esc(SITE.instructorEmail)}) → <b>Create a project</b> → name it <i>ajit-website</i> → turn <b>off</b> Google Analytics → <b>Create</b>.</li>
+        <li>Left menu <b>Build → Authentication</b> → <b>Get started</b> → <b>Google</b> → <b>Enable</b> → pick your email as support email → <b>Save</b>.</li>
+        <li>Still in Authentication: <b>Settings</b> tab → <b>Authorized domains</b> → <b>Add domain</b> → <span class="mono">${esc(location.hostname && location.hostname.includes('.') ? location.hostname : 'ajitpatra861-creator.github.io')}</span>.</li>
+        <li><b>Build → Firestore Database</b> → <b>Create database</b> → location <b>asia-south1 (Mumbai)</b> → <b>Start in production mode</b> → Create.</li>
+        <li>Firestore <b>Rules</b> tab → delete everything → paste the rules below (use <b>Copy rules</b>) → <b>Publish</b>.</li>
+        <li>Gear icon → <b>Project settings</b> → scroll to <b>Your apps</b> → the <b>&lt;/&gt;</b> (Web) icon → nickname <i>website</i> → <b>Register app</b> → copy the <span class="mono">firebaseConfig</span> block and paste it in the box below.</li>
+        <li><b>Reload this page</b>, come back here and tap <b>Sign in with Google</b>.</li>
+        <li>Tap <b>Move students &amp; course content</b>. This publishes your site in the secure format.</li>
+      </ol>
+      <div class="note">Don't turn on Firebase Storage: it needs a paid plan. Your files stay on GitHub, and their links are only shown to approved students.</div></div>
+      ${F('Firebase config (paste the whole firebaseConfig block)', s, 'firebase', 'textarea', { rows: 6, ph: 'const firebaseConfig = {\n  apiKey: "…",\n  authDomain: "…",\n  projectId: "…",\n  …\n};' })}
+      <h3>Firestore rules</h3><pre class="cheat" style="white-space:pre-wrap;font-size:.76rem;max-height:220px;overflow:auto" id="rulesBox">${esc(fbRules())}</pre>
+      <button class="btn" data-a="copyRules">Copy rules</button>
+      ${on && FB.on && u && u.inst ? `<h3>Move to secure storage</h3><p class="muted">Copies your current student list into Firebase and publishes the site with course content kept private.</p><button class="btn primary" data-a="fbMigrate">Move students &amp; course content</button>` : ''}`;
+    }
 
     case 'github': return `<h2>GitHub connection</h2>
       <p>Status: ${gh.ok ? `<span class="status-ok">Connected ✓</span> to <span class="mono">${esc(gh.owner)}/${esc(gh.repo)}</span> (branch ${esc(gh.branch)})` : '<span class="status-bad">Not connected</span>'}</p>
@@ -1798,7 +2176,10 @@ function renderAdmin(scrollTop) {
   if (!A.on) return;
   B = {}; LISTS = {};
   const p = $('#apanel'); if (!p) return;
-  p.innerHTML = adminSection();
+  const gated = fbCfg() && !(FB.on && FB.user && FB.user.inst) && !hasDraft() && !['secure', 'github', 'backup', 'start'].includes(A.sec);
+  p.innerHTML = gated ? `<h2>Sign in as the instructor</h2><p class="muted">Secure sign-in is switched on, so private course content only loads after you sign in with Google as ${esc(SITE.instructorEmail)}.</p>
+    <button class="btn primary" onclick="fbSignIn()">${G_ICON} Sign in with Google</button>` : adminSection();
+  if (!gated && A.sec === 'students' && fbCfg()) fbInit().then(fbAdminLists);
   document.querySelectorAll('.anav button[data-asec]').forEach(b => b.classList.toggle('on', b.dataset.asec === A.sec));
   if (scrollTop) window.scrollTo(0, 0);
 }
@@ -1816,6 +2197,70 @@ function applySkin() {
   const r = document.documentElement; r.dataset.skin = SITE.theme || 'signature';
   if (SITE.accent) r.style.setProperty('--accent', SITE.accent); else r.style.removeProperty('--accent');
 }
+/* ---------- site search ---------- */
+function searchIndex() {
+  const out = [], plain = t => String(t || '').replace(/<[^>]+>/g, ' ').replace(/[#>*$\\{}()_^]/g, ' ').replace(/\s+/g, ' ');
+  const open = !locked();
+  SITE.courses.forEach(c => {
+    out.push({ ty: 'Course', t: c.title, s: c.blurb, h: '#course-' + c.id });
+    c.lectures.forEach(l => {
+      out.push({ ty: 'Lecture', t: `L${l.n}: ${l.title}`, s: l.summary + (open && l.notes !== 'locked' ? ' ' + plain(l.notes) : ''), h: `#lec-${c.id}-${l.n}`, sub: c.title });
+      (l.docs || []).forEach(d => out.push({ ty: 'Document', t: d.title, s: l.title, h: `#lec-${c.id}-${l.n}`, sub: c.title }));
+    });
+    c.quizzes.forEach(q => out.push({ ty: 'Quiz', t: q.title, s: c.title, h: `#quiz-${c.id}-${q.id}` }));
+  });
+  (SITE.projects || []).forEach(x => out.push({ ty: 'Project', t: x.title, s: x.summary + ' ' + plain(x.body), h: '#project-' + x.id }));
+  visiblePosts().forEach(x => out.push({ ty: 'Blog', t: x.title, s: x.summary + ' ' + x.tags + ' ' + plain(x.body), h: '#post-' + x.id }));
+  (SITE.publications || []).forEach(x => out.push({ ty: 'Paper', t: x.title, s: x.authors + ' ' + x.venue, h: '#publications' }));
+  (SITE.research || []).forEach(x => out.push({ ty: 'Research', t: x.title, s: x.text, h: '#research' }));
+  (SITE.news || []).forEach(x => out.push({ ty: 'News', t: x.text, s: x.date, h: '#home' }));
+  return out;
+}
+function openSearch() {
+  openModal(`<label class="sr" for="srQ">Search</label><input type="text" id="srQ" placeholder="Search lectures, notes, projects, blog…" autocomplete="off" style="font-size:1.05rem;padding:12px 14px">
+    <div class="sr-res" id="srRes"><p class="faint" style="padding:10px 4px;margin:0">Type at least 2 letters.</p></div>`, true);
+  const idx = searchIndex(), q = $('#srQ'); let hl = 0, hits = [];
+  const draw = () => {
+    const w = q.value.toLowerCase().split(/\s+/).filter(Boolean);
+    if (q.value.trim().length < 2) { $('#srRes').innerHTML = '<p class="faint" style="padding:10px 4px;margin:0">Type at least 2 letters.</p>'; hits = []; return; }
+    hits = idx.map(x => { const T = x.t.toLowerCase(), S = (x.s || '').toLowerCase(); let sc = 0;
+        for (const k of w) { if (T.includes(k)) sc += 3; else if (S.includes(k)) sc += 1; else return null; } return { x, sc }; })
+      .filter(Boolean).sort((a, b) => b.sc - a.sc).slice(0, 20).map(r => r.x);
+    hl = 0;
+    $('#srRes').innerHTML = hits.length ? hits.map((x, i) => {
+      const S = String(x.s || ''), at = S.toLowerCase().indexOf(w[0]), snip = at > 40 ? '…' + S.slice(at - 30, at + 90) : S.slice(0, 110);
+      return `<a href="${x.h}" class="${i === 0 ? 'hl' : ''}" onclick="closeModal()"><span class="ty">${x.ty}${x.sub ? ' · ' + esc(x.sub) : ''}</span><br><b>${esc(x.t)}</b><span class="sn">${esc(snip)}</span></a>`; }).join('')
+      : '<p class="faint" style="padding:10px 4px;margin:0">No results. Try another word.</p>';
+  };
+  q.oninput = draw;
+  q.onkeydown = e => {
+    const as = [...document.querySelectorAll('#srRes a')]; if (!as.length) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); hl = (hl + (e.key === 'ArrowDown' ? 1 : -1) + as.length) % as.length; as.forEach((a, i) => a.classList.toggle('hl', i === hl)); as[hl].scrollIntoView({ block: 'nearest' }); }
+    if (e.key === 'Enter') { e.preventDefault(); closeModal(); location.hash = as[hl].getAttribute('href'); }
+  };
+  q.focus();
+}
+document.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openSearch(); } });
+
+/* ---------- visitor counter (GoatCounter) ---------- */
+function countVisit() {
+  if (!SITE.goatcounter || location.hash.startsWith('#admin')) return;
+  const code = String(SITE.goatcounter).trim().replace(/[^a-z0-9-]/gi, '');
+  const go = () => window.goatcounter && window.goatcounter.count && window.goatcounter.count({ path: '/' + (location.hash || '#home'), title: document.title });
+  if (!countVisit.loaded) {
+    countVisit.loaded = true;
+    const sc = document.createElement('script'); sc.async = true; sc.src = 'https://gc.zgo.at/count.js';
+    sc.dataset.goatcounter = `https://${code}.goatcounter.com/count`; sc.dataset.goatcounterSettings = '{"no_onload": true}';
+    sc.onload = go; document.head.appendChild(sc);
+  } else go();
+}
+
+/* ---------- installable app ---------- */
+let installEvt = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; $('#installLink').style.display = $('#installSep').style.display = 'inline'; });
+function installApp() { if (installEvt) { installEvt.prompt(); installEvt = null; $('#installLink').style.display = $('#installSep').style.display = 'none'; } }
+try { if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.io$|\.[a-z]+$/.test(location.hostname) && !/claude|anthropic/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
+
 function route() {
   applySkin();
   const h = (location.hash || '#home').slice(1), p = h.split('-');
@@ -1825,7 +2270,7 @@ function route() {
     case 'about': case 'research': case 'publications': case 'contact':
       html = pageHome(); after = () => { const s = $('#s-' + p[0]); if (s) s.scrollIntoView(); }; break;
     case 'teaching': html = pageTeaching(); break;
-    case 'register': html = pageRegister(); nav = 'teaching'; break;
+    case 'register': html = pageRegister(); nav = 'teaching'; after = bindRegister; break;
     case 'projects': html = pageProjects(); break;
     case 'project': html = pageProject(p.slice(1).join('-')); nav = 'projects'; break;
     case 'blog': html = pageBlog(); break;
@@ -1841,6 +2286,7 @@ function route() {
   }
   app.innerHTML = html;
   if (!['about', 'research', 'publications', 'contact'].includes(p[0])) window.scrollTo(0, 0);
+  bindContact();
   if ($('#pubTabs')) { renderPubs('all'); $('#pubTabs').onclick = e => { if (e.target.dataset.f) renderPubs(e.target.dataset.f); }; }
   const v = $('#vid'); if (v) v.onclick = () => { v.outerHTML = `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.dataset.yt)}?autoplay=1&rel=0" title="Lecture video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`; };
   after && after();
@@ -1848,6 +2294,7 @@ function route() {
   $('#nav').classList.remove('open');
   $('#updated').textContent = 'Last updated ' + (SITE.updated || '');
   updateDraftBar();
+  countVisit();
   if (!A.on) typeset(app);
 }
 setInterval(() => document.querySelectorAll('[data-cd]').forEach(el => el.textContent = countdown(el.dataset.cd)), 30000);
@@ -1858,6 +2305,7 @@ window.addEventListener('hashchange', route);
   const d = store.get('draft', null);
   SITE = normalize(d ? d : await loadPublished());
   route();
+  if (fbCfg()) { await fbInit(); renderUser(); route(); }
 })();
 
 </script>
