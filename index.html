@@ -64,7 +64,7 @@ button{font:inherit;cursor:pointer}
 /* ---------- header ---------- */
 header.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:18px;height:64px}
-.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-family:var(--serif);font-weight:600;font-size:1.08rem}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap;color:var(--ink);font-family:var(--serif);font-weight:600;font-size:1.08rem}
 .brand:hover{text-decoration:none}
 .mark{width:34px;height:34px;border-radius:9px;background:var(--navy);color:var(--bg);display:grid;place-items:center;font:600 .9rem var(--mono)}
 nav.main{display:flex;gap:2px;margin-left:auto}
@@ -213,6 +213,7 @@ pre.cite{white-space:pre-wrap;word-break:break-word;background:var(--surface-2);
 .sr-res .sn{font-size:.86rem;color:var(--ink-3);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sm-only{display:none}
 @media (max-width:520px){.lg-only{display:none}.sm-only{display:inline}}
+@media (max-width:1280px) and (min-width:1081px){nav.main a{padding:7px 8px;font-size:.9rem}.top .wrap{gap:12px}}
 .skins{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:10px 0 18px}
 .skin{border:2px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);text-align:left;color:var(--ink)}
 .skin.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
@@ -468,7 +469,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <footer>
   <div class="wrap">
     <span>© 2026 Ajit Kumar Patra · IIT Bhubaneswar</span>
-    <span><span id="updated">Last updated Nov 2026</span> · <a href="javascript:void 0" id="installLink" style="color:var(--ink-3);display:none" onclick="installApp()">Install app</a><span id="installSep" style="display:none"> · </span><a href="#admin" style="color:var(--ink-3)">Admin</a></span>
+    <span><span id="updated">Last updated Nov 2026</span><a href="javascript:void 0" id="installLink" style="color:var(--ink-3);display:none" onclick="installApp()"> · Install app</a><span id="adminLink" style="display:none"> · <a href="#admin" style="color:var(--ink-3)">Admin</a></span></span>
   </div>
 </footer>
 
@@ -1661,13 +1662,17 @@ function needGitHub(what) {
 }
 
 /* ---------- drafts & publishing ---------- */
-const hasDraft = () => !!store.get('draft', null);
+const hasDraft = () => adminIn() && !!store.get('draft', null);
 let draftTimer;
 function dirty() {
   clearTimeout(draftTimer);
   draftTimer = setTimeout(() => { store.set('draft', SITE); updateDraftBar(); }, 250);
 }
-function updateDraftBar() { $('#draftBar').classList.toggle('show', hasDraft() && location.hash !== '#admin'); }
+const adminIn = () => { const c = GH.cfg(); return !!(c.ok && c.token); };
+function updateDraftBar() {
+  $('#draftBar').classList.toggle('show', adminIn() && hasDraft() && location.hash !== '#admin');
+  const l = $('#adminLink'); if (l) l.style.display = adminIn() ? 'inline' : 'none';
+}
 async function publish() {
   clearTimeout(draftTimer); store.set('draft', SITE);
   if (!GH.cfg().ok) { needGitHub('publish'); return; }
@@ -1785,6 +1790,11 @@ const ADMIN_ACTIONS = {
       if (!hasDraft()) { SITE = normalize(await loadPublished()); }
       toast('Connected to GitHub ✓', 3000); renderAdmin();
     } catch (e) { toast(e.message, 7000); renderAdmin(); }
+  },
+  adminOut() {
+    confirmBox('You will need your GitHub key to open Admin again on this device. Unpublished changes stay saved on this device.', () => {
+      const c = GH.cfg(); GH.save({ owner: c.owner, repo: c.repo }); A.on = false; location.hash = '#home'; route(); toast('Signed out of Admin');
+    }, 'Sign out');
   },
   disconnect() { confirmBox('This removes the GitHub key from this browser. Your website is not affected.', () => { GH.save({ owner: GH.cfg().owner, repo: GH.cfg().repo }); renderAdmin(); }, 'Disconnect'); },
   back() { A.edit = null; renderAdmin(true); },
@@ -2167,12 +2177,38 @@ function adminCourses() {
 }
 
 function pageAdmin() {
+  if (!adminIn()) return `<div class="wrap" style="max-width:460px;padding:70px 22px 110px">
+    <div class="card" style="padding:32px"><h2 style="margin-bottom:6px">Admin sign-in</h2>
+    <p class="muted">Only the site owner can open this page.</p>
+    <form id="adminLogin" autocomplete="on">
+      <input type="text" name="username" value="${esc(GH.cfg().owner)}" autocomplete="username" style="display:none" readonly>
+      <div class="fld"><label for="alKey">Admin key (your GitHub key)</label><input type="password" id="alKey" name="password" autocomplete="current-password" required placeholder="github_pat_…"></div>
+      <button class="btn primary" style="width:100%;justify-content:center">Sign in</button>
+    </form>
+    <details style="margin-top:18px;font-size:.9rem"><summary style="cursor:pointer;color:var(--ink-2)">Lost the key, or using a new device?</summary>
+      <p class="muted" style="margin:10px 0 0">Create a new key at <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Fine-grained tokens</a>: repository <span class="mono">${esc(GH.cfg().repo)}</span>, permission <b>Contents: Read and write</b>. Paste it above. Let your browser save it as a password so you don't have to do this again.</p></details>
+    </div></div>`;
   return `<div class="wrap admin">
     <nav class="anav">${SECS.map(([k, n]) => k === '-' ? '<div class="sep"></div>' : `<button data-asec="${k}" class="${A.sec === k ? 'on' : ''}">${n}</button>`).join('')}
-      <div class="sep"></div><button data-a="publish" style="background:var(--accent);color:var(--accent-ink)">Publish to website</button></nav>
+      <div class="sep"></div><button data-a="publish" style="background:var(--accent);color:var(--accent-ink)">Publish to website</button>
+      <button data-a="adminOut" style="margin-top:6px">Sign out of Admin</button></nav>
     <div class="apanel" id="apanel"></div></div>`;
 }
+function bindAdminLogin() {
+  const f = $('#adminLogin'); if (!f) return;
+  $('#alKey').focus();
+  f.onsubmit = async e => {
+    e.preventDefault(); const c = GH.cfg(); c.token = $('#alKey').value.trim(); c.ok = false; GH.save(c);
+    toast('Checking…', 30000);
+    try {
+      await GH.connect();
+      if (!hasDraft()) SITE = normalize(await loadPublished());
+      toast('Welcome back', 2500); route();
+    } catch (er) { const c2 = GH.cfg(); c2.token = ''; c2.ok = false; GH.save(c2); toast(er.message, 7000); }
+  };
+}
 function renderAdmin(scrollTop) {
+  if (!adminIn()) { route(); return; }
   if (!A.on) return;
   B = {}; LISTS = {};
   const p = $('#apanel'); if (!p) return;
@@ -2257,8 +2293,8 @@ function countVisit() {
 
 /* ---------- installable app ---------- */
 let installEvt = null;
-window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; $('#installLink').style.display = $('#installSep').style.display = 'inline'; });
-function installApp() { if (installEvt) { installEvt.prompt(); installEvt = null; $('#installLink').style.display = $('#installSep').style.display = 'none'; } }
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; $('#installLink').style.display = 'inline'; });
+function installApp() { if (installEvt) { installEvt.prompt(); installEvt = null; $('#installLink').style.display = 'none'; } }
 try { if ('serviceWorker' in navigator && location.protocol === 'https:' && /github\.io$|\.[a-z]+$/.test(location.hostname) && !/claude|anthropic/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(() => {}); } catch (e) {}
 
 function route() {
@@ -2281,7 +2317,7 @@ function route() {
     case 'course': { const c = courseById(p[1]); html = c ? pageCourse(c, p[2] || 'lectures') : notFound(); nav = 'teaching'; break; }
     case 'lec': { const c = courseById(p[1]); html = c ? pageLecture(c, +p[2]) : notFound(); nav = 'teaching'; if (c) after = () => renderQA(c, +p[2]); break; }
     case 'quiz': { const c = courseById(p[1]); html = c ? pageQuiz(c, p[2]) : notFound(); nav = 'teaching'; if (c) after = () => bindQuiz(c, p[2]); break; }
-    case 'admin': html = pageAdmin(); after = () => renderAdmin(); break;
+    case 'admin': html = pageAdmin(); after = () => adminIn() ? renderAdmin() : bindAdminLogin(); break;
     default: html = pageHome(); nav = 'home';
   }
   app.innerHTML = html;
@@ -2302,7 +2338,7 @@ window.addEventListener('hashchange', route);
 
 (async function init() {
   renderUser();
-  const d = store.get('draft', null);
+  const d = adminIn() ? store.get('draft', null) : null;
   SITE = normalize(d ? d : await loadPublished());
   route();
   if (fbCfg()) { await fbInit(); renderUser(); route(); }
