@@ -448,6 +448,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <a href="#blog" data-nav="blog">Blog</a>
       <a href="#gallery" data-nav="gallery">Gallery</a>
       <a href="#contact" data-nav="contact">Contact</a>
+      <a href="#admin" data-nav="admin" id="navAdmin" style="display:none">Admin</a>
     </nav>
     <div class="tools">
       <span id="userSlot"></span>
@@ -1672,6 +1673,7 @@ const adminIn = () => { const c = GH.cfg(); return !!(c.ok && c.token); };
 function updateDraftBar() {
   $('#draftBar').classList.toggle('show', adminIn() && hasDraft() && location.hash !== '#admin');
   const l = $('#adminLink'); if (l) l.style.display = adminIn() ? 'inline' : 'none';
+  const n = $('#navAdmin'); if (n) n.style.display = adminIn() ? '' : 'none';
 }
 async function publish() {
   clearTimeout(draftTimer); store.set('draft', SITE);
