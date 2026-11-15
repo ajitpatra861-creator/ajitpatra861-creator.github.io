@@ -413,7 +413,7 @@
     }
   ],
   "registerForm": "",
-  "theme": "academic",
+  "theme": "ocean",
   "accent": "",
   "projects": [
     {
@@ -460,5 +460,5 @@
   "firebase": "",
   "photo": "",
   "formspree": "",
-  "goatcounter": "akp"
+  "goatcounter": ""
 }
