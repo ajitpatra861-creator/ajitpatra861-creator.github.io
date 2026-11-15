@@ -59,7 +59,7 @@ nav.main a.on{color:var(--ink);background:var(--surface-2)}
 .icon-btn{width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center}
 .icon-btn:hover{border-color:var(--ink-3)}
 .menu-btn{display:none}
-@media (max-width:880px){
+@media (max-width:1080px){
   nav.main{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 16px;box-shadow:var(--shadow)}
   nav.main.open{display:flex}
   .menu-btn{display:grid}
@@ -147,6 +147,43 @@ a.card:hover,.rcard:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0
 @keyframes draw{to{stroke-dashoffset:0}} @keyframes fade{to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.scope .trace{animation:none;stroke-dashoffset:0}.scope .mk{animation:none;opacity:1}}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* ---------- projects, blog, gallery ---------- */
+.proj{padding:0;overflow:hidden;display:flex;flex-direction:column;color:var(--ink)}
+.proj:hover{text-decoration:none}
+.proj .img{aspect-ratio:16/9;background:var(--surface-2) center/cover no-repeat;display:grid;place-items:center;border-bottom:1px solid var(--line)}
+.proj .img svg{width:52%;opacity:.85}
+.proj .in{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.proj h3{margin:0}
+.meta-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.86rem;color:var(--ink-3)}
+.detail-hero{aspect-ratio:21/9;border-radius:var(--radius);background:var(--surface-2) center/cover no-repeat;margin:6px 0 28px;border:1px solid var(--line)}
+.facts-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin:0 0 26px}
+.facts-list div{border-top:1px solid var(--line);padding-top:10px}
+.facts-list b{display:block;font-size:.84rem;color:var(--ink-3);font-weight:600}
+.article{max-width:720px}
+.article .notes{font-size:1.06rem;line-height:1.75}
+.article .notes h3{font-size:1.55rem;margin-top:1.8em}.article .notes h4{font-size:1.2rem}
+.post-row{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:26px 0;border-top:1px solid var(--line);color:var(--ink)}
+.post-row:first-child{border-top:0}
+.post-row:hover{text-decoration:none}.post-row:hover h3{color:var(--accent)}
+.post-row .img{aspect-ratio:4/3;border-radius:12px;background:var(--surface-2) center/cover no-repeat;display:grid;place-items:center;border:1px solid var(--line)}
+.post-row .img svg{width:70%}
+@media (max-width:640px){.post-row{grid-template-columns:1fr}}
+.gal{columns:3 250px;column-gap:14px}
+.gal button{display:block;width:100%;margin:0 0 14px;padding:0;border:0;border-radius:12px;overflow:hidden;background:var(--surface-2);break-inside:avoid;cursor:zoom-in;position:relative}
+.gal img{width:100%;display:block;transition:transform .4s}
+.gal button:hover img{transform:scale(1.03)}
+.gal .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;color:#fff;font-size:.86rem;text-align:left;background:linear-gradient(transparent,rgba(0,0,0,.6));opacity:0;transition:opacity .2s}
+.gal button:hover .cap,.gal button:focus-visible .cap{opacity:1}
+.lb{position:fixed;inset:0;background:rgba(6,9,18,.94);display:none;z-index:85;place-items:center;padding:20px}
+.lb.open{display:grid}
+.lb figure{margin:0;text-align:center}
+.lb img{max-width:88vw;max-height:80vh;border-radius:8px;display:block;margin:0 auto}
+.lb figcaption{color:#e9e5dc;margin-top:12px;font-size:.95rem}
+.lb-x,.lb-nav{position:absolute;background:rgba(255,255,255,.1);color:#fff;border:0;border-radius:50%;width:46px;height:46px;font-size:1.5rem;display:grid;place-items:center}
+.lb-x{top:18px;right:18px;font-size:1.1rem}.lb-prev{left:18px;top:50%}.lb-next{right:18px;top:50%}
+.lb-x:hover,.lb-nav:hover{background:rgba(255,255,255,.2)}
+.thumb{width:72px;height:54px;border-radius:8px;background:var(--surface-2) center/cover no-repeat;border:1px solid var(--line);flex:none}
+.teach-links{display:flex;gap:10px;flex-wrap:wrap;margin:-6px 0 26px}
 .skins{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:10px 0 18px}
 .skin{border:2px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);text-align:left;color:var(--ink)}
 .skin.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
@@ -375,10 +412,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     <nav class="main" id="nav">
       <a href="#home" data-nav="home">Home</a>
       <a href="#research" data-nav="research">Research</a>
+      <a href="#projects" data-nav="projects">Projects</a>
       <a href="#publications" data-nav="publications">Publications</a>
       <a href="#teaching" data-nav="teaching">Teaching</a>
-      <a href="#live" data-nav="live">Live classes</a>
-      <a href="#library" data-nav="library">Library</a>
+      <a href="#blog" data-nav="blog">Blog</a>
+      <a href="#gallery" data-nav="gallery">Gallery</a>
       <a href="#contact" data-nav="contact">Contact</a>
     </nav>
     <div class="tools">
@@ -404,6 +442,12 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
 <div class="modal-bg" id="modalBg"><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
 <div id="toast" role="status"></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-x" onclick="closeLb()" aria-label="Close">✕</button>
+  <button class="lb-nav lb-prev" onclick="stepLb(-1)" aria-label="Previous photo">‹</button>
+  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button class="lb-nav lb-next" onclick="stepLb(1)" aria-label="Next photo">›</button>
+</div>
 <div id="draftBar"><span>You have unpublished changes</span>
   <button class="btn primary" onclick="publish()">Publish to website</button>
   <button class="btn ghost" onclick="location.hash='#admin'">Admin</button>
@@ -455,6 +499,43 @@ const DEFAULT_SITE = {
     { date: "Nov 2026", text: "Teaching portal launched: lectures, notes, quizzes and live classes." },
     { date: "Oct 2026", text: "Website launched." }
   ],
+
+  projects: [
+    { id: "p1", title: "Triple active bridge converter prototype", status: "Ongoing", period: "2026 – now", role: "PhD research", funding: "",
+      image: "", link: "", sample: true,
+      summary: "A SiC-based hardware prototype used to validate phase-shift modulation, soft-switching and loss models on the bench.",
+      body: String.raw`# Goal
+Build a hardware platform that shows the modulation strategies from simulation working on a real converter, across the full power range.
+
+# What it covers
+- Phase-shift gate generation on a real-time controller
+- Soft-switching (ZVS) checks at light and full load
+- Measured efficiency compared with the loss model
+
+> Photos and results will be added as testing progresses.` },
+    { id: "p2", title: "Sponsored project RP 486", status: "Completed", period: "Jan – Jun 2026", role: "Project Associate-II", funding: "Add funding agency",
+      image: "", link: "", sample: true,
+      summary: "Add a one-line description of the project and your contribution.",
+      body: "" }
+  ],
+  blog: [
+    { id: "b1", title: "Why phase shift controls power in a dual active bridge", date: "2026-11-15", cover: "", tags: "DAB, basics", sample: true, hidden: false,
+      summary: "A short, visual explanation of how the phase shift between two square waves moves power across an inductor.",
+      body: String.raw`A dual active bridge has two full bridges, one on each side of a high-frequency transformer. Each bridge produces a square wave. The only thing that separates them is a series inductance \(L\).
+
+# The key idea
+If both square waves are identical and in phase, the inductor sees no voltage and no current flows. Shift one wave by an angle \(\varphi\), and a voltage appears across the inductor for part of every half-cycle. That drives current, and with it, power.
+
+$$P = \frac{n\,V_1 V_2}{2\pi f_s L}\;\varphi\left(1 - \frac{|\varphi|}{\pi}\right)$$
+
+# What the equation tells us
+- Power flows from the leading bridge to the lagging one.
+- It peaks at \(\varphi = \pi/2\).
+- A smaller \(L\) gives more power for the same shift, but higher peak current.
+
+> In a triple active bridge the same idea applies to every pair of ports, which is why the phase shifts are coupled.` }
+  ],
+  gallery: [],
 
   requireLogin: true,
   allowedDomain: "iitbbs.ac.in",
@@ -627,6 +708,7 @@ const initials = n => String(n || '?').split(/\s+/).map(w => w[0]).join('').slic
 function normalize(s) {
   for (const k in DEFAULT_SITE) if (!(k in s)) s[k] = clone(DEFAULT_SITE[k]);
   s.links = Object.assign({ scholar: '', ieee: '', orcid: '', linkedin: '' }, s.links);
+  ['projects', 'blog', 'gallery'].forEach(k => s[k] = s[k] || []);
   s.courses.forEach(c => {
     ['lectures', 'live', 'quizzes', 'assignments'].forEach(k => c[k] = c[k] || []);
     c.discussion = c.discussion || {};
@@ -846,6 +928,10 @@ function pageHome() {
     </div>
   </div></section>
 
+  ${(SITE.projects || []).length ? `<section class="block"><div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div><div class="eyebrow">Projects</div><h2 style="margin:0">What I'm building</h2></div><a class="btn small" href="#projects">All projects</a></div>
+    <div class="grid g3" style="margin-top:26px">${SITE.projects.slice(0, 3).map(projCard).join('')}</div></div></section>` : ''}
+
   <section class="block" id="s-publications"><div class="wrap">
     <div class="eyebrow">Publications</div><h2>Papers</h2>
     <div class="tabs-row" id="pubTabs">${['all', 'journal', 'conference'].map(t => `<button class="tab ${t === 'all' ? 'on' : ''}" data-f="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join('')}</div>
@@ -862,6 +948,10 @@ function pageHome() {
       <ul class="news">${(SITE.news || []).map(n => `<li><span class="d">${esc(n.date)}</span><span>${inl(n.text)}</span></li>`).join('')}</ul>
     </div>
   </div></section>
+
+  ${visiblePosts().length ? `<section class="block"><div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap"><div><div class="eyebrow">Blog</div><h2 style="margin:0">Recent writing</h2></div><a class="btn small" href="#blog">All posts</a></div>
+    <div style="margin-top:12px">${visiblePosts().slice(0, 2).map(postRow).join('')}</div></div></section>` : ''}
 
   <section class="block" id="s-contact" style="border-bottom:0"><div class="wrap">
     <div class="eyebrow">Contact</div><h2>Get in touch</h2>
@@ -927,12 +1017,83 @@ function tabSvg() {
   </svg>`;
 }
 
+/* ---------- projects ---------- */
+function artSvg(seed) {
+  const sh = 20 + (String(seed).length * 13) % 60;
+  return `<svg viewBox="0 0 240 90" fill="none" stroke-width="2"><path d="M10 25 H60 V65 H110 V25 H160 V65 H210 V25 H230" stroke="var(--accent)"/><path d="M10 65 H${10 + sh} V25 H${60 + sh} V65 H${110 + sh} V25 H${160 + sh} V65 H230" stroke="var(--ink-3)" opacity=".55"/></svg>`;
+}
+const bg = u => u ? ` style="background-image:url('${esc(u)}')"` : '';
+function projCard(p) {
+  return `<a class="card proj" href="#project-${esc(p.id)}"><div class="img"${bg(p.image)}>${p.image ? '' : artSvg(p.title)}</div>
+    <div class="in"><div class="meta-row"><span class="chip ${p.status === 'Ongoing' ? 'ok' : ''}">${esc(p.status)}</span>${p.period ? `<span>${esc(p.period)}</span>` : ''}${p.sample ? '<span class="chip warn">sample</span>' : ''}</div>
+    <h3>${esc(p.title)}</h3><p class="muted" style="margin:0">${inl(p.summary)}</p></div></a>`;
+}
+function pageProjects() {
+  const P = SITE.projects || [];
+  return `<div class="wrap"><div class="page-head"><div class="eyebrow">Projects</div><h1>Projects</h1><p class="lead">Research projects, hardware prototypes and sponsored work.</p></div>
+    ${P.length ? `<div class="grid g2" style="padding-bottom:70px">${P.map(projCard).join('')}</div>` : '<div class="empty" style="margin-bottom:70px">Projects will appear here soon.</div>'}</div>`;
+}
+function pageProject(id) {
+  const p = (SITE.projects || []).find(x => x.id === id); if (!p) return notFound();
+  const facts = [['Status', p.status], ['Period', p.period], ['My role', p.role], ['Funding', p.funding]].filter(f => f[1]);
+  return `<div class="wrap article" style="max-width:860px"><div class="page-head" style="padding-bottom:16px"><div class="crumbs"><a href="#projects">Projects</a></div><h1 style="font-size:clamp(2rem,4vw,2.8rem)">${esc(p.title)}</h1>
+    <p class="lead">${inl(p.summary)}</p></div>
+    ${p.image ? `<div class="detail-hero"${bg(p.image)}></div>` : ''}
+    ${facts.length ? `<div class="facts-list">${facts.map(f => `<div><b>${f[0]}</b>${esc(f[1])}</div>`).join('')}</div>` : ''}
+    ${p.body ? `<div class="notes" id="notes">${mdLite(p.body)}</div>` : ''}
+    ${p.link ? `<p style="margin-top:26px"><a class="btn" href="${esc(p.link)}" target="_blank" rel="noopener">More about this project</a></p>` : ''}
+    <div style="height:70px"></div></div>`;
+}
+
+/* ---------- blog ---------- */
+const visiblePosts = () => (SITE.blog || []).filter(b => !b.hidden).sort((a, b) => String(b.date).localeCompare(String(a.date)));
+const readMins = t => Math.max(1, Math.round(String(t || '').split(/\s+/).length / 200));
+function postRow(b) {
+  return `<a class="post-row" href="#post-${esc(b.id)}"><div class="img"${bg(b.cover)}>${b.cover ? '' : artSvg(b.title)}</div>
+    <div><div class="meta-row" style="margin-bottom:6px"><span>${fmtDate(b.date)}</span><span>${readMins(b.body)} min read</span>${b.sample ? '<span class="chip warn">sample</span>' : ''}</div>
+    <h3 style="font-size:1.4rem;margin-bottom:8px">${esc(b.title)}</h3><p class="muted" style="margin:0">${inl(b.summary)}</p>
+    ${b.tags ? `<div class="tags" style="margin-top:12px">${String(b.tags).split(',').map(t => t.trim()).filter(Boolean).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>` : ''}</div></a>`;
+}
+function pageBlog() {
+  const B = visiblePosts();
+  return `<div class="wrap" style="max-width:960px"><div class="page-head"><div class="eyebrow">Blog</div><h1>Notes and explainers</h1><p class="lead">Short articles on power electronics, research and teaching.</p></div>
+    ${B.length ? `<div style="padding-bottom:70px">${B.map(postRow).join('')}</div>` : '<div class="empty" style="margin-bottom:70px">The first post is on its way.</div>'}</div>`;
+}
+function pagePost(id) {
+  const b = (SITE.blog || []).find(x => x.id === id); if (!b) return notFound();
+  return `<div class="wrap article"><div class="page-head" style="padding-bottom:18px"><div class="crumbs"><a href="#blog">Blog</a></div>
+    <h1 style="font-size:clamp(2rem,4.2vw,2.9rem)">${esc(b.title)}</h1>
+    <div class="meta-row"><span>${esc(SITE.name)}</span><span>${fmtDate(b.date)}</span><span>${readMins(b.body)} min read</span></div></div>
+    ${b.cover ? `<div class="detail-hero"${bg(b.cover)}></div>` : ''}
+    <div class="notes" id="notes">${b.body ? mdLite(b.body) : ''}</div>
+    <p style="margin:40px 0 70px"><a class="btn" href="#blog">All posts</a></p></div>`;
+}
+
+/* ---------- gallery ---------- */
+let LB = { list: [], i: 0 };
+function pageGallery(album) {
+  const G = SITE.gallery || [], albums = [...new Set(G.map(g => g.album).filter(Boolean))];
+  const list = album ? G.filter(g => g.album === album) : G;
+  LB.list = list;
+  return `<div class="wrap"><div class="page-head"><div class="eyebrow">Gallery</div><h1>Gallery</h1><p class="lead">The lab, hardware on the bench, conferences and events.</p></div>
+    ${albums.length > 1 ? `<div class="tabs-row"><a class="tab ${album ? '' : 'on'}" href="#gallery">All</a>${albums.map((a, i) => `<a class="tab ${a === album ? 'on' : ''}" href="#gallery-${i}">${esc(a)}</a>`).join('')}</div>` : ''}
+    ${list.length ? `<div class="gal" style="padding-bottom:70px">${list.map((g, i) => `<button type="button" onclick="openLb(${i})" aria-label="${esc(g.caption || 'Open photo')}"><img src="${esc(g.image)}" alt="${esc(g.caption || '')}" loading="lazy">${g.caption ? `<span class="cap">${esc(g.caption)}</span>` : ''}</button>`).join('')}</div>`
+      : '<div class="empty" style="margin-bottom:70px">Photos will appear here soon.</div>'}</div>`;
+}
+function openLb(i) { LB.i = i; showLb(); $('#lb').classList.add('open'); }
+function showLb() { const g = LB.list[LB.i]; if (!g) return; $('#lbImg').src = g.image; $('#lbImg').alt = g.caption || ''; $('#lbCap').textContent = [g.caption, g.album].filter(Boolean).join(' — '); }
+function stepLb(d) { LB.i = (LB.i + d + LB.list.length) % LB.list.length; showLb(); }
+function closeLb() { $('#lb').classList.remove('open'); }
+$('#lb').addEventListener('click', e => { if (e.target.id === 'lb') closeLb(); });
+document.addEventListener('keydown', e => { if (!$('#lb').classList.contains('open')) return; if (e.key === 'Escape') closeLb(); if (e.key === 'ArrowRight') stepLb(1); if (e.key === 'ArrowLeft') stepLb(-1); });
+
 function pageTeaching() {
   const next = allLive().find(s => liveState(s) !== 'past');
   return `<div class="wrap">
   <div class="page-head"><div class="eyebrow">Teaching</div><h1>Courses &amp; lectures</h1>
     <p class="lead">Recorded lectures, written notes with derivations, quizzes, assignments and live classes.</p>
     ${user() ? '' : `<div class="btn-row" style="margin-bottom:0"><a class="btn primary" href="#register">Register for a course</a><button class="btn" onclick="showSignIn()">Student sign-in</button></div>`}</div>
+  <div class="teach-links"><a class="btn small" href="#live">Live class schedule</a><a class="btn small" href="#library">Document library</a></div>
   ${next ? `<div class="next-live"><div><div class="faint mono" style="font-size:.8rem">NEXT LIVE CLASS · ${esc(next.course.title)}</div><h3>${esc(next.title)}</h3>
     <div class="faint">${fmtDate(next.start, { weekday: 'long', day: 'numeric', month: 'short' })}, ${fmtTime(next.start)} · <span data-cd="${esc(next.start)}">${countdown(next.start)}</span></div></div>
     <a class="btn" href="#live">Live schedule</a></div>` : ''}
@@ -1190,10 +1351,23 @@ function fromB64utf8(b) { const bin = atob(b.replace(/\s/g, '')); return new Tex
 const fileB64 = f => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(f); });
 const fmtSize = b => b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB';
 
+async function shrinkImage(file) {
+  try {
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) return file;
+    if (file.type === 'image/png' && file.size < 1.5e6) return file;
+    const bmp = await createImageBitmap(file), max = 2000, sc = Math.min(1, max / Math.max(bmp.width, bmp.height));
+    if (sc === 1 && file.size < 1.2e6) return file;
+    const c = document.createElement('canvas'); c.width = Math.round(bmp.width * sc); c.height = Math.round(bmp.height * sc);
+    const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(bmp, 0, 0, c.width, c.height);
+    const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', .86));
+    return blob ? new File([blob], file.name.replace(/\.\w+$/, '') + '.jpg', { type: 'image/jpeg' }) : file;
+  } catch (e) { return file; }
+}
 async function uploadFile(file) {
   if (!GH.cfg().ok) { needGitHub('upload files'); return null; }
   if (file.size > 25 * 1048576) { toast('That file is over 25 MB. Put it on Google Drive and paste the share link instead.', 5000); return null; }
-  const name = file.name.replace(/[^\w.\-]+/g, '_'), path = 'files/' + name;
+  file = await shrinkImage(file);
+  const m = file.name.match(/^(.*?)(\.[^.]+)?$/), name = m[1].replace(/[^\w\-]+/g, '_').slice(0, 60) + '-' + Date.now().toString(36) + (m[2] || ''), path = 'files/' + name;
   toast('Uploading ' + name + '…', 60000);
   try { await GH.put(path, await fileB64(file), 'Upload ' + name); toast('Uploaded ' + name + ' (visible on the site in about a minute)', 4000); return path; }
   catch (e) { toast(e.message, 6000); return null; }
@@ -1245,7 +1419,7 @@ async function loadPublished() {
    ===================================================================== */
 const A = { on: false, sec: 'start', cid: null, sub: 'details', edit: null };
 let B = {}, LISTS = {}, bid = 0;
-const SECS = [['start', 'Start here'], ['profile', 'Profile & home'], ['look', 'Look & theme'], ['research', 'Research'], ['pubs', 'Publications'], ['exp', 'Experience & tools'], ['news', 'News'],
+const SECS = [['start', 'Start here'], ['profile', 'Profile & home'], ['look', 'Look & theme'], ['research', 'Research'], ['pubs', 'Publications'], ['exp', 'Experience & tools'], ['news', 'News'], ['projects', 'Projects'], ['blog', 'Blog'], ['gallery', 'Gallery'],
   ['-'], ['courses', 'Courses & lectures'], ['ann', 'Announcements'], ['students', 'Students & registration'], ['-'], ['github', 'GitHub connection'], ['backup', 'Backup']];
 
 function toLocal(iso) { const d = new Date(iso); return iso && !isNaN(d) ? new Date(d.getTime() + 330 * 60000).toISOString().slice(0, 16) : ''; }
@@ -1349,6 +1523,18 @@ const ADMIN_ACTIONS = {
   },
   skin(t) { SITE.theme = t.dataset.k; applySkin(); dirty(); renderAdmin(); },
   clearAccent() { SITE.accent = ''; applySkin(); dirty(); renderAdmin(); },
+  async galUpload() {
+    if (!GH.cfg().ok) { needGitHub('upload photos'); return; }
+    const album = ($('#galAlbum').value || '').trim();
+    const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'image/*'; inp.multiple = true;
+    inp.onchange = async () => {
+      const files = [...inp.files]; let n = 0;
+      for (const f of files) { toast(`Uploading photo ${n + 1} of ${files.length}…`, 60000); const p = await uploadFile(f); if (!p) break;
+        SITE.gallery.push({ image: p, caption: '', album, date: new Date().toISOString().slice(0, 10) }); n++; dirty(); }
+      renderAdmin(); if (n) toast(`${n} photo${n > 1 ? 's' : ''} added. Add captions, then Publish.`, 5000);
+    };
+    inp.click();
+  },
   approve() {
     const found = ($('#approveTa').value.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || []).map(e => e.toLowerCase());
     if (!found.length) { toast('No email addresses found in that text'); return; }
@@ -1424,6 +1610,53 @@ function adminSection() {
       listUI(s.announcements, a => `<div class="two">${F('Date', a, 'date', 'date')}${F('Course', a, 'course', 'select', { options: [['', '— General —'], ...s.courses.map(c => [c.id, c.title])] })}</div>${F('Message', a, 'text', 'textarea', { rows: 2 })}`,
         { add: () => ({ date: new Date().toISOString().slice(0, 10), course: '', text: '' }), addLabel: 'Add announcement', name: a => a.text || 'announcement' });
 
+    case 'projects': {
+      const P = s.projects;
+      if (A.edit !== null && P[A.edit]) { const p = P[A.edit];
+        return `<button class="btn small" data-a="back">← All projects</button><h2 style="margin-top:14px">${esc(p.title)}</h2>
+          ${F('Project title', p, 'title')}
+          <div class="three">${F('Status', p, 'status', 'select', { options: [['Ongoing', 'Ongoing'], ['Completed', 'Completed'], ['Planned', 'Planned']] })}${F('Period', p, 'period', 'text', { ph: 'Jan 2026 – now' })}${F('Your role', p, 'role')}</div>
+          ${F('Funding / sponsor', p, 'funding')}
+          ${F('One-line summary', p, 'summary', 'textarea', { rows: 2 })}
+          ${F('Main picture', p, 'image', 'text', { upload: 'image/*', ph: 'Upload a photo of the hardware, setup or a key figure' })}
+          ${F('Link (paper, report or code)', p, 'link')}
+          ${editorBlock('Full description', p, 'body')}
+          ${F('Show “sample” tag', p, 'sample', 'check')}
+          <a class="btn small" href="#project-${esc(p.id)}">View on site</a>`; }
+      return `<h2>Projects</h2><p class="muted">Shown on the Projects page; the first three also appear on your home page.</p>` +
+        listUI(P, p => `<div style="display:flex;gap:12px;align-items:center"><span class="thumb"${bg(p.image)}></span><div><div class="ttl">${esc(p.title)}</div><div class="faint" style="font-size:.86rem">${esc(p.status)}${p.period ? ' · ' + esc(p.period) : ''}</div></div></div>`,
+          { add: () => ({ id: uid('p'), title: 'New project', status: 'Ongoing', period: '', role: '', funding: '', image: '', link: '', summary: '', body: '', sample: false }),
+            edit: i => { A.edit = i; renderAdmin(true); }, addLabel: 'Add project', name: p => p.title });
+    }
+
+    case 'blog': {
+      const Bl = s.blog;
+      if (A.edit !== null && Bl[A.edit]) { const b = Bl[A.edit];
+        return `<button class="btn small" data-a="back">← All posts</button><h2 style="margin-top:14px">${esc(b.title)}</h2>
+          ${F('Title', b, 'title')}
+          <div class="two">${F('Date', b, 'date', 'date')}${F('Tags (comma separated)', b, 'tags', 'text', { ph: 'DAB, basics' })}</div>
+          ${F('Summary (shown in the list)', b, 'summary', 'textarea', { rows: 2 })}
+          ${F('Cover picture (optional)', b, 'cover', 'text', { upload: 'image/*' })}
+          ${editorBlock('Article', b, 'body')}
+          ${F('Hide this post (draft)', b, 'hidden', 'check')}${F('Show “sample” tag', b, 'sample', 'check')}
+          <a class="btn small" href="#post-${esc(b.id)}">View on site</a>`; }
+      return `<h2>Blog</h2><p class="muted">Newest posts appear first. Tick “Hide this post” to keep a draft off the site.</p>` +
+        listUI(Bl, b => `<div class="ttl">${esc(b.title)}</div><div class="faint" style="font-size:.86rem">${fmtDate(b.date)}${b.hidden ? ' · <span class="chip">hidden</span>' : ''}</div>`,
+          { reorder: false, add: () => ({ id: uid('b'), title: 'New post', date: new Date().toISOString().slice(0, 10), cover: '', tags: '', summary: '', body: '', hidden: true, sample: false }),
+            edit: i => { A.edit = i; renderAdmin(true); }, addLabel: 'Write a post', name: b => b.title });
+    }
+
+    case 'gallery': {
+      const albums = [...new Set(s.gallery.map(g => g.album).filter(Boolean))];
+      return `<h2>Gallery</h2>
+        <div class="card" style="margin-bottom:18px"><b>Add photos</b><p class="muted" style="margin:6px 0 12px">Pick several at once. Big phone photos are shrunk automatically so the site stays fast.</p>
+          <div class="two" style="align-items:end"><div class="fld"><label for="galAlbum">Album for these photos</label><input type="text" id="galAlbum" list="albumList" value="${esc(albums[0] || 'Lab')}"><datalist id="albumList">${['Lab', 'Hardware', 'Conferences', 'Events', ...albums].filter((v, i, a) => a.indexOf(v) === i).map(a => `<option value="${esc(a)}">`).join('')}</datalist></div>
+          <div class="fld"><button type="button" class="btn primary" data-a="galUpload">Choose photos…</button></div></div></div>
+        <p class="muted">${s.gallery.length} photos. Use ↑ ↓ to change the order.</p>` +
+        listUI(s.gallery, g => `<div style="display:flex;gap:12px;align-items:flex-start"><span class="thumb"${bg(g.image)}></span><div style="flex:1"><div class="two">${F('Caption', g, 'caption')}${F('Album', g, 'album')}</div></div></div>`,
+          { add: () => ({ image: '', caption: '', album: albums[0] || 'Lab' }), addLabel: 'Add by link', name: g => g.caption || 'photo' });
+    }
+
     case 'students': return `<h2>Students &amp; registration</h2>
       ${F('Only signed-in students can see lectures, notes, quizzes and assignments', s, 'requireLogin', 'check')}
 
@@ -1474,6 +1707,14 @@ function adminSection() {
   }
   return '';
 }
+function noteBox(obj, key) {
+  return F('', obj, key, 'notes').replace('<div class="fld"><label for="', '<div><label style="display:none" for="').replace(/id="(b\d+)" data-b/, 'id="notesTa" data-b');
+}
+function editorBlock(label, obj, key) {
+  return `<div class="fld"><label for="notesTa">${label}</label>
+    <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap"><button type="button" class="btn small" data-a="insertImg">Insert picture</button><button type="button" class="btn small" data-a="preview">Preview</button></div>
+    ${noteBox(obj, key)}<div id="notesPrev" class="card notes" style="display:none;margin-top:10px"></div>${cheat()}</div>`;
+}
 function cheat() {
   return `<div class="cheat">
     <div><code># Heading</code> &nbsp;a section heading</div>
@@ -1509,7 +1750,7 @@ function adminCourses() {
         ${F('One-line summary', l, 'summary')}
         <div class="fld"><label for="notesTa">Lecture notes</label>
           <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap"><button type="button" class="btn small" data-a="insertImg">Insert picture</button><button type="button" class="btn small" data-a="preview">Preview notes</button></div>
-          ${F('', l, 'notes', 'notes').replace('<div class="fld"><label for="', '<div><label style="display:none" for="').replace(/id="(b\d+)" data-b/, 'id="notesTa" data-b')}
+          ${noteBox(l, 'notes')}
           <div id="notesPrev" class="card notes" style="display:none;margin-top:10px"></div>${cheat()}</div>
         <h3>Documents for this lecture</h3>` +
         listUI(l.docs, d => `<div class="two">${F('Title', d, 'title')}${F('Type', d, 'type', 'select', { options: [['pdf', 'PDF'], ['slides', 'Slides'], ['code', 'Code'], ['image', 'Image'], ['other', 'Other']] })}</div>
@@ -1585,8 +1826,13 @@ function route() {
       html = pageHome(); after = () => { const s = $('#s-' + p[0]); if (s) s.scrollIntoView(); }; break;
     case 'teaching': html = pageTeaching(); break;
     case 'register': html = pageRegister(); nav = 'teaching'; break;
-    case 'live': html = pageLive(); break;
-    case 'library': html = pageLibrary(); after = () => { if ($('#fq')) { ['fq', 'fc', 'ft'].forEach(id => $('#' + id).addEventListener('input', filterDocs)); filterDocs(); } }; break;
+    case 'projects': html = pageProjects(); break;
+    case 'project': html = pageProject(p.slice(1).join('-')); nav = 'projects'; break;
+    case 'blog': html = pageBlog(); break;
+    case 'post': html = pagePost(p.slice(1).join('-')); nav = 'blog'; break;
+    case 'gallery': { const albums = [...new Set((SITE.gallery || []).map(g => g.album).filter(Boolean))]; html = pageGallery(p[1] !== undefined ? albums[+p[1]] : null); break; }
+    case 'live': html = pageLive(); nav = 'teaching'; break;
+    case 'library': nav = 'teaching'; html = pageLibrary(); after = () => { if ($('#fq')) { ['fq', 'fc', 'ft'].forEach(id => $('#' + id).addEventListener('input', filterDocs)); filterDocs(); } }; break;
     case 'course': { const c = courseById(p[1]); html = c ? pageCourse(c, p[2] || 'lectures') : notFound(); nav = 'teaching'; break; }
     case 'lec': { const c = courseById(p[1]); html = c ? pageLecture(c, +p[2]) : notFound(); nav = 'teaching'; if (c) after = () => renderQA(c, +p[2]); break; }
     case 'quiz': { const c = courseById(p[1]); html = c ? pageQuiz(c, p[2]) : notFound(); nav = 'teaching'; if (c) after = () => bindQuiz(c, p[2]); break; }
