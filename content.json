@@ -1,0 +1,415 @@
+{
+  "name": "Ajit Kumar Patra",
+  "email": "ajit.patra861@gmail.com",
+  "headline": "PhD Scholar · Power Electronics · IIT Bhubaneswar",
+  "intro": "I design modulation and optimization strategies for **triple active bridge (TAB)** converters — multiport isolated DC–DC converters for solid-state transformers, EV chargers and DC microgrids.",
+  "keywords": [
+    "triple active bridge",
+    "phase-shift modulation",
+    "zero-voltage switching",
+    "multiport DC conversion",
+    "loss optimization"
+  ],
+  "heroImage": "",
+  "heroCaption": "Fig. 1 — Triple active bridge: three H-bridges linked by a three-winding high-frequency transformer.",
+  "aboutTitle": "One converter, three ports, high efficiency",
+  "about": "My work asks how a single isolated converter can serve three ports efficiently over a wide operating range: choosing phase shifts that keep the switches soft-switched, reduce circulating current and regulate each port independently.",
+  "institute": "IIT Bhubaneswar, School of Electrical and Computer Sciences",
+  "focus": "TAB converters, modulation & optimization",
+  "advisor": "Prof. Name",
+  "cv": "",
+  "address": "School of Electrical and Computer Sciences, IIT Bhubaneswar, Argul, Odisha 752050",
+  "links": {
+    "scholar": "",
+    "ieee": "",
+    "orcid": "",
+    "linkedin": ""
+  },
+  "updated": "Nov 2026",
+  "research": [
+    {
+      "sym": "φ",
+      "title": "Multi-phase-shift control",
+      "text": "Choosing inner and outer phase shifts to reduce RMS current and widen the zero-voltage-switching range."
+    },
+    {
+      "sym": "min P",
+      "title": "Loss-minimizing operation",
+      "text": "Framing converter losses as an objective and finding the best operating point across the power range."
+    },
+    {
+      "sym": "1·2·3",
+      "title": "Decoupled port control",
+      "text": "Managing cross-coupling so each port's power can be regulated independently."
+    }
+  ],
+  "publications": [
+    {
+      "type": "conference",
+      "year": "2026",
+      "title": "Detailed Loss Analysis of Multifunctional DT-QAB Converter as High Power EV Charger and Bipolar DC Voltage Regulator under Asymmetric Loading",
+      "authors": "A. K. Patra, et al.",
+      "venue": "2026 IEEE 12th Power India International Conference (PIICON), Bhubaneswar, Dec 2026",
+      "status": "Accepted",
+      "link": ""
+    }
+  ],
+  "experience": [
+    {
+      "period": "Jun 2026 – now",
+      "title": "PhD, Power Electronics",
+      "place": "IIT Bhubaneswar — triple active bridge converters"
+    },
+    {
+      "period": "Jan – Jun 2026",
+      "title": "Project Associate-II",
+      "place": "IIT Bhubaneswar — project RP 486"
+    },
+    {
+      "period": "20XX – 20XX",
+      "title": "M.Tech, specialization",
+      "place": "Institute"
+    },
+    {
+      "period": "20XX – 20XX",
+      "title": "B.Tech, branch",
+      "place": "Institute"
+    }
+  ],
+  "toolsSim": [
+    "MATLAB/Simulink",
+    "PLECS",
+    "Python",
+    "LTspice"
+  ],
+  "toolsHw": [
+    "TI C2000 DSP",
+    "SiC MOSFETs",
+    "Magnetics design",
+    "PCB layout",
+    "Double-pulse testing"
+  ],
+  "news": [
+    {
+      "date": "Dec 2026",
+      "text": "Presenting the DT-QAB loss-analysis paper at IEEE PIICON 2026, Bhubaneswar."
+    },
+    {
+      "date": "Nov 2026",
+      "text": "Teaching portal launched: lectures, notes, quizzes and live classes."
+    },
+    {
+      "date": "Oct 2026",
+      "text": "Website launched."
+    }
+  ],
+  "requireLogin": true,
+  "allowedDomain": "iitbbs.ac.in",
+  "students": [
+    "student@iitbbs.ac.in"
+  ],
+  "instructorEmail": "ajit.patra861@gmail.com",
+  "announcements": [
+    {
+      "date": "2026-11-15",
+      "course": "pe",
+      "text": "Quiz 1 (buck converter) is open. Attempt it before the next live class."
+    },
+    {
+      "date": "2026-11-12",
+      "course": "pe",
+      "text": "Lecture 3 notes on RCD snubbers are uploaded."
+    }
+  ],
+  "courses": [
+    {
+      "id": "pe",
+      "code": "EE-XXXX",
+      "title": "Power Electronics",
+      "term": "Spring 2027",
+      "role": "Teaching Assistant",
+      "color": "#b4562a",
+      "sample": true,
+      "blurb": "Switching converters from first principles: devices, DC–DC converters, snubbers and design.",
+      "lectures": [
+        {
+          "n": 1,
+          "title": "Introduction and power semiconductor switches",
+          "date": "2026-11-03",
+          "mins": 52,
+          "youtube": "",
+          "summary": "Why switch-mode conversion, ideal vs real switches, diodes, MOSFETs, IGBTs and SiC devices.",
+          "notes": "# Why switch-mode?\nA linear regulator drops the excess voltage across a transistor, so its efficiency can never exceed \\( V_o/V_{in} \\). A switch-mode converter uses switches that are either fully on or fully off, so ideally no power is lost in them.\n\n> An ideal switch has zero voltage when on, zero current when off, and switches instantly. Real devices lose energy in conduction and during each transition.\n\n# Conduction and switching loss\n$$P_{cond} = I_{rms}^2 \\, R_{DS(on)}$$\n$$P_{sw} \\approx \\tfrac{1}{2} V_{DS} I_D \\left(t_r + t_f\\right) f_s$$\nSwitching loss grows linearly with switching frequency, which is why soft switching (ZVS / ZCS) matters at high frequency.",
+          "docs": [
+            {
+              "title": "Lecture 1 slides",
+              "type": "slides",
+              "url": "",
+              "size": "2.1 MB"
+            },
+            {
+              "title": "Device comparison table",
+              "type": "pdf",
+              "url": "",
+              "size": "180 KB"
+            }
+          ]
+        },
+        {
+          "n": 2,
+          "title": "Buck converter: steady-state analysis",
+          "date": "2026-11-07",
+          "mins": 61,
+          "youtube": "",
+          "summary": "Volt-second balance, conversion ratio, inductor ripple and output-voltage ripple.",
+          "notes": "<figure><svg viewBox=\"0 0 440 170\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" font-family=\"IBM Plex Sans\" font-size=\"13\"><path d=\"M40 40 V130\"/><circle cx=\"40\" cy=\"85\" r=\"16\"/><text x=\"34\" y=\"80\" stroke=\"none\" fill=\"currentColor\">+</text><text x=\"35\" y=\"98\" stroke=\"none\" fill=\"currentColor\">−</text><text x=\"6\" y=\"90\" stroke=\"none\" fill=\"currentColor\">V<tspan font-size=\"10\" dy=\"3\">in</tspan></text><path d=\"M40 40 H110\"/><path d=\"M110 40 L135 28\"/><path d=\"M140 40 H190\"/><text x=\"112\" y=\"22\" stroke=\"none\" fill=\"currentColor\">S</text><path d=\"M190 40 c6-12 12-12 18 0 c6-12 12-12 18 0 c6-12 12-12 18 0 c6-12 12-12 18 0\"/><text x=\"210\" y=\"22\" stroke=\"none\" fill=\"currentColor\">L</text><path d=\"M262 40 H380\"/><path d=\"M170 40 V75\"/><path d=\"M158 75 H182\"/><path d=\"M158 95 L170 75 L182 95 Z\"/><path d=\"M170 95 V130\"/><text x=\"132\" y=\"92\" stroke=\"none\" fill=\"currentColor\">D</text><path d=\"M300 40 V78\"/><path d=\"M286 78 H314\"/><path d=\"M286 88 H314\"/><path d=\"M300 88 V130\"/><text x=\"320\" y=\"88\" stroke=\"none\" fill=\"currentColor\">C</text><path d=\"M380 40 V68\"/><rect x=\"370\" y=\"68\" width=\"20\" height=\"36\" rx=\"2\"/><path d=\"M380 104 V130\"/><text x=\"398\" y=\"90\" stroke=\"none\" fill=\"currentColor\">R</text><path d=\"M40 130 H380\"/></svg><figcaption>Buck converter</figcaption></figure>\n\n# Volt-second balance\nIn steady state the average inductor voltage over one switching period is zero. With duty ratio \\(D\\):\n$$\\langle v_L \\rangle = D\\,(V_{in} - V_o) + (1-D)(-V_o) = 0$$\n$$\\Rightarrow \\quad V_o = D\\,V_{in}$$\n\n# Inductor current ripple\nDuring the on-time the inductor sees \\(V_{in}-V_o\\), so its current rises linearly:\n$$\\Delta i_L = \\frac{(V_{in}-V_o)\\,D}{L\\,f_s} = \\frac{V_o\\,(1-D)}{L\\,f_s}$$\n\n# Output voltage ripple\nThe ripple current flows into the capacitor; integrating the charge over half a period gives\n$$\\Delta v_o = \\frac{\\Delta i_L}{8\\,C\\,f_s}$$\n\n> **Design check:** choose \\(L\\) for a ripple of about 20–40% of the load current, then choose \\(C\\) for the allowed \\(\\Delta v_o\\).",
+          "docs": [
+            {
+              "title": "Lecture 2 slides",
+              "type": "slides",
+              "url": "",
+              "size": "1.6 MB"
+            },
+            {
+              "title": "Buck design worked example",
+              "type": "pdf",
+              "url": "",
+              "size": "420 KB"
+            },
+            {
+              "title": "buck_design.m (MATLAB)",
+              "type": "code",
+              "url": "",
+              "size": "3 KB"
+            }
+          ]
+        },
+        {
+          "n": 3,
+          "title": "Snubber circuits: RCD turn-off snubber",
+          "date": "2026-11-11",
+          "mins": 48,
+          "youtube": "",
+          "summary": "Why snubbers, the RCD turn-off snubber, choosing the capacitor and resistor, and snubber loss.",
+          "notes": "# Purpose\nAt turn-off the switch voltage rises while current is still flowing, so the switch carries high power. An RCD snubber diverts the current into a capacitor, slowing the voltage rise.\n\n# Choosing the capacitor\nIf the current falls linearly in time \\(t_f\\) and the capacitor should reach the full voltage \\(V_d\\) just as the current reaches zero:\n$$C_s = \\frac{I_o \\, t_f}{2\\,V_d}$$\n\n# Choosing the resistor\nThe capacitor must discharge through \\(R_s\\) during the minimum on-time. Allowing about \\(2.3\\,R_sC_s\\) (discharge to 10%):\n$$R_s \\le \\frac{t_{on,min}}{2.3\\,C_s}$$\n\n# Snubber loss\n$$P_{R} = \\tfrac{1}{2}\\, C_s V_d^2 \\, f_s$$\n\n> A larger \\(C_s\\) lowers turn-off loss in the switch but raises the loss in \\(R_s\\). The best value balances the two.",
+          "docs": [
+            {
+              "title": "Lecture 3 handwritten notes",
+              "type": "pdf",
+              "url": "",
+              "size": "3.4 MB"
+            }
+          ]
+        }
+      ],
+      "live": [
+        {
+          "title": "Doubt-clearing: buck converter design",
+          "start": "2026-11-20T17:00:00+05:30",
+          "mins": 60,
+          "link": "",
+          "lecture": ""
+        },
+        {
+          "title": "Lecture 4: Boost and buck-boost converters",
+          "start": "2026-11-27T17:00:00+05:30",
+          "mins": 75,
+          "link": "",
+          "lecture": ""
+        },
+        {
+          "title": "Lecture 3: Snubber circuits (live)",
+          "start": "2026-11-11T17:00:00+05:30",
+          "mins": 60,
+          "link": "",
+          "lecture": 3
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "q1",
+          "title": "Quiz 1 — Buck converter",
+          "lecture": 2,
+          "questions": [
+            {
+              "q": "A buck converter has \\(V_{in} = 48\\) V and \\(D = 0.25\\). What is \\(V_o\\) in steady state?",
+              "options": [
+                "6 V",
+                "12 V",
+                "36 V",
+                "192 V"
+              ],
+              "answer": 1,
+              "why": "\\(V_o = D\\,V_{in} = 0.25 \\times 48 = 12\\) V."
+            },
+            {
+              "q": "Volt-second balance on the inductor follows from which steady-state condition?",
+              "options": [
+                "Average capacitor current is zero",
+                "Average inductor voltage is zero",
+                "Input power equals output power",
+                "Inductor current is constant"
+              ],
+              "answer": 1,
+              "why": "In steady state the inductor current returns to the same value each period, so the average inductor voltage over a period is zero."
+            },
+            {
+              "q": "If the switching frequency \\(f_s\\) is doubled (everything else fixed), the inductor ripple \\(\\Delta i_L\\)…",
+              "options": [
+                "doubles",
+                "stays the same",
+                "halves",
+                "falls to a quarter"
+              ],
+              "answer": 2,
+              "why": "\\(\\Delta i_L = V_o(1-D)/(L f_s)\\), so it is inversely proportional to \\(f_s\\)."
+            },
+            {
+              "q": "For the same \\(\\Delta i_L\\), the output ripple \\(\\Delta v_o\\) depends on \\(C\\) and \\(f_s\\) as…",
+              "options": [
+                "\\(\\propto 1/(C f_s)\\)",
+                "\\(\\propto C f_s\\)",
+                "\\(\\propto 1/C\\) only",
+                "independent of \\(f_s\\)"
+              ],
+              "answer": 0,
+              "why": "\\(\\Delta v_o = \\Delta i_L/(8 C f_s)\\)."
+            }
+          ]
+        },
+        {
+          "id": "q2",
+          "title": "Quiz 2 — Snubbers",
+          "lecture": 3,
+          "questions": [
+            {
+              "q": "The main job of an RCD turn-off snubber is to…",
+              "options": [
+                "raise the switching frequency",
+                "slow the voltage rise across the switch at turn-off",
+                "reduce conduction loss",
+                "increase the output voltage"
+              ],
+              "answer": 1,
+              "why": "The capacitor takes the load current while the switch turns off, so the switch voltage rises slowly and turn-off loss falls."
+            },
+            {
+              "q": "Power dissipated in the snubber resistor is approximately",
+              "options": [
+                "\\(\\tfrac12 C_s V_d^2 f_s\\)",
+                "\\(C_s V_d f_s\\)",
+                "\\(I_o^2 R_s\\)",
+                "zero"
+              ],
+              "answer": 0,
+              "why": "The capacitor's stored energy ½CV² is dumped in the resistor once every switching period."
+            }
+          ]
+        }
+      ],
+      "assignments": [
+        {
+          "id": "a1",
+          "title": "Assignment 1 — Design a 48 V → 12 V buck converter",
+          "due": "2026-11-24T23:59:00+05:30",
+          "desc": "Choose L and C for 100 kHz, 5 A load, 30% current ripple and 1% voltage ripple. Verify in MATLAB/Simulink and submit a PDF report with waveforms.",
+          "form": ""
+        },
+        {
+          "id": "a2",
+          "title": "Assignment 2 — RCD snubber for a 400 V MOSFET switch",
+          "due": "2026-12-05T23:59:00+05:30",
+          "desc": "Size Cs and Rs for the given device data and estimate the snubber loss at 50 kHz.",
+          "form": ""
+        }
+      ],
+      "discussion": {
+        "2": [
+          {
+            "who": "Student A",
+            "t": "2026-11-08T10:12:00+05:30",
+            "text": "In the ripple formula, why do we use (1−D) in the second form?",
+            "replies": [
+              {
+                "who": "Ajit Kumar Patra",
+                "inst": true,
+                "t": "2026-11-08T12:40:00+05:30",
+                "text": "During the off-time the inductor sees −Vo for (1−D)Ts. The rise during on-time equals the fall during off-time, so both forms give the same ripple."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "dab",
+      "code": "Short course",
+      "title": "Dual and Triple Active Bridge Converters",
+      "term": "Self-paced",
+      "role": "Instructor",
+      "color": "#1d3557",
+      "sample": true,
+      "blurb": "Isolated bidirectional DC–DC conversion: phase-shift modulation, power flow and soft switching.",
+      "lectures": [
+        {
+          "n": 1,
+          "title": "DAB converter and single phase shift (SPS)",
+          "date": "2026-11-14",
+          "mins": 45,
+          "youtube": "",
+          "summary": "Operating principle, power transfer equation and the role of the series inductance.",
+          "notes": "# Power transfer under SPS\nWith both bridges producing square waves shifted by \\(\\varphi\\) (radians), the transferred power is\n$$P = \\frac{n\\,V_1 V_2}{2\\pi f_s L}\\;\\varphi\\left(1 - \\frac{|\\varphi|}{\\pi}\\right)$$\nMaximum power occurs at \\(\\varphi = \\pi/2\\). The direction of power flow follows the sign of \\(\\varphi\\).\n\n> The series inductance \\(L\\) sets the power capability: a smaller \\(L\\) transfers more power at the same phase shift but raises the peak current.",
+          "docs": [
+            {
+              "title": "DAB lecture slides",
+              "type": "slides",
+              "url": "",
+              "size": "2.8 MB"
+            }
+          ]
+        },
+        {
+          "n": 2,
+          "title": "From DAB to TAB: three-port power flow",
+          "date": "2026-11-15",
+          "mins": 50,
+          "youtube": "",
+          "summary": "Three-winding transformer, the delta-equivalent model and coupled power flow between ports.",
+          "notes": "# Delta-equivalent model\nA TAB can be modelled as three bridges connected through an equivalent delta of inductances \\(L_{12}, L_{13}, L_{23}\\). Each link behaves like a DAB:\n$$P_{ij} = \\frac{V_i V_j}{2\\pi f_s L_{ij}}\\;\\varphi_{ij}\\left(1 - \\frac{|\\varphi_{ij}|}{\\pi}\\right)$$\nThe power at a port is the sum over its two links, e.g. \\(P_1 = P_{12} + P_{13}\\). Because the links share phase shifts, changing one port's power disturbs the others: this is the cross-coupling that decoupled control must handle.",
+          "docs": []
+        }
+      ],
+      "live": [
+        {
+          "title": "Q&A on phase-shift modulation",
+          "start": "2026-12-02T18:00:00+05:30",
+          "mins": 60,
+          "link": "",
+          "lecture": ""
+        }
+      ],
+      "quizzes": [
+        {
+          "id": "q1",
+          "title": "DAB basics",
+          "lecture": 1,
+          "questions": [
+            {
+              "q": "Under SPS, the DAB transfers maximum power at a phase shift of…",
+              "options": [
+                "0",
+                "π/4",
+                "π/2",
+                "π"
+              ],
+              "answer": 2,
+              "why": "\\(\\varphi(1-\\varphi/\\pi)\\) is largest at \\(\\varphi=\\pi/2\\)."
+            }
+          ]
+        }
+      ],
+      "assignments": [],
+      "discussion": {}
+    }
+  ]
+}
