@@ -7,7 +7,7 @@
 <meta name="description" content="Ajit Kumar Patra — PhD scholar in power electronics at IIT Bhubaneswar. Research on triple active bridge converters, plus lectures, notes, quizzes and live classes for students.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <script>
   /* MathJax: renders LaTeX in lecture notes and quizzes.  Inline: \( ... \)   Display: $$ ... $$ */
   window.MathJax = {
@@ -92,6 +92,61 @@ a.card:hover,.rcard:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0
 [data-skin="academic"][data-theme="dark"]{--accent:#7cc79d;--navy:#a8d5b8;--bg:#101512;--surface:#171e1a;--surface-2:#1d2621;--line:#2a352f;--ink:#e6ebe4}
 [data-skin="maroon"]{--accent:#8c1d2f;--navy:#3b0d16;--bg:#fbf8f6;--surface-2:#f3ece9;--line:#e8ddd8;--ink:#22151a}
 [data-skin="maroon"][data-theme="dark"]{--accent:#ef7b8c;--navy:#f0b5bf;--bg:#140d0f;--surface:#1d1417;--surface-2:#251a1e;--line:#36272c;--ink:#efe4e6}
+
+/* ---------- Signature (premium) theme ---------- */
+[data-skin="signature"]{--bg:#f6f5f2;--surface:#ffffff;--surface-2:#efede8;--ink:#14213a;--ink-2:#4b5568;--ink-3:#808897;--line:#e3e0d8;
+  --accent:#9a7536;--accent-ink:#ffffff;--navy:#14213a;--band:#13203b;--band-ink:#f1ece2;--brass:#cfa868;
+  --serif:"Newsreader",Georgia,serif;--sans:"Manrope",system-ui,sans-serif;--radius:14px;--shadow:none}
+[data-skin="signature"][data-theme="dark"]{--bg:#0e1629;--surface:#141e35;--surface-2:#1a2541;--ink:#ece6da;--ink-2:#b4b3ae;--ink-3:#868b97;--line:#26324f;
+  --accent:#d3ad6d;--accent-ink:#13203b;--navy:#d3ad6d;--band:#0a1122;--band-ink:#ece6da}
+[data-skin="signature"] body{font-size:16.5px;letter-spacing:-.003em}
+[data-skin="signature"] h1,[data-skin="signature"] h2,[data-skin="signature"] h3{font-weight:500;letter-spacing:-.015em}
+[data-skin="signature"] h1{font-size:clamp(2.4rem,5.4vw,4.2rem);line-height:1.04}
+[data-skin="signature"] h2{font-size:clamp(1.8rem,3vw,2.5rem)}
+[data-skin="signature"] .eyebrow{text-transform:none;letter-spacing:0;font:600 .9rem var(--sans);color:var(--accent);margin-bottom:12px}
+[data-skin="signature"] .lead{font-size:1.14rem;line-height:1.7}
+[data-skin="signature"] .btn{border-radius:9px;padding:11px 20px;font-weight:600}
+[data-skin="signature"] .btn.small{padding:7px 14px}
+[data-skin="signature"] .btn.primary{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+[data-skin="signature"] .chip{background:transparent;border-color:var(--line);font-weight:500}
+[data-skin="signature"] .card{box-shadow:none}
+[data-skin="signature"] a.card:hover,[data-skin="signature"] .rcard:hover{transform:none;box-shadow:none;border-color:var(--accent)}
+[data-skin="signature"] .lec-row:hover{transform:none;border-color:var(--accent)}
+[data-skin="signature"] section.block{padding:96px 0}
+[data-skin="signature"] header.top{background:color-mix(in srgb,var(--bg) 82%,transparent)}
+[data-skin="signature"] .mark{background:transparent;border:1.5px solid var(--accent);color:var(--accent);font:600 .82rem var(--sans);border-radius:50%}
+[data-skin="signature"] .brand{font-weight:500;font-size:1.15rem}
+[data-skin="signature"] nav.main a{font-weight:500}
+[data-skin="signature"] .fact{border-left:0;border-top:1px solid var(--accent);padding:14px 0 0}
+[data-skin="signature"] .fact b{font:600 .85rem var(--sans);text-transform:none;letter-spacing:0;color:var(--ink-3)}
+[data-skin="signature"] .rcard .sym{background:transparent;border:1px solid var(--line);border-radius:50%;font-family:var(--serif)!important;font-style:italic;color:var(--accent)}
+[data-skin="signature"] .next-live{background:var(--band);color:var(--band-ink);border-radius:var(--radius)}
+[data-skin="signature"] .next-live h3{color:var(--band-ink)}
+[data-skin="signature"] .next-live .faint{color:color-mix(in srgb,var(--band-ink) 65%,transparent);font-family:var(--sans)!important;font-size:.88rem!important}
+[data-skin="signature"] .next-live .btn{background:var(--brass,var(--accent));border-color:transparent;color:#13203b}
+[data-skin="signature"] .page-head{padding:64px 0 30px}
+[data-skin="signature"] .news .d,[data-skin="signature"] .timeline .mono{font-family:var(--sans);font-size:.9rem}
+/* hero band */
+[data-skin="signature"] .hero{background:var(--band);color:var(--band-ink);border-bottom:0;padding:92px 0 96px}
+[data-skin="signature"] .hero::before{display:none}
+[data-skin="signature"] .hero .eyebrow{color:var(--brass)}
+[data-skin="signature"] .hero h1{color:var(--band-ink)}
+[data-skin="signature"] .hero h1 em{color:inherit}
+[data-skin="signature"] .hero .lead{color:color-mix(in srgb,var(--band-ink) 78%,transparent)}
+[data-skin="signature"] .hero .lead b{color:var(--band-ink);font-weight:600}
+[data-skin="signature"] .hero .btn{background:transparent;color:var(--band-ink);border-color:color-mix(in srgb,var(--band-ink) 30%,transparent)}
+[data-skin="signature"] .hero .btn.primary{background:var(--brass);border-color:var(--brass);color:#13203b}
+[data-skin="signature"] .hero .chip{color:color-mix(in srgb,var(--band-ink) 72%,transparent);border-color:color-mix(in srgb,var(--band-ink) 18%,transparent)}
+[data-skin="signature"] .hero .wrap{grid-template-columns:1fr 1fr}
+@media (max-width:880px){[data-skin="signature"] .hero .wrap{grid-template-columns:1fr}}
+[data-skin="signature"] .hero .figure{background:transparent;border:0;box-shadow:none;padding:0}
+[data-skin="signature"] .hero figcaption{color:color-mix(in srgb,var(--band-ink) 55%,transparent);text-align:left;font-size:.86rem;margin-top:14px}
+.scope .trace{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.5s cubic-bezier(.6,.05,.2,1) forwards}
+.scope .t2{animation-delay:.3s}.scope .t3{animation-delay:.6s}
+.scope .mk{opacity:0;animation:fade .6s ease 1.7s forwards}
+@keyframes draw{to{stroke-dashoffset:0}} @keyframes fade{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.scope .trace{animation:none;stroke-dashoffset:0}.scope .mk{animation:none;opacity:1}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .skins{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:10px 0 18px}
 .skin{border:2px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);text-align:left;color:var(--ink)}
 .skin.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
@@ -406,7 +461,7 @@ const DEFAULT_SITE = {
   students: ["student@iitbbs.ac.in"],
   instructorEmail: "ajit.patra861@gmail.com",
   registerForm: "",            // Google Form link for student registration
-  theme: "classic", accent: "",
+  theme: "signature", accent: "",
 
   announcements: [
     { date: "2026-11-15", course: "pe", text: "Quiz 1 (buck converter) is open. Attempt it before the next live class." },
@@ -761,8 +816,10 @@ function pageHome() {
       <div class="tags">${(SITE.keywords || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>
     </div>
     <figure class="figure">
-      ${SITE.heroImage ? `<img src="${esc(SITE.heroImage)}" alt="" style="width:100%;border-radius:8px;display:block">` : tabSvg()}
-      ${SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : ''}
+      ${SITE.heroImage ? `<img src="${esc(SITE.heroImage)}" alt="" style="width:100%;border-radius:8px;display:block">` : (SITE.theme || 'signature') === 'signature' ? scopeSvg() : tabSvg()}
+      ${SITE.heroImage ? (SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : '') : (SITE.theme || 'signature') === 'signature'
+        ? '<figcaption>Bridge voltages of a triple active bridge. The phase shifts φ₁₂ and φ₁₃ decide how power flows between the three ports.</figcaption>'
+        : (SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : '')}
     </figure>
   </div></section>
 
@@ -821,6 +878,29 @@ function renderPubs(f) {
     <div><div class="t">${p.link ? `<a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.title)}</a>` : esc(p.title)}</div><div class="muted">${esc(p.authors)}</div><div class="faint" style="font-style:italic">${esc(p.venue)}</div>${p.status ? `<span class="chip ok" style="margin-top:6px">${esc(p.status)}</span>` : ''}</div></div>`).join('')
     : `<div class="empty">No ${f === 'all' ? '' : f + ' '}papers yet.</div>`;
   document.querySelectorAll('#pubTabs .tab').forEach(b => b.classList.toggle('on', b.dataset.f === f));
+}
+function scopeSvg() {
+  const P = 200, A = 24, X0 = 50, X1 = 450;
+  const lvl = (x, sh) => ((((x - sh) % P) + P) % P) < P / 2 ? -A : A;
+  const sq = (y, sh) => { let d = `M${X0} ${y + lvl(X0 + .01, sh)}`;
+    for (let k = Math.ceil((X0 - sh) / (P / 2)); ; k++) { const e = sh + k * P / 2; if (e >= X1) break; if (e > X0) d += ` H${e} V${y + lvl(e + .01, sh)}`; }
+    return d + ` H${X1}`; };
+  const grid = [...Array(9)].map((_, i) => `<line x1="${X0 + i * 50}" y1="22" x2="${X0 + i * 50}" y2="268"/>`).join('') + [70, 145, 220].map(y => `<line x1="${X0}" y1="${y}" x2="${X1}" y2="${y}"/>`).join('');
+  return `<svg class="scope" viewBox="0 0 470 290" role="img" aria-label="Three phase-shifted square-wave bridge voltages v1, v2 and v3">
+    <rect x="${X0}" y="22" width="${X1 - X0}" height="246" rx="6" fill="none" stroke="rgba(241,236,226,.14)"/>
+    <g stroke="rgba(241,236,226,.07)" stroke-width="1">${grid}</g>
+    <g fill="none" stroke-width="2.2" stroke-linejoin="miter">
+      <path class="trace" pathLength="1" d="${sq(70, 0)}" stroke="#cfa868"/>
+      <path class="trace t2" pathLength="1" d="${sq(145, 40)}" stroke="#ece6da"/>
+      <path class="trace t3" pathLength="1" d="${sq(220, 70)}" stroke="#8fb0e0"/>
+    </g>
+    <g font-family="Newsreader, Georgia, serif" font-style="italic" font-size="17" fill="rgba(241,236,226,.85)">
+      <text x="14" y="76">v₁</text><text x="14" y="151">v₂</text><text x="14" y="226">v₃</text></g>
+    <g class="mk" stroke="#cfa868" stroke-width="1" fill="#cfa868" font-family="Newsreader, Georgia, serif" font-style="italic" font-size="17">
+      <line x1="200" y1="40" x2="200" y2="250" stroke-dasharray="3 4" opacity=".6"/>
+      <line x1="200" y1="108" x2="234" y2="108"/><path d="M234 104 L240 108 L234 112Z" stroke="none"/><text x="204" y="100" stroke="none">φ₁₂</text>
+      <line x1="200" y1="183" x2="264" y2="183"/><path d="M264 179 L270 183 L264 187Z" stroke="none"/><text x="212" y="175" stroke="none">φ₁₃</text>
+    </g></svg>`;
 }
 function tabSvg() {
   const br = (x, y, l) => `<g><rect x="${x}" y="${y}" width="78" height="56" rx="6" fill="var(--surface-2)" stroke="var(--ink-3)"/>
@@ -1305,7 +1385,7 @@ function adminSection() {
       <h3>Writing lecture notes</h3>${cheat()}`;
 
     case 'look': return `<h2>Look &amp; theme</h2><p class="muted">Tap a theme to try it. The whole site changes right away (only for you) — open any page to see it, then Publish.</p>
-      <div class="skins">${SKINS.map(([k, n, d, c]) => `<button type="button" class="skin ${(s.theme || 'classic') === k ? 'on' : ''}" data-a="skin" data-k="${k}"><div class="sw">${c.map(x => `<i style="background:${x}"></i>`).join('')}</div><b>${n}</b><span>${d}</span></button>`).join('')}</div>
+      <div class="skins">${SKINS.map(([k, n, d, c]) => `<button type="button" class="skin ${(s.theme || 'signature') === k ? 'on' : ''}" data-a="skin" data-k="${k}"><div class="sw">${c.map(x => `<i style="background:${x}"></i>`).join('')}</div><b>${n}</b><span>${d}</span></button>`).join('')}</div>
       <h3>Accent colour (optional)</h3><p class="muted">Pick your own button and highlight colour, or leave it to the theme.</p>
       <div style="display:flex;gap:10px;align-items:flex-end">${F('Colour', s, 'accent', 'color', { after: applySkin })}<button type="button" class="btn small" data-a="clearAccent" style="margin-bottom:14px">Use theme colour</button></div>
       <p class="muted">Visitors can still switch between light and dark mode with the moon button.</p>`;
@@ -1485,13 +1565,14 @@ function renderAdmin(scrollTop) {
 /* =====================================================================
    ROUTER — #teaching, #course-pe-quizzes, #lec-pe-2, #quiz-pe-q1, #admin
    ===================================================================== */
-const SKINS = [['classic', 'Classic', 'Warm paper, copper', ['#f7f5f0', '#b4562a', '#1d3557', '#16202e']],
+const SKINS = [['signature', 'Signature', 'Premium: indigo and brass', ['#13203b', '#cfa868', '#f6f5f2', '#9a7536']],
+  ['classic', 'Classic', 'Warm paper, copper', ['#f7f5f0', '#b4562a', '#1d3557', '#16202e']],
   ['ocean', 'Ocean', 'Clean white, blue', ['#f5f8fc', '#1f6feb', '#0b2545', '#0f1b2d']],
   ['circuit', 'Circuit', 'Modern, teal', ['#f3f7f6', '#0d9488', '#0f2a3d', '#10201f']],
   ['academic', 'Academic', 'Classic serif, green', ['#f8f6ef', '#2f6b4f', '#22382d', '#1c2420']],
   ['maroon', 'Maroon', 'Institute style', ['#fbf8f6', '#8c1d2f', '#3b0d16', '#22151a']]];
 function applySkin() {
-  const r = document.documentElement; r.dataset.skin = SITE.theme || 'classic';
+  const r = document.documentElement; r.dataset.skin = SITE.theme || 'signature';
   if (SITE.accent) r.style.setProperty('--accent', SITE.accent); else r.style.removeProperty('--accent');
 }
 function route() {
