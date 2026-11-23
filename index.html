@@ -432,9 +432,127 @@ input[type=color]{width:60px;height:40px;border:1px solid var(--line);border-rad
 .modal.wide{max-width:640px}
 footer{padding:36px 0 50px;color:var(--ink-3);font-size:.88rem}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* =====================================================================
+   BOLD REFRESH — motion, glow and glass (all themes; strongest in Signature)
+   ===================================================================== */
+#progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);z-index:60;background:linear-gradient(90deg,var(--accent),var(--brass,var(--accent)),#8fb0e0);pointer-events:none}
+header.top{transition:box-shadow .25s,background .25s}
+header.top.scrolled{box-shadow:0 8px 30px rgba(10,16,30,.08)}
+[data-theme="dark"] header.top.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.35)}
+nav.main a{position:relative}
+nav.main a.on::after{content:"";position:absolute;left:11px;right:11px;bottom:2px;height:2px;border-radius:2px;background:var(--accent)}
+/* hero */
+.hero{isolation:isolate}
+.aurora{position:absolute;inset:-20%;z-index:-1;pointer-events:none;filter:blur(70px);opacity:.75}
+.aurora i{position:absolute;border-radius:50%;mix-blend-mode:screen;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:46vw;height:46vw;max-width:640px;max-height:640px;left:52%;top:8%;background:radial-gradient(circle,rgba(207,168,104,.42),transparent 65%)}
+.aurora i:nth-child(2){width:40vw;height:40vw;max-width:560px;max-height:560px;left:8%;top:40%;background:radial-gradient(circle,rgba(91,132,214,.38),transparent 65%);animation-duration:28s;animation-delay:-6s}
+.aurora i:nth-child(3){width:30vw;height:30vw;max-width:420px;max-height:420px;left:70%;top:55%;background:radial-gradient(circle,rgba(150,96,200,.28),transparent 65%);animation-duration:34s;animation-delay:-12s}
+:root:not([data-skin="signature"]) .aurora{opacity:.35;filter:blur(80px)}
+:root:not([data-skin="signature"]) .aurora i{mix-blend-mode:normal}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-6%,8%) scale(1.12)}100%{transform:translate(7%,-5%) scale(.94)}}
+.hero-grid{position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(241,236,226,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(241,236,226,.045) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 75%);mask-image:radial-gradient(ellipse at 60% 40%,#000 20%,transparent 75%)}
+:root:not([data-skin="signature"]) .hero-grid{display:none}
+.hero h1 em{background:linear-gradient(100deg,var(--accent) 0%,#f3d9a4 30%,var(--accent) 55%,#8fb0e0 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;animation:shine 7s linear infinite}
+[data-skin="signature"] .hero h1 em{background-image:linear-gradient(100deg,var(--brass) 0%,#fff1cf 28%,var(--brass) 52%,#a9c4ec 100%)}
+@keyframes shine{to{background-position:-220% 0}}
+.rot{font:500 1.05rem var(--sans);margin:-4px 0 18px;min-height:1.6em;color:var(--ink-2)}
+[data-skin="signature"] .hero .rot{color:color-mix(in srgb,var(--band-ink) 70%,transparent)}
+.rot b{color:var(--accent);font-weight:600}
+[data-skin="signature"] .hero .rot b{color:var(--brass)}
+.rot .caret{display:inline-block;width:2px;height:1.05em;vertical-align:-2px;margin-left:2px;background:currentColor;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero .btn{transition:transform .18s,box-shadow .2s,background .2s,border-color .2s}
+.hero .btn:hover{transform:translateY(-2px)}
+.btn.primary{position:relative;overflow:hidden}
+.btn.primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);transform:translateX(-120%);transition:transform .6s}
+.btn.primary:hover::after{transform:translateX(120%)}
+[data-skin="signature"] .hero .btn.primary{box-shadow:0 8px 26px rgba(207,168,104,.35)}
+[data-skin="signature"] .hero .btn.primary:hover{box-shadow:0 12px 34px rgba(207,168,104,.5)}
+[data-skin="signature"] .hero .figure{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));border:1px solid rgba(241,236,226,.12);border-radius:18px;padding:18px 18px 14px;backdrop-filter:blur(6px);box-shadow:0 30px 80px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);transform:perspective(1200px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .25s ease-out}
+.scope .trace{filter:drop-shadow(0 0 5px currentColor)}
+.scope .t1{color:#cfa868}.scope .t2{color:#ece6da}.scope .t3{color:#8fb0e0}
+.scope .beam{animation:sweep 4.5s cubic-bezier(.45,.05,.55,.95) 1.8s infinite;opacity:0}
+@keyframes sweep{0%{transform:translateX(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateX(400px);opacity:0}}
+.scope .mk line[stroke-dasharray]{animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-14}}
+.scope .led{animation:led 1.6s ease-in-out infinite}
+@keyframes led{50%{opacity:.25}}
+/* stats strip */
+.stats{position:relative;z-index:2;margin-top:-38px}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(15,25,45,.10);overflow:hidden}
+[data-theme="dark"] .stats .wrap{box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.stat{padding:22px 24px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0}
+.stat b{display:block;font:500 2.3rem/1 var(--serif);letter-spacing:-.02em;color:var(--ink)}
+.stat b sup{font-size:.5em;color:var(--accent);margin-left:2px}
+.stat > span{font-size:.86rem;color:var(--ink-3)}
+@media (max-width:720px){.stats{margin-top:-28px}.stats .wrap{grid-template-columns:1fr 1fr;margin:0 16px;padding:0}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}.stat{padding:16px 18px}.stat b{font-size:1.9rem}}
+/* cards: spotlight + lift */
+.card,.lec-row,.session,.q{--mx:50%;--my:50%}
+.card{position:relative}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(420px circle at var(--mx) var(--my),color-mix(in srgb,var(--accent) 12%,transparent),transparent 45%)}
+.card:hover::before{opacity:1}
+[data-skin="signature"] a.card:hover,[data-skin="signature"] .rcard:hover,[data-skin="signature"] .course-card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 60%,var(--line));box-shadow:0 18px 44px color-mix(in srgb,var(--accent) 16%,transparent)}
+[data-skin="signature"] .lec-row:hover{transform:translateX(4px)}
+.rcard .sym{transition:transform .35s cubic-bezier(.3,1.6,.5,1),background .25s,color .25s}
+.rcard:hover .sym{transform:rotate(-8deg) scale(1.08)}
+[data-skin="signature"] .rcard:hover .sym{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.chip{transition:border-color .2s,color .2s,transform .2s}
+.tags .chip:hover{transform:translateY(-1px);border-color:var(--accent);color:var(--accent)}
+[data-skin="signature"] .hero .tags .chip:hover{color:var(--brass);border-color:var(--brass)}
+.timeline li{position:relative;transition:padding .2s}
+.timeline li:hover{padding-left:8px}
+/* scroll reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.hero .h-in{animation:rise .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* page transitions */
+#app{animation:pagein .45s ease both}
+@keyframes pagein{from{opacity:0}to{opacity:1}}
+/* auth modal */
+.modal-bg{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:rgba(8,12,24,.5)}
+.modal-bg.open .modal{animation:pop .32s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.modal{border-radius:20px;box-shadow:0 30px 90px rgba(0,0,0,.35),0 0 0 1px color-mix(in srgb,var(--accent) 10%,transparent)}
+.auth h3{font-size:1.5rem;margin:0 0 4px}
+.auth-ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:14px;font-size:1.3rem;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--brass,var(--accent)));box-shadow:0 10px 26px color-mix(in srgb,var(--accent) 35%,transparent)}
+.auth-ic.ok{background:linear-gradient(135deg,var(--ok),#7fd4a0)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--surface-2);border-radius:12px;margin:16px 0 4px}
+.seg button{border:0;background:transparent;padding:8px 10px;border-radius:9px;font-weight:600;font-size:.9rem;color:var(--ink-3);transition:background .2s,color .2s}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.auth input[type=email],.auth input[type=text],.auth input[type=password]{padding:11px 13px;border-radius:11px;transition:border-color .2s,box-shadow .2s}
+.auth input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.pw{position:relative}.pw input{padding-right:44px!important}
+.pw-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:0;background:none;color:var(--ink-3);border-radius:8px;display:grid;place-items:center}
+.pw-eye:hover{color:var(--ink);background:var(--surface-2)}
+.meter{height:4px;border-radius:4px;background:var(--surface-2);margin-top:8px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;border-radius:4px;transition:width .3s,background .3s}
+.auth-err{color:var(--bad);font-size:.88rem;margin:10px 0 0;min-height:0}
+.auth-err:empty{display:none}
+.btn.block{width:100%;justify-content:center;margin-top:16px;padding-top:12px;padding-bottom:12px}
+.auth .btn.primary.block{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+[data-skin="signature"] .auth .btn.primary.block{background:linear-gradient(135deg,var(--band,var(--ink)),#2a3f6e);border-color:transparent;color:var(--band-ink,var(--bg))}
+[data-theme="dark"] .auth .btn.primary.block{background:var(--accent);color:var(--accent-ink)}
+.or{display:flex;align-items:center;gap:12px;margin:18px 0 0;color:var(--ink-3);font-size:.82rem}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.or + .btn.block{margin-top:12px}
+.spin{width:15px;height:15px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:rot .7s linear infinite;display:inline-block}
+@keyframes rot{to{transform:rotate(360deg)}}
+.lock .ic{background:linear-gradient(135deg,var(--accent),var(--brass,var(--accent)));color:var(--accent-ink);box-shadow:0 12px 30px color-mix(in srgb,var(--accent) 30%,transparent)}
+.user-pill{transition:border-color .2s,box-shadow .2s}.user-pill:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+@media (prefers-reduced-motion:reduce){
+  .aurora i,.hero h1 em,.scope .beam,.scope .mk line,.scope .led,.rot .caret,#app,.hero .h-in,.modal-bg.open .modal{animation:none!important}
+  .scope .beam{opacity:0}
+  .rv{opacity:1;transform:none;transition:none}
+  [data-skin="signature"] .hero .figure{transform:none}
+}
 </style>
 </head>
 <body>
+<div id="progress" aria-hidden="true"></div>
 
 <header class="top">
   <div class="wrap">
@@ -814,13 +932,8 @@ function canSignIn(email) {
   if ((SITE.students || []).map(s => s.toLowerCase()).includes(email)) return true;
   return !!SITE.allowedDomain && email.endsWith('@' + SITE.allowedDomain.toLowerCase());
 }
-function showSignIn() {
-  if (fbCfg()) {
-    openModal(`<h3>Student sign-in</h3><p class="muted">Sign in with the Google account you registered with.</p>
-      <button class="btn primary" onclick="fbSignIn()" style="margin-top:6px">${G_ICON} Continue with Google</button>
-      <p style="margin:18px 0 0;font-size:.92rem">New student? <a href="#register" onclick="closeModal()"><b>Register for a course</b></a></p>`);
-    fbInit(); return;
-  }
+function showSignIn(mode) {
+  if (fbCfg()) { fbAuthModal(mode === 'up' ? 'up' : 'in'); fbInit(); return; }
   openModal(`
     <h3>Student sign-in</h3>
     <p class="muted" style="margin:0">Course videos, notes, quizzes and assignments are for enrolled students.</p>
@@ -850,17 +963,17 @@ function renderUser() {
 function userMenu() {
   const u = user();
   openModal(`<h3>${esc(u.name)}</h3><p class="muted mono" style="margin:0">${esc(u.email)}</p>
-    <p style="margin-top:12px">${u.inst ? '<span class="chip accent">Instructor</span>' : fbCfg() ? (u.approved ? '<span class="chip ok">Approved student</span>' : u.pending ? '<span class="chip warn">Waiting for approval</span>' : '<span class="chip">Not registered</span>') : '<span class="chip">Student</span>'}</p>
+    <p style="margin-top:12px">${u.inst ? '<span class="chip accent">Instructor</span>' : fbCfg() ? (u.unverified ? '<span class="chip warn">Email not confirmed</span> <a href="javascript:void 0" onclick="fbVerifyModal()" style="font-size:.88rem">Confirm now</a>' : u.approved ? '<span class="chip ok">Approved student</span>' : u.pending ? '<span class="chip warn">Waiting for approval</span>' : '<span class="chip">Not registered</span>') : '<span class="chip">Student</span>'}</p>
     <div class="row">${u.inst ? '<a class="btn" href="#admin" onclick="closeModal()">Admin</a>' : ''}<button class="btn" onclick="closeModal()">Close</button><button class="btn primary" onclick="closeModal();signOut()">Sign out</button></div>`);
 }
 const locked = () => SITE.requireLogin && !(user() && (!fbCfg() || user().approved));
 function lockCard(what) {
   return `<div class="card lock"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
-    <h3>${what} are for enrolled students</h3><p class="muted">Sign in with your institute email to watch lectures, read notes, take quizzes and submit assignments.</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn primary" onclick="showSignIn()">Student sign-in</button><a class="btn" href="#register">Register</a></div></div>`;
+    <h3>${what} are for enrolled students</h3><p class="muted">${fbCfg() ? 'Sign in with your email and password' : 'Sign in with your institute email'} to watch lectures, read notes, take quizzes and submit assignments.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn primary" onclick="showSignIn()">Student sign-in</button>${fbCfg() ? '<button class="btn" onclick="showSignIn(\'up\')">Create account</button>' : '<a class="btn" href="#register">Register</a>'}</div></div>`;
 }
 function pageRegister() {
-  const steps = fbCfg() ? [['Sign in with Google', 'Use your institute Google account if you have one.'], ['Send your details', 'Your name, roll number and the course you want to join.'], ['Get approved', 'Once the instructor approves you, the course material opens automatically.']] : [['Fill in the form', 'Your name, roll number, institute email and the course you want to join.'],
+  const steps = fbCfg() ? [['Create an account', 'With your email and a password (or Google), then confirm your email.'], ['Send your details', 'Your name, roll number and the course you want to join.'], ['Get approved', 'Once the instructor approves you, the course material opens automatically.']] : [['Fill in the form', 'Your name, roll number, institute email and the course you want to join.'],
     ['Wait for approval', 'The instructor checks the list and approves enrolled students, usually within a day.'],
     ['Sign in', 'Use <b>Student sign-in</b> (top right) with the same email you registered with.']];
   return `<div class="wrap" style="max-width:820px"><div class="page-head"><div class="eyebrow">Students</div><h1>Register for a course</h1>
@@ -909,14 +1022,16 @@ function fbInit() {
 }
 async function fbSetUser(u) {
   if (!u) { FB.user = null; FB.priv = null; return; }
-  const email = String(u.email || '').toLowerCase(), inst = email === String(SITE.instructorEmail).toLowerCase();
+  const email = String(u.email || '').toLowerCase(), verified = !!u.emailVerified;
+  /* an unverified password account could claim any email, so it gets no access until the email is confirmed */
+  const inst = verified && email === String(SITE.instructorEmail).toLowerCase();
   const dom = String(SITE.allowedDomain || '').toLowerCase();
-  let approved = inst || (!!dom && email.endsWith('@' + dom)), pending = false;
-  try {
+  let approved = verified && (inst || (!!dom && email.endsWith('@' + dom))), pending = false;
+  if (verified) try {
     if (!approved) approved = (await FB.db.doc('roster/' + email).get()).exists;
     if (!approved) pending = (await FB.db.doc('registrations/' + email).get()).exists;
   } catch (e) {}
-  FB.user = { name: u.displayName || email, email, inst, approved, pending, uid: u.uid };
+  FB.user = { name: u.displayName || email.split('@')[0], email, inst, approved, pending, uid: u.uid, unverified: !verified };
   if (approved) {
     try { const d = await FB.db.doc('private/content').get(); FB.priv = d.exists ? d.data() : null; } catch (e) { FB.priv = null; }
     mergePrivate();
@@ -934,8 +1049,97 @@ async function fbSignIn() {
     toast(e && e.code === 'auth/unauthorized-domain' ? 'This website is not yet allowed in Firebase. Add it under Authentication → Settings → Authorized domains.' : (e && e.message) || 'Sign-in failed', 7000);
   }
 }
+/* ---------- email + password accounts ---------- */
+const EYE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+function authErr(e) {
+  const c = (e && e.code) || '';
+  return ({
+    'auth/invalid-credential': 'Wrong email or password.', 'auth/wrong-password': 'Wrong email or password.', 'auth/user-not-found': 'Wrong email or password.',
+    'auth/invalid-login-credentials': 'Wrong email or password.',
+    'auth/email-already-in-use': 'An account with this email already exists. Sign in instead, or reset your password.',
+    'auth/weak-password': 'Please choose a longer password (at least 8 characters).',
+    'auth/invalid-email': 'That email address doesn\'t look right.',
+    'auth/too-many-requests': 'Too many attempts. Please wait a few minutes and try again.',
+    'auth/network-request-failed': 'No connection. Check your internet and try again.',
+    'auth/operation-not-allowed': 'Password sign-in is not switched on yet. (Instructor: Firebase → Authentication → Sign-in method → Email/Password → Enable.)',
+    'auth/unauthorized-domain': 'This website is not yet allowed in Firebase. Add it under Authentication → Settings → Authorized domains.'
+  })[c] || (e && e.message) || 'Something went wrong. Please try again.';
+}
+function fbAuthModal(mode) {
+  const up = mode === 'up', rs = mode === 'reset';
+  openModal(`<div class="auth">
+    <div class="auth-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+    <h3>${rs ? 'Reset your password' : up ? 'Create your student account' : 'Welcome back'}</h3>
+    <p class="muted" style="margin:0 0 4px">${rs ? 'Enter your email and we\'ll send you a link to choose a new password.' : up ? 'One account for lectures, notes, quizzes and live classes.' : 'Sign in to open your courses.'}</p>
+    ${rs ? '' : `<div class="seg" role="tablist"><button type="button" role="tab" class="${up ? '' : 'on'}" aria-selected="${!up}" onclick="fbAuthModal('in')">Sign in</button><button type="button" role="tab" class="${up ? 'on' : ''}" aria-selected="${up}" onclick="fbAuthModal('up')">Create account</button></div>`}
+    <form id="authForm" novalidate>
+      ${up ? '<label for="aName">Full name</label><input type="text" id="aName" required autocomplete="name" maxlength="120">' : ''}
+      <label for="aEmail">Email</label><input type="email" id="aEmail" required autocomplete="email" placeholder="you@${esc(SITE.allowedDomain || 'iitbbs.ac.in')}">
+      ${rs ? '' : `<label for="aPass">Password${up ? ' <span class="faint" style="font-weight:400">(at least 8 characters)</span>' : ''}</label>
+      <div class="pw"><input type="password" id="aPass" required minlength="${up ? 8 : 1}" autocomplete="${up ? 'new-password' : 'current-password'}">
+        <button type="button" class="pw-eye" aria-label="Show password" onclick="const i=$('#aPass');i.type=i.type==='password'?'text':'password';this.setAttribute('aria-label',i.type==='password'?'Show password':'Hide password')">${EYE}</button></div>
+      ${up ? '<div class="meter" aria-hidden="true"><i id="aMeter"></i></div>' : ''}`}
+      <p class="auth-err" id="aErr" role="alert"></p>
+      <button class="btn primary block" id="aGo">${rs ? 'Send reset link' : up ? 'Create account' : 'Sign in'}</button>
+      ${up || rs ? '' : '<p style="margin:12px 0 0;text-align:right"><a href="javascript:void 0" onclick="fbAuthModal(\'reset\')" style="font-size:.88rem">Forgot password?</a></p>'}
+      ${rs ? '<p style="margin:14px 0 0;text-align:center"><a href="javascript:void 0" onclick="fbAuthModal(\'in\')" style="font-size:.9rem">← Back to sign in</a></p>' : ''}
+    </form>
+    ${rs ? '' : `<div class="or"><span>or</span></div><button type="button" class="btn block" onclick="fbSignIn()">${G_ICON} Continue with Google</button>
+    <p style="margin:16px 0 0;font-size:.88rem;text-align:center" class="faint">${up ? 'After you confirm your email, register for a course and the instructor approves you.' : `New here? <a href="javascript:void 0" onclick="fbAuthModal('up')"><b>Create an account</b></a>`}</p>`}
+  </div>`);
+  const em = $('#aEmail'), pw = $('#aPass'), err = $('#aErr'), go = $('#aGo');
+  (up ? $('#aName') : em).focus();
+  if (up && pw) pw.oninput = () => { const v = pw.value, s = (v.length >= 8) + (v.length >= 12) + (/[A-Z]/.test(v) && /[a-z]/.test(v)) + /\d/.test(v) + /[^A-Za-z0-9]/.test(v);
+    const m = $('#aMeter'); m.style.width = (v ? Math.max(12, s * 20) : 0) + '%'; m.style.background = s < 2 ? 'var(--bad)' : s < 4 ? 'var(--warn)' : 'var(--ok)'; };
+  $('#authForm').onsubmit = async e => {
+    e.preventDefault(); err.textContent = '';
+    const email = em.value.trim(), pass = pw ? pw.value : '', name = up ? $('#aName').value.trim() : '';
+    if (up && !name) { err.textContent = 'Please enter your name.'; return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { err.textContent = 'Please enter a valid email.'; return; }
+    if (!rs && !pass) { err.textContent = 'Please enter your password.'; return; }
+    if (up && pass.length < 8) { err.textContent = 'Please choose a password of at least 8 characters.'; return; }
+    const label = go.textContent; go.disabled = true; go.innerHTML = '<span class="spin"></span>' + (rs ? 'Sending…' : up ? 'Creating…' : 'Signing in…');
+    try {
+      await fbInit(); if (!FB.on) throw new Error('Sign-in is not available right now. Please try again later.');
+      if (rs) {
+        await FB.auth.sendPasswordResetEmail(email);
+        openModal(`<div class="auth"><div class="auth-ic ok">✓</div><h3>Check your inbox</h3><p class="muted">If an account exists for <b>${esc(email)}</b>, a reset link is on its way. Check the spam folder too.</p><button class="btn primary block" onclick="fbAuthModal('in')">Back to sign in</button></div>`);
+        return;
+      }
+      if (up) {
+        const cr = await FB.auth.createUserWithEmailAndPassword(email, pass);
+        await cr.user.updateProfile({ displayName: name.slice(0, 120) });
+        try { await cr.user.sendEmailVerification({ url: location.origin + location.pathname + '#register' }); } catch (x) { await cr.user.sendEmailVerification(); }
+        await fbSetUser(FB.auth.currentUser); renderUser(); route(); fbVerifyModal(true);
+      } else {
+        FB.justSigned = true; await FB.auth.signInWithEmailAndPassword(email, pass); closeModal();
+      }
+    } catch (x) {
+      FB.justSigned = false;
+      err.textContent = authErr(x); go.disabled = false; go.textContent = label;
+      if (x && x.code === 'auth/email-already-in-use') err.innerHTML = esc(authErr(x)) + ' <a href="javascript:void 0" onclick="fbAuthModal(\'in\')">Sign in</a>';
+    }
+  };
+}
+function fbVerifyModal(fresh) {
+  const u = FB.user; if (!u) return;
+  openModal(`<div class="auth"><div class="auth-ic">✉</div><h3>${fresh ? 'Account created. Confirm your email.' : 'Confirm your email first'}</h3>
+    <p class="muted">We sent a link to <b>${esc(u.email)}</b>. Open it, then come back and tap <b>I've confirmed</b>. Check the spam folder if you don't see it.</p>
+    <p class="auth-err" id="vErr" role="alert"></p>
+    <button class="btn primary block" id="vDone">I've confirmed</button>
+    <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:.88rem"><a href="javascript:void 0" id="vAgain">Send the link again</a><a href="javascript:void 0" onclick="closeModal();signOut()">Sign out</a></div></div>`);
+  $('#vDone').onclick = async () => {
+    const cu = FB.auth.currentUser; if (!cu) { closeModal(); return; }
+    await cu.reload(); await cu.getIdToken(true); await fbSetUser(FB.auth.currentUser);
+    if (FB.user.unverified) { $('#vErr').textContent = 'Not confirmed yet. Open the link in the email first.'; return; }
+    renderUser(); route(); closeModal();
+    if (FB.user.approved) toast('Email confirmed. Welcome, ' + FB.user.name.split(' ')[0] + '!'); else fbStatusModal();
+  };
+  $('#vAgain').onclick = async () => { try { await FB.auth.currentUser.sendEmailVerification(); toast('Link sent again'); } catch (x) { $('#vErr').textContent = authErr(x); } };
+}
 function fbStatusModal() {
-  const u = FB.user; if (!u || u.approved) { if (u) toast('Signed in as ' + u.name); return; }
+  const u = FB.user; if (u && u.unverified) { fbVerifyModal(); return; }
+  if (!u || u.approved) { if (u) toast('Signed in as ' + u.name); return; }
   openModal(u.pending
     ? `<h3>Registration received</h3><p class="muted">Thanks, ${esc(u.name.split(' ')[0])}. The instructor will approve your registration soon. Sign in again after that to open the course material.</p><div class="row"><button class="btn primary" onclick="closeModal()">OK</button></div>`
     : `<h3>Register first</h3><p class="muted">You're signed in as <b>${esc(u.email)}</b>, but this account isn't registered for a course yet.</p><div class="row"><button class="btn" onclick="closeModal()">Later</button><a class="btn primary" href="#register" onclick="closeModal()">Register now</a></div>`);
@@ -1041,7 +1245,8 @@ async function renderQAfb(c, n) {
 function registerFb() {
   const u = FB.user;
   if (!FB.on) return `<h3>Loading…</h3><p class="muted" style="margin:0">One moment.</p>`;
-  if (!u) return `<h3>Step 1: sign in with Google</h3><p class="muted">Use your institute Google account if you have one.</p><button class="btn primary" onclick="fbSignIn()">${G_ICON} Continue with Google</button>`;
+  if (!u) return `<h3>Step 1: create your account</h3><p class="muted">Use your email and a password, or your Google account.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn primary" onclick="showSignIn('up')">Create account</button><button class="btn" onclick="showSignIn()">I already have one</button></div>`;
+  if (u.unverified) return `<h3>Step 1b: confirm your email</h3><p class="muted">We sent a link to <b>${esc(u.email)}</b>. Open it, then continue here.</p><button class="btn primary" onclick="fbVerifyModal()">I've confirmed my email</button>`;
   if (u.approved) return `<h3>You're approved</h3><p class="muted">Signed in as ${esc(u.email)}. The course material is open to you.</p><a class="btn primary" href="#teaching">Go to courses</a>`;
   if (u.pending) return `<h3>Registration received</h3><p class="muted" style="margin:0">Signed in as ${esc(u.email)}. The instructor will approve you soon; then the course material opens automatically.</p>`;
   return `<h3>Step 2: your details</h3><p class="muted">Signed in as <b>${esc(u.email)}</b>.</p>
@@ -1126,32 +1331,39 @@ function typeset(el) { if (window.MathJax && MathJax.typesetPromise) MathJax.typ
 /* =====================================================================
    PUBLIC PAGES
    ===================================================================== */
+function statsStrip() {
+  const C = SITE.courses || [], n = a => a.reduce((t, c) => t + (c || []).length, 0);
+  const items = [[(SITE.publications || []).length, 'Publications'], [C.length, 'Courses taught'], [n(C.map(c => c.lectures)), 'Lectures online'], [n(C.map(c => c.quizzes)), 'Practice quizzes']];
+  return `<div class="stats"><div class="wrap">${items.map(([v, l]) => `<div class="stat rv"><b><span data-count="${+v || 0}">0</span></b><span>${l}</span></div>`).join('')}</div></div>`;
+}
 function pageHome() {
   const L = SITE.links, lk = (u, n) => u ? `<a class="btn small" href="${esc(u)}" target="_blank" rel="noopener">${n}</a>` : '';
   const next = allLive().find(s => liveState(s) !== 'past');
   const parts = String(SITE.name).trim().split(/\s+/), last = parts.pop();
   const linkBtns = lk(L.scholar, 'Google Scholar') + lk(L.ieee, 'IEEE Xplore') + lk(L.orcid, 'ORCID') + lk(L.linkedin, 'LinkedIn');
   return `
-  <section class="hero"><div class="wrap">
+  <section class="hero"><div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div><div class="hero-grid" aria-hidden="true"></div><div class="wrap">
     <div>
-      ${SITE.photo ? `<img class="avatar" src="${esc(SITE.photo)}" alt="${esc(SITE.name)}">` : ''}
-      <div class="eyebrow">${esc(SITE.headline)}</div>
-      <h1>${esc(parts.join(' '))} <em>${esc(last)}</em></h1>
-      <p class="lead">${inl(SITE.intro)}</p>
-      <div class="btn-row">
+      ${SITE.photo ? `<img class="avatar h-in" src="${esc(SITE.photo)}" alt="${esc(SITE.name)}">` : ''}
+      <div class="eyebrow h-in">${esc(SITE.headline)}</div>
+      <h1 class="h-in" style="--d:.08s">${esc(parts.join(' '))} <em>${esc(last)}</em></h1>
+      ${(SITE.keywords || []).length ? `<div class="rot h-in" style="--d:.16s" aria-label="Research keywords: ${esc(SITE.keywords.join(', '))}"><span aria-hidden="true">Working on <b id="rotw"></b><span class="caret"></span></span></div>` : ''}
+      <p class="lead h-in" style="--d:.22s">${inl(SITE.intro)}</p>
+      <div class="btn-row h-in" style="--d:.3s">
         <a class="btn primary" href="#teaching">Lectures &amp; courses</a>
         <a class="btn" href="#publications">Publications</a>
         ${SITE.cv ? `<a class="btn" href="${esc(SITE.cv)}" target="_blank" rel="noopener">Download CV</a>` : ''}
       </div>
-      <div class="tags">${(SITE.keywords || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>
+      <div class="tags h-in" style="--d:.38s">${(SITE.keywords || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>
     </div>
-    <figure class="figure">
+    <figure class="figure h-in" id="heroFig" style="--d:.2s">
       ${SITE.heroImage ? `<img src="${esc(SITE.heroImage)}" alt="" style="width:100%;border-radius:8px;display:block">` : (SITE.theme || 'signature') === 'signature' ? scopeSvg() : tabSvg()}
       ${SITE.heroImage ? (SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : '') : (SITE.theme || 'signature') === 'signature'
         ? '<figcaption>Bridge voltages of a triple active bridge. The phase shifts φ₁₂ and φ₁₃ decide how power flows between the three ports.</figcaption>'
         : (SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : '')}
     </figure>
   </div></section>
+  ${statsStrip()}
 
   ${next ? `<div class="wrap" style="padding-top:28px"><div class="next-live">
     <div><div class="faint mono" style="font-size:.8rem">NEXT LIVE CLASS · ${esc(next.course.title)}</div><h3>${esc(next.title)}</h3>
@@ -1263,13 +1475,16 @@ function scopeSvg() {
   return `<svg class="scope" viewBox="0 0 470 290" role="img" aria-label="Three phase-shifted square-wave bridge voltages v1, v2 and v3">
     <rect x="${X0}" y="22" width="${X1 - X0}" height="246" rx="6" fill="none" stroke="rgba(241,236,226,.14)"/>
     <g stroke="rgba(241,236,226,.07)" stroke-width="1">${grid}</g>
+    <defs><linearGradient id="beamG" x1="0" x2="1"><stop offset="0" stop-color="#cfa868" stop-opacity="0"/><stop offset=".85" stop-color="#cfa868" stop-opacity=".22"/><stop offset="1" stop-color="#fff1cf" stop-opacity=".7"/></linearGradient></defs>
+    <rect class="beam" x="${X0 - 40}" y="23" width="40" height="244" fill="url(#beamG)"/>
     <g fill="none" stroke-width="2.2" stroke-linejoin="miter">
-      <path class="trace" pathLength="1" d="${sq(70, 0)}" stroke="#cfa868"/>
+      <path class="trace t1" pathLength="1" d="${sq(70, 0)}" stroke="#cfa868"/>
       <path class="trace t2" pathLength="1" d="${sq(145, 40)}" stroke="#ece6da"/>
       <path class="trace t3" pathLength="1" d="${sq(220, 70)}" stroke="#8fb0e0"/>
     </g>
     <g font-family="Newsreader, Georgia, serif" font-style="italic" font-size="17" fill="rgba(241,236,226,.85)">
       <text x="14" y="76">v₁</text><text x="14" y="151">v₂</text><text x="14" y="226">v₃</text></g>
+    <g font-family="IBM Plex Mono, monospace" font-size="10" fill="rgba(241,236,226,.5)"><circle class="led" cx="${X1 - 64}" cy="12" r="3.2" fill="#5fc489"/><text x="${X1 - 56}" y="15.5">RUN · 100 kHz</text></g>
     <g class="mk" stroke="#cfa868" stroke-width="1" fill="#cfa868" font-family="Newsreader, Georgia, serif" font-style="italic" font-size="17">
       <line x1="200" y1="40" x2="200" y2="250" stroke-dasharray="3 4" opacity=".6"/>
       <line x1="200" y1="108" x2="234" y2="108"/><path d="M234 104 L240 108 L234 112Z" stroke="none"/><text x="204" y="100" stroke="none">φ₁₂</text>
@@ -2050,18 +2265,19 @@ function adminSection() {
     case 'secure': {
       const on = !!fbCfg(), u = FB.user;
       return `<h2>Secure sign-in</h2>
-      <p class="lead">Real Google sign-in for students. Lecture videos, notes, documents, quizzes and meeting links become visible only to approved students, the student list stays private, and Q&amp;A is shared between all students. Free (Firebase Spark plan; no card needed).</p>
+      <p class="lead">Real password sign-in for students (email + password, with Google as an option). Lecture videos, notes, documents, quizzes and meeting links become visible only to approved students, the student list stays private, and Q&amp;A is shared between all students. Free (Firebase Spark plan; no card needed).</p>
       <p>Status: ${!on ? '<span class="status-bad">Not set up</span> — the simple sign-in is in use.' : !FB.on ? '<span class="status-bad">Set up, but Firebase did not load</span>. Check the settings below and reload the page.' : u && u.inst ? `<span class="status-ok">Active ✓</span> — signed in as ${esc(u.email)}` : `<span class="chip warn">Active</span> — sign in as the instructor to manage it.`}</p>
       ${on && FB.on && !(u && u.inst) ? `<p><button class="btn primary" onclick="fbSignIn()">${G_ICON} Sign in with Google (${esc(SITE.instructorEmail)})</button></p>` : ''}
       <div class="card" style="margin:16px 0"><h3 style="margin-top:0">One-time setup (about 20 minutes)</h3>
       <ol class="steps">
         <li>Open <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> (sign in as ${esc(SITE.instructorEmail)}) → <b>Create a project</b> → name it <i>ajit-website</i> → turn <b>off</b> Google Analytics → <b>Create</b>.</li>
-        <li>Left menu <b>Build → Authentication</b> → <b>Get started</b> → <b>Google</b> → <b>Enable</b> → pick your email as support email → <b>Save</b>.</li>
+        <li>Left menu <b>Build → Authentication</b> → <b>Get started</b> → <b>Email/Password</b> → turn on the first switch (<b>Email/Password</b>) → <b>Save</b>.</li>
+        <li>Still on <b>Sign-in method</b>: <b>Add new provider</b> → <b>Google</b> → <b>Enable</b> → pick your email as support email → <b>Save</b>.</li>
         <li>Still in Authentication: <b>Settings</b> tab → <b>Authorized domains</b> → <b>Add domain</b> → <span class="mono">${esc(location.hostname && location.hostname.includes('.') ? location.hostname : 'ajitpatra861-creator.github.io')}</span>.</li>
         <li><b>Build → Firestore Database</b> → <b>Create database</b> → location <b>asia-south1 (Mumbai)</b> → <b>Start in production mode</b> → Create.</li>
         <li>Firestore <b>Rules</b> tab → delete everything → paste the rules below (use <b>Copy rules</b>) → <b>Publish</b>.</li>
         <li>Gear icon → <b>Project settings</b> → scroll to <b>Your apps</b> → the <b>&lt;/&gt;</b> (Web) icon → nickname <i>website</i> → <b>Register app</b> → copy the <span class="mono">firebaseConfig</span> block and paste it in the box below.</li>
-        <li><b>Reload this page</b>, come back here and tap <b>Sign in with Google</b>.</li>
+        <li><b>Reload this page</b>, come back here and tap <b>Sign in with Google</b> (use ${esc(SITE.instructorEmail)}).</li>
         <li>Tap <b>Move students &amp; course content</b>. This publishes your site in the secure format.</li>
       </ol>
       <div class="note">Don't turn on Firebase Storage: it needs a paid plan. Your files stay on GitHub, and their links are only shown to approved students.</div></div>
@@ -2334,7 +2550,70 @@ function route() {
   updateDraftBar();
   countVisit();
   if (!A.on) typeset(app);
+  fx();
 }
+
+/* ---------- motion: scroll reveal, count-up, keyword rotator, tilt, spotlight ---------- */
+const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+let fxObs = null, rotT = null;
+function fx() {
+  if (A.on) return;
+  const sel = 'section.block .eyebrow, section.block h2, section.block .lead, section.block .card, section.block .fact, section.block .timeline li, section.block .news li, .course-card, .lec-row, .session, .page-head, .stat';
+  const els = [...app.querySelectorAll(sel)].filter(el => !el.closest('.hero'));
+  if (fxObs) fxObs.disconnect();
+  if (calm() || !('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('rv', 'in')); countUp(app, true); }
+  else {
+    fxObs = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target; el.classList.add('in'); fxObs.unobserve(el);
+      setTimeout(() => { el.classList.remove('rv', 'in'); el.style.removeProperty('--d'); }, 1300);
+      if (e.target.classList.contains('stat')) countUp(e.target);
+    }), { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    const sib = new Map();
+    els.forEach(el => {
+      const k = el.parentElement, i = sib.get(k) || 0; sib.set(k, i + 1);
+      el.classList.add('rv'); el.style.setProperty('--d', Math.min(i, 6) * 0.07 + 's'); fxObs.observe(el);
+    });
+  }
+  /* rotating keywords */
+  clearTimeout(rotT);
+  const w = $('#rotw', app), K = SITE.keywords || [];
+  if (w && K.length) {
+    if (calm()) w.textContent = K[0];
+    else { let i = 0, j = 0, del = false;
+      const tick = () => { if (!document.body.contains(w)) return; const word = K[i % K.length];
+        j += del ? -1 : 1; w.textContent = word.slice(0, j);
+        let t = del ? 28 : 55; if (!del && j === word.length) { del = true; t = 1800; } else if (del && j === 0) { del = false; i++; t = 300; }
+        rotT = setTimeout(tick, t); };
+      tick(); }
+  }
+  /* gentle 3D tilt on the hero figure */
+  const fig = $('#heroFig', app);
+  if (fig && !calm() && matchMedia('(hover: hover)').matches) {
+    const hero = fig.closest('.hero');
+    hero.onmousemove = e => { const r = fig.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      fig.style.setProperty('--ry', (x * 7).toFixed(2) + 'deg'); fig.style.setProperty('--rx', (-y * 6).toFixed(2) + 'deg'); };
+    hero.onmouseleave = () => { fig.style.setProperty('--ry', '0deg'); fig.style.setProperty('--rx', '0deg'); };
+  }
+}
+function countUp(root, now) {
+  root.querySelectorAll('[data-count]').forEach(el => {
+    const to = +el.dataset.count || 0; if (now || calm() || !to) { el.textContent = to; return; }
+    const t0 = performance.now(), dur = 1100;
+    const step = t => { const k = Math.min(1, (t - t0) / dur); el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+}
+/* cursor spotlight on cards */
+document.addEventListener('pointermove', e => {
+  const c = e.target.closest && e.target.closest('.card'); if (!c) return;
+  const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+}, { passive: true });
+/* reading progress + header shadow */
+(() => { const bar = $('#progress'), hd = $('header.top'); let q = false;
+  const upd = () => { q = false; const h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, h.scrollTop / max) : 0})`; hd.classList.toggle('scrolled', h.scrollTop > 8); };
+  addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(upd); } }, { passive: true }); addEventListener('resize', upd); upd(); })();
 setInterval(() => document.querySelectorAll('[data-cd]').forEach(el => el.textContent = countdown(el.dataset.cd)), 30000);
 window.addEventListener('hashchange', route);
 
