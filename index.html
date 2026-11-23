@@ -2005,11 +2005,11 @@ const ADMIN_ACTIONS = {
     try {
       await GH.connect();
       if (!hasDraft()) { SITE = normalize(await loadPublished()); }
-      toast('Connected to GitHub ✓', 3000); renderAdmin();
+      toast(ADMIN_LOCK ? 'Connected ✓ Now set your admin password again (below) so it uses this new key.' : 'Connected to GitHub ✓ Set an admin password below to sign in without the key next time.', 6000); renderAdmin();
     } catch (e) { toast(e.message, 7000); renderAdmin(); }
   },
   adminOut() {
-    confirmBox('You will need your GitHub key to open Admin again on this device. Unpublished changes stay saved on this device.', () => {
+    confirmBox(`You will need your ${ADMIN_LOCK ? 'admin password' : 'GitHub key'} to open Admin again on this device. Unpublished changes stay saved on this device.`, () => {
       const c = GH.cfg(); GH.save({ owner: c.owner, repo: c.repo }); A.on = false; location.hash = '#home'; route(); toast('Signed out of Admin');
     }, 'Sign out');
   },
@@ -2301,7 +2301,17 @@ function adminSection() {
       <div class="two"><div class="fld"><label for="ghOwner">GitHub user name</label><input type="text" id="ghOwner" value="${esc(gh.owner)}"></div>
       <div class="fld"><label for="ghRepo">Repository</label><input type="text" id="ghRepo" value="${esc(gh.repo)}"></div></div>
       <div class="fld"><label for="ghToken">GitHub key (token)</label><input type="password" id="ghToken" placeholder="${gh.token ? 'Saved — paste a new key only to replace it' : 'github_pat_…'}" autocomplete="off"></div>
-      <div style="display:flex;gap:8px"><button class="btn primary" data-a="connect">${gh.ok ? 'Reconnect' : 'Connect'}</button>${gh.token ? '<button class="btn" data-a="disconnect">Disconnect</button>' : ''}</div>`;
+      <div style="display:flex;gap:8px"><button class="btn primary" data-a="connect">${gh.ok ? 'Reconnect' : 'Connect'}</button>${gh.token ? '<button class="btn" data-a="disconnect">Disconnect</button>' : ''}</div>
+      <h3 id="adminPwSec">Admin password</h3>
+      <p class="muted">Sign in to Admin with a password instead of the GitHub key, on any device. Your key is locked with this password and saved in your repository as <span class="mono">${LOCK_FILE}</span>; without the password it cannot be opened.</p>
+      <p>Status: ${ADMIN_LOCK ? `<span class="status-ok">Set ✓</span> <span class="faint">(${esc(fmtDate(ADMIN_LOCK.saved))})</span>` : ADMIN_LOCK === null ? '<span class="status-bad">Not set</span>' : '<span class="faint">checking…</span>'}</p>
+      <form id="setPw" autocomplete="on" style="max-width:420px">
+        <input type="text" name="username" value="${esc(gh.owner)}" autocomplete="username" style="display:none" readonly>
+        <div class="fld"><label for="npw1">${ADMIN_LOCK ? 'New password' : 'Password'} <span class="faint" style="font-weight:400">(at least 10 characters)</span></label><input type="password" id="npw1" autocomplete="new-password" minlength="10" required></div>
+        <div class="fld"><label for="npw2">Type it again</label><input type="password" id="npw2" autocomplete="new-password" required></div>
+        <button class="btn primary" ${gh.ok ? '' : 'disabled'}>${ADMIN_LOCK ? 'Change admin password' : 'Set admin password'}</button>
+      </form>
+      <div class="note">Use a long password you don't use anywhere else: anyone who guesses it can edit your website. If you ever make a new GitHub key, set the password again here so it uses the new key.</div>`;
 
     case 'backup': return `<h2>Backup</h2>
       <p class="muted">GitHub keeps every published version, so mistakes can always be undone there. You can also keep your own copy.</p>
@@ -2394,9 +2404,53 @@ function adminCourses() {
     <a class="btn small" href="#course-${c.id}" style="margin-left:auto">View on site →</a></div>${body}`;
 }
 
+/* =====================================================================
+   ADMIN PASSWORD — your GitHub key, locked with your password (AES-256-GCM,
+   PBKDF2-SHA256 600k rounds) and saved as admin-lock.json in the repository.
+   The file is public, but it is useless without the password.
+   ===================================================================== */
+const LOCK_FILE = 'admin-lock.json', LOCK_ITER = 600000;
+const b64e = u8 => btoa(String.fromCharCode(...u8)), b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function lockKey(pass, salt, iter) {
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations: iter }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+}
+async function lockToken(token, pass) {
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const c = GH.cfg(), payload = JSON.stringify({ token, owner: c.owner, repo: c.repo });
+  const data = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await lockKey(pass, salt, LOCK_ITER), new TextEncoder().encode(payload)));
+  return { v: 1, kdf: 'PBKDF2-SHA256', iter: LOCK_ITER, salt: b64e(salt), iv: b64e(iv), data: b64e(data), saved: new Date().toISOString() };
+}
+async function unlockToken(lock, pass) {
+  try {
+    const k = await lockKey(pass, b64d(lock.salt), +lock.iter || LOCK_ITER);
+    return JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(lock.iv) }, k, b64d(lock.data))));
+  } catch (e) { throw new Error('Wrong password. Please try again.'); }
+}
+let ADMIN_LOCK;   /* undefined = not checked yet, null = no admin password set */
+async function loadAdminLock() {
+  if (ADMIN_LOCK !== undefined) return ADMIN_LOCK;
+  try {
+    const r = await fetch(LOCK_FILE + '?v=' + Date.now(), { cache: 'no-store' });
+    const j = r.ok ? await r.json() : null;
+    ADMIN_LOCK = j && j.data && j.salt && j.iv ? j : null;
+  } catch (e) { ADMIN_LOCK = null; }
+  return ADMIN_LOCK;
+}
+async function saveAdminPassword(pass) {
+  const c = GH.cfg(); if (!(c.ok && c.token)) throw new Error('Connect with your GitHub key first.');
+  const lock = await lockToken(c.token, pass);
+  await GH.put(LOCK_FILE, b64utf8(JSON.stringify(lock, null, 2)), 'Set admin password');
+  ADMIN_LOCK = lock;
+}
+
 function pageAdmin() {
   if (!adminIn()) return `<div class="wrap" style="max-width:460px;padding:70px 22px 110px">
-    <div class="card" style="padding:32px"><h2 style="margin-bottom:6px">Admin sign-in</h2>
+    <div class="card" style="padding:32px" id="adminCard"><p class="faint" style="margin:0">Loading…</p></div></div>`;
+  return pageAdminMain();
+}
+function adminKeyForm() {
+  return `<h2 style="margin-bottom:6px">Admin sign-in</h2>
     <p class="muted">Only the site owner can open this page.</p>
     <form id="adminLogin" autocomplete="on">
       <input type="text" name="username" value="${esc(GH.cfg().owner)}" autocomplete="username" style="display:none" readonly>
@@ -2404,8 +2458,49 @@ function pageAdmin() {
       <button class="btn primary" style="width:100%;justify-content:center">Sign in</button>
     </form>
     <details style="margin-top:18px;font-size:.9rem"><summary style="cursor:pointer;color:var(--ink-2)">Lost the key, or using a new device?</summary>
-      <p class="muted" style="margin:10px 0 0">Create a new key at <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Fine-grained tokens</a>: repository <span class="mono">${esc(GH.cfg().repo)}</span>, permission <b>Contents: Read and write</b>. Paste it above. Let your browser save it as a password so you don't have to do this again.</p></details>
-    </div></div>`;
+      <p class="muted" style="margin:10px 0 0">Create a new key at <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Fine-grained tokens</a>: repository <span class="mono">${esc(GH.cfg().repo)}</span>, permission <b>Contents: Read and write</b>. Paste it above. Then set an admin password in <b>Admin → GitHub connection</b> so next time you only need your password.</p></details>
+    ${ADMIN_LOCK ? '<p style="margin:14px 0 0;font-size:.9rem"><a href="javascript:void 0" onclick="showAdminLogin(false)">← Sign in with your password instead</a></p>' : ''}`;
+}
+function adminPassForm() {
+  return `<h2 style="margin-bottom:6px">Admin sign-in</h2>
+    <p class="muted">Only the site owner can open this page.</p>
+    <form id="adminPass" autocomplete="on">
+      <input type="text" name="username" value="${esc(GH.cfg().owner)}" autocomplete="username" style="display:none" readonly>
+      <div class="fld"><label for="apPass">Admin password</label>
+        <div class="pw"><input type="password" id="apPass" name="password" autocomplete="current-password" required>
+        <button type="button" class="pw-eye" aria-label="Show password" onclick="const i=$('#apPass');i.type=i.type==='password'?'text':'password'">${EYE}</button></div></div>
+      <p class="auth-err" id="apErr" role="alert"></p>
+      <button class="btn primary" id="apGo" style="width:100%;justify-content:center">Sign in</button>
+    </form>
+    <p style="margin:16px 0 0;font-size:.9rem"><a href="javascript:void 0" onclick="showAdminLogin(true)">Forgot the password? Sign in with a GitHub key</a></p>`;
+}
+async function showAdminLogin(useKey) {
+  const card = $('#adminCard'); if (!card) return;
+  const lock = await loadAdminLock();
+  if (!$('#adminCard')) return;
+  card.innerHTML = lock && !useKey ? adminPassForm() : adminKeyForm();
+  if (lock && !useKey) bindAdminPass(lock); else bindAdminLogin();
+}
+function bindAdminPass(lock) {
+  $('#apPass').focus();
+  $('#adminPass').onsubmit = async e => {
+    e.preventDefault(); const err = $('#apErr'), go = $('#apGo'); err.textContent = '';
+    const pass = $('#apPass').value; if (!pass) return;
+    go.disabled = true; go.innerHTML = '<span class="spin"></span> Unlocking…';
+    try {
+      const k = await unlockToken(lock, pass);
+      const c = GH.cfg(); c.token = k.token; if (k.owner) c.owner = k.owner; if (k.repo) c.repo = k.repo; c.ok = false; GH.save(c);
+      try { await GH.connect(); }
+      catch (x) {
+        const c2 = GH.cfg(); c2.token = ''; c2.ok = false; GH.save(c2);
+        throw new Error(/did not accept/.test(x.message) ? 'Your password is right, but the GitHub key saved with it has expired. Sign in with a new GitHub key (link below), then set your admin password again.' : x.message);
+      }
+      if (!hasDraft()) SITE = normalize(await loadPublished());
+      toast('Welcome back', 2500); route();
+    } catch (x) { err.textContent = x.message; go.disabled = false; go.textContent = 'Sign in'; $('#apPass').select(); }
+  };
+}
+function pageAdminMain() {
   return `<div class="wrap admin">
     <nav class="anav">${SECS.map(([k, n]) => k === '-' ? '<div class="sep"></div>' : `<button data-asec="${k}" class="${A.sec === k ? 'on' : ''}">${n}</button>`).join('')}
       <div class="sep"></div><button data-a="publish" style="background:var(--accent);color:var(--accent-ink)">Publish to website</button>
@@ -2425,6 +2520,18 @@ function bindAdminLogin() {
     } catch (er) { const c2 = GH.cfg(); c2.token = ''; c2.ok = false; GH.save(c2); toast(er.message, 7000); }
   };
 }
+function bindSetPw() {
+  if (ADMIN_LOCK === undefined) loadAdminLock().then(() => { if (A.on && A.sec === 'github' && !$('#npw1').value) renderAdmin(); });
+  const f = $('#setPw'); if (!f) return;
+  f.onsubmit = async e => {
+    e.preventDefault(); const a = $('#npw1').value, b = $('#npw2').value;
+    if (a.length < 10) { toast('Please use at least 10 characters'); return; }
+    if (a !== b) { toast('The two passwords are different'); return; }
+    toast('Saving…', 30000);
+    try { await saveAdminPassword(a); toast('Admin password saved ✓ Next time, just use your password.', 5000); renderAdmin(); }
+    catch (x) { toast(x.message, 7000); }
+  };
+}
 function renderAdmin(scrollTop) {
   if (!adminIn()) { route(); return; }
   if (!A.on) return;
@@ -2434,6 +2541,7 @@ function renderAdmin(scrollTop) {
   p.innerHTML = gated ? `<h2>Sign in as the instructor</h2><p class="muted">Secure sign-in is switched on, so private course content only loads after you sign in with Google as ${esc(SITE.instructorEmail)}.</p>
     <button class="btn primary" onclick="fbSignIn()">${G_ICON} Sign in with Google</button>` : adminSection();
   if (!gated && A.sec === 'students' && fbCfg()) fbInit().then(fbAdminLists);
+  if (!gated && A.sec === 'github') bindSetPw();
   document.querySelectorAll('.anav button[data-asec]').forEach(b => b.classList.toggle('on', b.dataset.asec === A.sec));
   if (scrollTop) window.scrollTo(0, 0);
 }
@@ -2535,7 +2643,7 @@ function route() {
     case 'course': { const c = courseById(p[1]); html = c ? pageCourse(c, p[2] || 'lectures') : notFound(); nav = 'teaching'; break; }
     case 'lec': { const c = courseById(p[1]); html = c ? pageLecture(c, +p[2]) : notFound(); nav = 'teaching'; if (c) after = () => renderQA(c, +p[2]); break; }
     case 'quiz': { const c = courseById(p[1]); html = c ? pageQuiz(c, p[2]) : notFound(); nav = 'teaching'; if (c) after = () => bindQuiz(c, p[2]); break; }
-    case 'admin': html = pageAdmin(); after = () => adminIn() ? renderAdmin() : bindAdminLogin(); break;
+    case 'admin': html = pageAdmin(); after = () => adminIn() ? renderAdmin() : showAdminLogin(false); break;
     default: html = pageHome(); nav = 'home';
   }
   app.innerHTML = html;
