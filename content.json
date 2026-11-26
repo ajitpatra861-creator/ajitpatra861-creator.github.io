@@ -455,7 +455,7 @@
     }
   ],
   "gallery": [],
-  "firebase": "",
+  "firebase": "const firebaseConfig = {\n  apiKey: \"AIzaSyC98lZtWp2Ovku06q-AwmvPxTJXZEA25zs\",\n  authDomain: \"ajit-website-ab2d9.firebaseapp.com\",\n  projectId: \"ajit-website-ab2d9\",\n  storageBucket: \"ajit-website-ab2d9.firebasestorage.app\",\n  messagingSenderId: \"933449633241\",\n  appId: \"1:933449633241:web:a8c3b238cb1ffb4f5e5dc8\"\n};",
   "photo": "",
   "formspree": "",
   "goatcounter": ""
