@@ -104,10 +104,8 @@
     }
   ],
   "requireLogin": true,
-  "allowedDomain": "iitbbs.ac.in",
-  "students": [
-    "student@iitbbs.ac.in"
-  ],
+  "allowedDomain": "",
+  "students": [],
   "instructorEmail": "ajit.patra861@gmail.com",
   "announcements": [
     {
