@@ -543,6 +543,126 @@ nav.main a.on::after{content:"";position:absolute;left:11px;right:11px;bottom:2p
 @keyframes rot{to{transform:rotate(360deg)}}
 .lock .ic{background:linear-gradient(135deg,var(--accent),var(--brass,var(--accent)));color:var(--accent-ink);box-shadow:0 12px 30px color-mix(in srgb,var(--accent) 30%,transparent)}
 .user-pill{transition:border-color .2s,box-shadow .2s}.user-pill:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+/* ===== look & feel pack ===== */
+.ico{display:block;flex:none}
+/* circuit traces */
+.pcb{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;-webkit-mask-image:radial-gradient(ellipse at 70% 45%,#000 25%,transparent 78%);mask-image:radial-gradient(ellipse at 70% 45%,#000 25%,transparent 78%)}
+.pcb .tr{fill:none;stroke:color-mix(in srgb,var(--ink) 9%,transparent);stroke-width:1.4}
+.pcb .pulse{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linecap:round;stroke-dasharray:3 97;stroke-dashoffset:100;opacity:.75;animation:pulse 7s linear infinite;filter:drop-shadow(0 0 4px var(--accent))}
+[data-skin="signature"] .pcb .tr{stroke:rgba(241,236,226,.075)}
+[data-skin="signature"] .pcb .pulse{stroke:var(--brass);filter:drop-shadow(0 0 5px var(--brass))}
+@keyframes pulse{to{stroke-dashoffset:0}}
+/* interactive scope */
+.lscope{--sc-grid:color-mix(in srgb,var(--ink) 9%,transparent);--sc-frame:color-mix(in srgb,var(--ink) 16%,transparent);--sc1:var(--accent);--sc2:var(--ink-2);--sc3:#4f7fd1;--sc-txt:var(--ink-2)}
+[data-skin="signature"] .hero .lscope{--sc-grid:rgba(241,236,226,.07);--sc-frame:rgba(241,236,226,.15);--sc1:#cfa868;--sc2:#ece6da;--sc3:#8fb0e0;--sc-txt:rgba(241,236,226,.82)}
+[data-theme="dark"] .lscope{--sc3:#8fb0e0}
+.lscope svg{width:100%;height:auto;display:block}
+.sc-frame{fill:none;stroke:var(--sc-frame)}
+.sc-grid line{stroke:var(--sc-grid);stroke-width:1}
+.sc-lbl{font:italic 17px var(--serif);fill:var(--sc-txt)}
+.sc-t{fill:none;stroke-width:2.3;stroke-linejoin:round}
+.sc-t.t1{stroke:var(--sc1);filter:drop-shadow(0 0 4px color-mix(in srgb,var(--sc1) 60%,transparent))}
+.sc-t.t2{stroke:var(--sc2)}
+.sc-t.t3{stroke:var(--sc3);filter:drop-shadow(0 0 4px color-mix(in srgb,var(--sc3) 50%,transparent))}
+.sc-mk line{stroke:var(--sc1);stroke-width:1.2}.sc-mk path{fill:var(--sc1)}.sc-mk text{font:italic 16px var(--serif);fill:var(--sc1)}
+.sc-run text{font:10px var(--mono);fill:var(--sc-txt);opacity:.7}.sc-run circle{fill:#5fc489}
+.ls-ctl{margin-top:12px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb,var(--sc1) 7%,transparent);border:1px solid color-mix(in srgb,var(--sc1) 18%,transparent)}
+.ls-row{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;color:var(--sc-txt)}
+.ls-row b{font:600 1.05rem var(--mono);color:var(--sc1)}
+.ls-ctl input[type=range]{width:100%;accent-color:var(--sc1);margin:8px 0 6px;height:22px;cursor:pointer}
+.ls-out{display:flex;align-items:center;gap:10px;font-size:.84rem;color:var(--sc-txt)}
+.ls-bar{flex:0 0 90px;height:6px;border-radius:6px;background:color-mix(in srgb,var(--sc-txt) 18%,transparent);overflow:hidden}
+.ls-bar i{display:block;height:100%;width:0;border-radius:6px;background:var(--sc1);transition:width .15s}
+.lscope.rev .ls-bar i{background:var(--sc3)}
+.hero figcaption.try{display:flex;gap:8px;align-items:flex-start}
+@media (max-width:880px){.hero .figure{width:100%;max-width:520px;margin-left:auto;margin-right:auto}}
+/* icon chips */
+.rcard .sym.icn{width:52px;min-width:52px;padding:0;color:var(--accent)}
+.rcard .sym.icn .ico{width:26px;height:26px}
+.stat{display:grid;grid-template-columns:auto 1fr;column-gap:14px;align-items:center}
+.stat .si{grid-row:span 2;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.stat b{grid-column:2}.stat > span:last-child{grid-column:2}
+@media (max-width:720px){.stat{grid-template-columns:1fr}.stat .si{display:none}.stat b,.stat > span:last-child{grid-column:1}}
+/* covers */
+.cover{display:block;width:100%;height:100%}
+.proj .img .cover,.post-row .img .cover{width:100%;height:100%;opacity:1}
+.course-card .cc-cover{margin:-22px -22px 6px;height:118px;border-bottom:1px solid var(--line);overflow:hidden;border-radius:var(--radius) var(--radius) 0 0;position:relative}
+.course-card .cc-cover .ci{position:absolute;left:18px;bottom:14px;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--surface);color:var(--c,var(--accent));box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.course-card .cover{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.course-card:hover .cover,.proj:hover .cover,.post-row:hover .cover{transform:scale(1.05)}
+.proj .img,.post-row .img{overflow:hidden}
+.proj .cover,.post-row .cover{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.course-card:has(.cc-cover) .band{display:none}
+/* page transitions (View Transitions API) */
+#app{view-transition-name:page}
+.vt #app{animation:none}
+::view-transition-old(page){animation:vtOut .2s ease both}
+::view-transition-new(page){animation:vtIn .42s cubic-bezier(.2,.7,.2,1) both}
+@keyframes vtOut{to{opacity:0;transform:translateY(-10px);filter:blur(2px)}}
+@keyframes vtIn{from{opacity:0;transform:translateY(14px);filter:blur(3px)}}
+/* reading mode */
+.notes{font-size:1.04rem;line-height:1.8}
+.notes h3{position:relative;padding-left:14px;margin-top:2em;scroll-margin-top:90px}
+.notes h3::before{content:"";position:absolute;left:0;top:.2em;bottom:.2em;width:3px;border-radius:3px;background:var(--accent)}
+.notes h4{scroll-margin-top:90px}
+.notes .box{border-radius:0 12px 12px 0;background:color-mix(in srgb,var(--accent) 7%,var(--surface-2))}
+.eq{position:relative;margin:.6em 0;padding:4px 44px 4px 8px;border-radius:12px;transition:background .2s}
+.eq:hover{background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.eq-copy{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--ink-3);display:grid;place-items:center;opacity:0;transition:opacity .2s,color .2s,border-color .2s}
+.eq:hover .eq-copy,.eq-copy:focus-visible{opacity:1}
+.eq-copy:hover{color:var(--accent);border-color:var(--accent)}
+.eq-copy.ok{color:var(--ok);border-color:var(--ok);opacity:1}
+@media (hover:none){.eq-copy{opacity:.75}}
+.toc{position:sticky;top:84px}
+.lec-layout > .side{align-self:stretch}
+.toc nav{display:flex;flex-direction:column;gap:2px;max-height:52vh;overflow:auto}
+.toc button{text-align:left;background:none;border:0;border-left:2px solid var(--line);padding:6px 10px;color:var(--ink-2);font-size:.9rem;line-height:1.35}
+.toc button.sub{padding-left:22px;font-size:.85rem}
+.toc button:hover{color:var(--ink);border-left-color:var(--ink-3)}
+.toc button.on{color:var(--accent);border-left-color:var(--accent);font-weight:600}
+.read-tools{display:flex;gap:8px;margin-left:auto}
+body.focus header.top,body.focus footer,body.focus .side,body.focus .pager,body.focus #qa,body.focus .crumbs{display:none!important}
+body.focus .lec-layout{grid-template-columns:1fr;max-width:760px;margin:0 auto}
+body.focus .notes{font-size:1.12rem}
+.focus-exit{display:none}
+body.focus .focus-exit{display:inline-flex;position:fixed;top:14px;right:14px;z-index:60}
+/* timeline */
+.timeline{position:relative;padding-left:28px!important}
+.timeline::before{content:"";position:absolute;left:7px;top:10px;bottom:14px;width:2px;border-radius:2px;background:linear-gradient(var(--accent),color-mix(in srgb,var(--accent) 12%,var(--line)))}
+.timeline li{display:block!important;border-top:0!important;padding:2px 0 24px!important;position:relative}
+.timeline li:hover{padding-left:0!important}
+.timeline li::before{content:"";position:absolute;left:-27px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:2.5px solid var(--accent);box-sizing:border-box}
+.timeline li:first-child::before{background:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.timeline li > .mono{display:inline-block;font-size:.78rem;padding:2px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent)!important;margin-bottom:6px}
+.timeline li b{font-size:1.05rem}
+/* footer */
+footer{padding:0;border-top:1px solid var(--line);background:color-mix(in srgb,var(--surface-2) 60%,var(--bg));margin-top:20px}
+footer .ft{display:grid!important;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:30px;padding:56px 22px 36px;justify-content:initial!important}
+@media (max-width:860px){footer .ft{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){footer .ft{grid-template-columns:1fr}}
+footer h4{font:600 .95rem var(--sans);color:var(--ink);margin:0 0 12px}
+footer .ft a{display:block;color:var(--ink-2);padding:4px 0;font-size:.92rem}
+footer .ft a:hover{color:var(--accent);text-decoration:none}
+footer .ft-brand p{color:var(--ink-3);font-size:.9rem;margin:12px 0 16px;max-width:30ch}
+footer .ft-brand .brand{display:inline-flex!important;padding:0!important;color:var(--ink)!important}
+footer .soc{display:flex;gap:8px;flex-wrap:wrap}
+footer .soc a{display:grid!important;place-items:center;width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2)!important;padding:0!important;transition:color .2s,border-color .2s,transform .2s}
+footer .soc a:hover{color:var(--accent)!important;border-color:var(--accent);transform:translateY(-2px)}
+footer .addr{display:block;color:var(--ink-3);font-size:.88rem;margin-top:8px;max-width:32ch}
+footer .ft-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:18px 22px 28px;border-top:1px solid var(--line);color:var(--ink-3);font-size:.85rem}
+footer .ft-bot a{color:var(--ink-3)}
+/* 404 + skeleton */
+.nf{text-align:center;padding:70px 0 90px;max-width:620px;margin:0 auto}
+.nf > svg{width:min(420px,90%);height:auto;margin:0 auto 18px;display:block}
+.nf .wire{fill:none;stroke:var(--ink-3);stroke-width:3;stroke-linecap:round}
+.nf .spark{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linecap:round;animation:spark 1.6s ease-in-out infinite}
+@keyframes spark{0%,100%{opacity:.2}50%{opacity:1}}
+.nf .code{font:600 .9rem var(--mono);color:var(--accent);letter-spacing:.04em}
+.sk-wrap{padding:70px 0}
+.sk{border-radius:10px;background:linear-gradient(90deg,var(--surface-2) 0%,color-mix(in srgb,var(--line) 70%,var(--surface-2)) 50%,var(--surface-2) 100%);background-size:200% 100%;animation:sk 1.3s ease-in-out infinite;margin-bottom:14px}
+@keyframes sk{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.pcb .pulse,.sk,.nf .spark{animation:none!important}.pcb .pulse{display:none}}
+
 @media (prefers-reduced-motion:reduce){
   .aurora i,.hero h1 em,.scope .beam,.scope .mk line,.scope .led,.rot .caret,#app,.hero .h-in,.modal-bg.open .modal{animation:none!important}
   .scope .beam{opacity:0}
@@ -583,7 +703,7 @@ nav.main a.on::after{content:"";position:absolute;left:11px;right:11px;bottom:2p
   </div>
 </header>
 
-<main id="app"></main>
+<main id="app"><div class="wrap sk-wrap" aria-hidden="true"><div class="sk" style="width:38%;height:16px"></div><div class="sk" style="width:62%;height:54px"></div><div class="sk" style="width:80%;height:16px"></div><div class="sk" style="width:70%;height:16px;margin-bottom:34px"></div><div class="sk" style="width:100%;height:220px"></div></div></main>
 
 <footer>
   <div class="wrap">
@@ -893,7 +1013,7 @@ function mdLite(src) {
       const L = lines[i].trim(); let m;
       if (!L) continue;
       if ((m = L.match(/^(#{1,3})\s+(.*)/))) { flush(); const tag = m[1].length === 1 ? 'h3' : 'h4'; out.push(`<${tag}>${inl(m[2])}</${tag}>`); }
-      else if (L.startsWith('$$')) { flush(); let math = L; while (!(math.length > 2 && math.endsWith('$$')) && i + 1 < lines.length) math += '\n' + lines[++i]; out.push(`<div class="math">${esc(math)}</div>`); }
+      else if (L.startsWith('$$')) { flush(); let math = L; while (!(math.length > 2 && math.endsWith('$$')) && i + 1 < lines.length) math += '\n' + lines[++i]; out.push(`<div class="eq"><div class="math">${esc(math)}</div><button type="button" class="eq-copy" aria-label="Copy equation as LaTeX" title="Copy LaTeX" data-tex="${esc(math.replace(/^\$\$|\$\$$/g, '').trim())}">${ico('copy', 16)}</button></div>`); }
       else if ((m = L.match(/^!\[(.*?)\]\((.*?)\)$/))) { flush(); out.push(`<figure><img src="${esc(m[2])}" alt="${esc(m[1])}">${m[1] ? `<figcaption>${esc(m[1])}</figcaption>` : ''}</figure>`); }
       else if (/^[-*] /.test(L)) add('ul', L.slice(2));
       else if (L.startsWith('>')) add('box', L.replace(/^>\s?/, ''));
@@ -1329,12 +1449,163 @@ function openLink(url, what) {
 function typeset(el) { if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(() => {}); else if ((typeset.n = (typeset.n || 0) + 1) < 30) setTimeout(() => typeset(el), 400); }
 
 /* =====================================================================
+   LOOK & FEEL: icons, interactive scope, circuit traces, cover art,
+   reading mode, footer, empty states
+   ===================================================================== */
+const ICONS = {
+  inductor: '<path d="M1 14h3a2.5 2.5 0 0 1 5 0a2.5 2.5 0 0 1 5 0a2.5 2.5 0 0 1 5 0h4"/>',
+  transformer: '<path d="M4 4h3M4 20h3M7 4a2 2 0 0 1 0 4a2 2 0 0 1 0 4a2 2 0 0 1 0 4a2 2 0 0 1 0 4M10.5 4v16M13.5 4v16M17 4a2 2 0 0 0 0 4a2 2 0 0 0 0 4a2 2 0 0 0 0 4a2 2 0 0 0 0 4M17 4h3M17 20h3"/>',
+  mosfet: '<path d="M3 12h5M8 6v12M11 6v3M11 10.5v3M11 15v3M11 7.5h6V3M11 16.5h6V21M11 12h5V16.5M13 10l2 2-2 2"/>',
+  scope: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M6 13h3V8h3v5h3V8h3M9 21h6M12 17v4"/>',
+  capacitor: '<path d="M2 12h7M9 6v12M15 6v12M15 12h7"/>',
+  diode: '<path d="M2 12h6M8 6l8 6-8 6zM16 6v12M16 12h6"/>',
+  chip: '<rect x="6" y="6" width="12" height="12" rx="1.5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+  bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  wave: '<path d="M2 12c2.5-7 5-7 7.5 0s5 7 7.5 0 3.5-4.5 5-4.5"/>',
+  book: '<path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM8 7h7"/>',
+  quiz: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="m8 12 3 3 5-6"/>',
+  cap: '<path d="m2 9 10-5 10 5-10 5zM6 11v5c3 2.2 9 2.2 12 0v-5M22 9v6"/>',
+  paper: '<path d="M7 2h7l5 5v15H7zM14 2v5h5M10 13h6M10 17h6"/>',
+  play: '<circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  link: '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  orcid: '<circle cx="12" cy="12" r="9.5"/><path d="M8.5 10v7M8.5 7.2v.1M11.5 10v7h2.2a3.5 3.5 0 0 0 0-7z"/>',
+  linkedin: '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7.2v.1M12 17v-4a2.5 2.5 0 0 1 5 0v4M12 10v7"/>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+  focus: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'
+};
+const ICON_NAMES = { scope: 'Oscilloscope', transformer: 'Transformer', inductor: 'Inductor', mosfet: 'MOSFET', capacitor: 'Capacitor', diode: 'Diode', chip: 'Controller chip', bolt: 'Power', wave: 'Waveform', book: 'Book', cap: 'Graduation cap' };
+const ico = (n, s = 22) => `<svg class="ico" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ICONS.bolt}</svg>`;
+const hashStr = s => { let h = 2166136261; for (const ch of String(s)) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+
+/* --- generated cover art for courses, projects and posts --- */
+function coverArt(seed, color) {
+  const h = hashStr(seed), v = h % 4, c = color || 'var(--accent)', r = n => ((h >>> (n % 24)) % 97) / 97;
+  const id = 'cv' + (h % 100000);
+  let art = '';
+  if (v === 0) { const sq = (y, sh) => { let d = `M0 ${y}`, up = true; for (let x = -sh; x < 420; x += 50) { d += ` H${Math.max(0, x + 50)} V${up ? y - 26 : y}`; up = !up; } return d; };
+    art = [0, 1, 2].map(i => `<path d="${sq(58 + i * 42, 10 + i * (14 + r(i) * 20))}" stroke="${c}" stroke-width="${i ? 1.6 : 2.6}" opacity="${1 - i * .3}" fill="none"/>`).join(''); }
+  else if (v === 1) { art = [0, 1, 2, 3].map(i => { const a = 18 + i * 6, ph = r(i + 3) * 60; let d = ''; for (let x = 0; x <= 400; x += 8) d += (x ? 'L' : 'M') + x + ' ' + (84 + a * Math.sin((x + ph) / (28 + i * 9))).toFixed(1); return `<path d="${d}" stroke="${c}" stroke-width="${2 - i * .35}" opacity="${.95 - i * .2}" fill="none"/>`; }).join(''); }
+  else if (v === 2) { let t = ''; for (let i = 0; i < 7; i++) { const y = 18 + i * 22, x1 = 40 + r(i) * 140, x2 = x1 + 40 + r(i + 5) * 120;
+      t += `<path d="M0 ${y} H${x1} l18 18 H${x2}" stroke="${c}" stroke-width="1.6" opacity="${.35 + r(i + 2) * .6}" fill="none"/><circle cx="${x2}" cy="${y + 18}" r="4" fill="none" stroke="${c}" stroke-width="1.6"/>`; } art = t; }
+  else { let d = ''; for (let i = 0; i < 26; i++) for (let j = 0; j < 9; j++) d += `<circle cx="${8 + i * 16}" cy="${8 + j * 18}" r="1.2" fill="${c}" opacity=".35"/>`;
+    let w = 'M0 120'; for (let x = 0; x < 400; x += 40) w += ` L${x + 20} ${40 + r(x) * 30} L${x + 40} 120`; art = d + `<path d="${w}" stroke="${c}" stroke-width="2.4" fill="none"/>`; }
+  return `<svg class="cover" viewBox="0 0 400 168" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".16"/><stop offset="1" stop-color="${c}" stop-opacity=".04"/></linearGradient></defs><rect width="400" height="168" fill="url(#${id})"/>${art}</svg>`;
+}
+
+/* --- circuit-trace background for the hero --- */
+function pcbSvg() {
+  const R = (i => () => ((i = Math.imul(i ^ (i >>> 15), 2246822507) + 1013904223 >>> 0) % 1000) / 1000)(7);
+  let traces = '', pulses = '';
+  for (let k = 0; k < 16; k++) {
+    const left = k % 2 === 0, y0 = 30 + R() * 560;
+    let x = left ? 0 : 1400, y = y0, d = `M${x} ${y}`; const dir = left ? 1 : -1;
+    for (let s = 0; s < 3; s++) { x += dir * (60 + R() * 200); d += ` H${x.toFixed(0)}`; const dy = (R() < .5 ? -1 : 1) * (20 + R() * 60); x += dir * Math.abs(dy); y += dy; d += ` L${x.toFixed(0)} ${y.toFixed(0)}`; }
+    traces += `<path d="${d}"/><circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="4.5"/>`;
+    if (k % 3 === 0) pulses += `<path class="pulse" d="${d}" pathLength="100" style="animation-delay:${(-R() * 8).toFixed(2)}s;animation-duration:${(5 + R() * 4).toFixed(2)}s"/>`;
+  }
+  return `<svg class="pcb" viewBox="0 0 1400 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g class="tr">${traces}</g><g>${pulses}</g></svg>`;
+}
+
+/* --- interactive dual-active-bridge scope in the hero --- */
+function liveScope() {
+  const X0 = 50, X1 = 450, grid = [...Array(9)].map((_, i) => `<line x1="${X0 + i * 50}" y1="16" x2="${X0 + i * 50}" y2="284"/>`).join('') + [62, 146, 228].map(y => `<line x1="${X0}" y1="${y}" x2="${X1}" y2="${y}"/>`).join('');
+  return `<div class="lscope" id="lscope">
+    <svg viewBox="0 0 470 300" role="img" aria-label="Dual active bridge waveforms: bridge voltages v1 and v2 and inductor current">
+      <rect class="sc-frame" x="${X0}" y="16" width="${X1 - X0}" height="268" rx="6"/>
+      <g class="sc-grid">${grid}</g>
+      <g class="sc-lbl"><text x="14" y="68">v₁</text><text x="14" y="152">v₂</text><text x="14" y="234">i<tspan font-size="11" dy="4">L</tspan></text></g>
+      <path class="sc-t t1" id="lsV1"/><path class="sc-t t2" id="lsV2"/><path class="sc-t t3" id="lsI"/>
+      <g class="sc-mk"><line id="lsGuide" y1="24" y2="276" stroke-dasharray="3 4"/><line id="lsArr" y1="104" y2="104"/><path id="lsHead"/><text id="lsPhiT" y="97">φ</text></g>
+      <g class="sc-run"><circle class="led" cx="${X1 - 70}" cy="9" r="3"/><text x="${X1 - 62}" y="12.5">RUN · 100 kHz</text></g>
+    </svg>
+    <div class="ls-ctl">
+      <div class="ls-row"><label for="lsPhi">Phase shift</label><b id="lsPhiVal">36°</b></div>
+      <input type="range" id="lsPhi" min="-90" max="90" step="1" value="36" aria-describedby="lsP">
+      <div class="ls-out"><div class="ls-bar"><i id="lsBar"></i></div><span id="lsP" aria-live="polite"></span></div>
+    </div></div>`;
+}
+function bindScope() {
+  const box = $('#lscope'); if (!box) return;
+  const inp = $('#lsPhi'), X0 = 50, X1 = 450, P = 200, N = 400;
+  const lvl = (x, sh) => ((((x - sh) % P) + P) % P) < P / 2 ? 1 : -1;
+  const sq = (y, A, sh) => { let d = `M${X0} ${y - A * lvl(X0 + .01, sh)}`;
+    for (let k = Math.ceil((X0 - sh) / (P / 2)); ; k++) { const e = sh + k * P / 2; if (e >= X1) break; if (e > X0) d += ` H${e.toFixed(1)} V${(y - A * lvl(e + .01, sh)).toFixed(1)}`; }
+    return d + ` H${X1}`; };
+  const cur = sh => { const v = []; let acc = 0; for (let k = 0; k <= N; k++) { const x = X0 + (X1 - X0) * k / N; acc += (lvl(x, X0) - lvl(x, X0 + sh)); v.push(acc); }
+    const m = (Math.max(...v) + Math.min(...v)) / 2; return v.map(a => a - m); };
+  const ref = Math.max(...cur(P / 4).map(Math.abs));
+  let shown = null;
+  const draw = deg => {
+    deg = Math.round(deg * 2) / 2; if (deg === shown) return; shown = deg;
+    const sh = deg / 360 * P, ph = Math.abs(deg) * Math.PI / 180, ratio = ph * (1 - ph / Math.PI) / (Math.PI / 4);
+    $('#lsV1').setAttribute('d', sq(62, 26, X0)); $('#lsV2').setAttribute('d', sq(146, 26, X0 + sh));
+    const iv = cur(sh); $('#lsI').setAttribute('d', iv.map((a, k) => (k ? 'L' : 'M') + (X0 + (X1 - X0) * k / N).toFixed(1) + ' ' + (228 - 40 * a / ref).toFixed(1)).join(''));
+    const gx = X0 + P, tx = gx + sh;
+    $('#lsGuide').setAttribute('x1', gx); $('#lsGuide').setAttribute('x2', gx);
+    $('#lsArr').setAttribute('x1', gx); $('#lsArr').setAttribute('x2', tx);
+    $('#lsHead').setAttribute('d', Math.abs(sh) < 3 ? '' : `M${tx} 104 l${sh > 0 ? -6 : 6} -4 v8z`);
+    $('#lsPhiT').setAttribute('x', Math.min(gx, tx) + Math.abs(sh) / 2 - 5);
+    $('#lsPhiVal').textContent = `${deg > 0 ? '+' : ''}${Math.round(deg)}°`;
+    $('#lsBar').style.width = (ratio * 100).toFixed(1) + '%';
+    $('#lsP').textContent = deg === 0 ? 'No power flows' : `Power ${Math.round(ratio * 100)}% of maximum · Port ${deg > 0 ? '1 → 2' : '2 → 1'}`;
+    inp.setAttribute('aria-valuetext', `${deg} degrees, ${$('#lsP').textContent}`);
+    box.classList.toggle('rev', deg < 0);
+  };
+  let auto = !calm(), t0 = performance.now(), raf = 0;
+  const stop = () => { auto = false; cancelAnimationFrame(raf); };
+  inp.addEventListener('input', () => { stop(); draw(+inp.value); });
+  inp.addEventListener('pointerdown', stop); inp.addEventListener('focus', stop);
+  draw(+inp.value);
+  if (auto) { const loop = t => { if (!auto || !document.body.contains(box)) return; const d = 42 + 30 * Math.sin((t - t0) / 1700); inp.value = Math.round(d); draw(d); raf = requestAnimationFrame(loop); }; raf = requestAnimationFrame(loop); }
+}
+
+/* --- reading mode: contents, focus, equation copy --- */
+function buildToc(root, target) {
+  const box = $(target); if (!box || !root) return;
+  const hs = [...root.querySelectorAll('h3, h4')]; if (hs.length < 2) { box.hidden = true; return; }
+  hs.forEach((h, i) => h.id = h.id || 'sec-' + i);
+  box.hidden = false;
+  box.querySelector('nav').innerHTML = hs.map(h => `<button type="button" class="${h.tagName === 'H4' ? 'sub' : ''}" data-to="${h.id}">${esc(h.textContent)}</button>`).join('');
+  box.onclick = e => { const id = e.target.dataset && e.target.dataset.to; if (id) document.getElementById(id).scrollIntoView({ behavior: calm() ? 'auto' : 'smooth', block: 'start' }); };
+  let q = false;
+  const upd = () => { q = false; if (!document.body.contains(box)) { removeEventListener('scroll', on); return; }
+    let cur = hs[0]; for (const h of hs) if (h.getBoundingClientRect().top < 140) cur = h;
+    box.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.to === cur.id)); };
+  const on = () => { if (!q) { q = true; requestAnimationFrame(upd); } };
+  addEventListener('scroll', on, { passive: true }); upd();
+}
+function toggleFocus() { document.body.classList.toggle('focus'); const on = document.body.classList.contains('focus'); toast(on ? 'Focus mode on — tap again to exit' : 'Focus mode off'); }
+document.addEventListener('click', e => {
+  const b = e.target.closest && e.target.closest('.eq-copy'); if (!b) return;
+  navigator.clipboard.writeText(b.dataset.tex).then(() => { b.classList.add('ok'); toast('Equation copied as LaTeX'); setTimeout(() => b.classList.remove('ok'), 1400); }, () => toast('Copy was blocked by the browser'));
+});
+
+/* --- footer --- */
+function renderFooter() {
+  const f = $('footer'); if (!f) return;
+  const L = SITE.links || {}, soc = [[L.scholar, 'cap', 'Google Scholar'], [L.orcid, 'orcid', 'ORCID'], [L.linkedin, 'linkedin', 'LinkedIn'], [L.ieee, 'paper', 'IEEE Xplore']].filter(x => x[0]);
+  const parts = String(SITE.name || '').trim().split(/\s+/), ini = (parts[0] || 'A')[0] + (parts.length > 1 ? parts[parts.length - 1][0] : '');
+  f.innerHTML = `<div class="wrap ft">
+    <div class="ft-brand"><a class="brand" href="#home"><span class="mark">${esc(ini.toUpperCase())}</span><span>${esc(SITE.name)}</span></a>
+      <p>${esc(SITE.headline || '')}</p>
+      <div class="soc">${soc.map(([u, i, n]) => `<a href="${esc(u)}" target="_blank" rel="noopener" aria-label="${n}" title="${n}">${ico(i, 18)}</a>`).join('')}<a href="mailto:${esc(SITE.email)}" aria-label="Email" title="${esc(SITE.email)}">${ico('mail', 18)}</a></div></div>
+    <div><h4>Explore</h4><a href="#research">Research</a><a href="#projects">Projects</a><a href="#publications">Publications</a><a href="#blog">Blog</a><a href="#gallery">Gallery</a></div>
+    <div><h4>Teaching</h4><a href="#teaching">Courses</a><a href="#live">Live classes</a><a href="#library">Document library</a><a href="#register">Register</a></div>
+    <div><h4>Contact</h4><a href="javascript:void 0" onclick="copyEmail()">${esc(SITE.email)}</a><span class="addr">${esc(SITE.address || '')}</span></div>
+  </div>
+  <div class="wrap ft-bot"><span>© ${new Date().getFullYear()} ${esc(SITE.name)}${SITE.institute ? ' · ' + esc(String(SITE.institute).split(',')[0]) : ''}</span>
+    <span><span id="updated">Last updated ${esc(SITE.updated || '')}</span><a href="javascript:void 0" id="installLink" style="display:${installEvt ? 'inline' : 'none'}" onclick="installApp()"> · Install app</a><span id="adminLink" style="display:none"> · <a href="#admin">Admin</a></span></span></div>`;
+}
+
+/* =====================================================================
    PUBLIC PAGES
    ===================================================================== */
 function statsStrip() {
   const C = SITE.courses || [], n = a => a.reduce((t, c) => t + (c || []).length, 0);
-  const items = [[(SITE.publications || []).length, 'Publications'], [C.length, 'Courses taught'], [n(C.map(c => c.lectures)), 'Lectures online'], [n(C.map(c => c.quizzes)), 'Practice quizzes']];
-  return `<div class="stats"><div class="wrap">${items.map(([v, l]) => `<div class="stat rv"><b><span data-count="${+v || 0}">0</span></b><span>${l}</span></div>`).join('')}</div></div>`;
+  const items = [[(SITE.publications || []).length, 'Publications', 'paper'], [C.length, 'Courses taught', 'cap'], [n(C.map(c => c.lectures)), 'Lectures online', 'play'], [n(C.map(c => c.quizzes)), 'Practice quizzes', 'quiz']];
+  return `<div class="stats"><div class="wrap">${items.map(([v, l, ic]) => `<div class="stat rv"><span class="si">${ico(ic, 20)}</span><b><span data-count="${+v || 0}">0</span></b><span>${l}</span></div>`).join('')}</div></div>`;
 }
 function pageHome() {
   const L = SITE.links, lk = (u, n) => u ? `<a class="btn small" href="${esc(u)}" target="_blank" rel="noopener">${n}</a>` : '';
@@ -1342,7 +1613,7 @@ function pageHome() {
   const parts = String(SITE.name).trim().split(/\s+/), last = parts.pop();
   const linkBtns = lk(L.scholar, 'Google Scholar') + lk(L.ieee, 'IEEE Xplore') + lk(L.orcid, 'ORCID') + lk(L.linkedin, 'LinkedIn');
   return `
-  <section class="hero"><div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div><div class="hero-grid" aria-hidden="true"></div><div class="wrap">
+  <section class="hero"><div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div><div class="hero-grid" aria-hidden="true"></div>${pcbSvg()}<div class="wrap">
     <div>
       ${SITE.photo ? `<img class="avatar h-in" src="${esc(SITE.photo)}" alt="${esc(SITE.name)}">` : ''}
       <div class="eyebrow h-in">${esc(SITE.headline)}</div>
@@ -1357,10 +1628,8 @@ function pageHome() {
       <div class="tags h-in" style="--d:.38s">${(SITE.keywords || []).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>
     </div>
     <figure class="figure h-in" id="heroFig" style="--d:.2s">
-      ${SITE.heroImage ? `<img src="${esc(SITE.heroImage)}" alt="" style="width:100%;border-radius:8px;display:block">` : (SITE.theme || 'signature') === 'signature' ? scopeSvg() : tabSvg()}
-      ${SITE.heroImage ? (SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : '') : (SITE.theme || 'signature') === 'signature'
-        ? '<figcaption>Bridge voltages of a triple active bridge. The phase shifts φ₁₂ and φ₁₃ decide how power flows between the three ports.</figcaption>'
-        : (SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : '')}
+      ${SITE.heroImage ? `<img src="${esc(SITE.heroImage)}" alt="" style="width:100%;border-radius:8px;display:block">${SITE.heroCaption ? `<figcaption>${esc(SITE.heroCaption)}</figcaption>` : ''}`
+        : `${liveScope()}<figcaption>Try it: drag the phase shift between the two bridges. Power flows from the leading bridge to the lagging one — the idea behind dual and triple active bridge control.</figcaption>`}
     </figure>
   </div></section>
   ${statsStrip()}
@@ -1384,7 +1653,7 @@ function pageHome() {
   <section class="block" id="s-research"><div class="wrap">
     <div class="eyebrow">Research</div><h2>Research themes</h2>
     <div class="grid g3" style="margin-top:20px">
-      ${(SITE.research || []).map(r => `<div class="card rcard"><div class="sym">${esc(r.sym)}</div><h3>${esc(r.title)}</h3><p class="muted">${inl(r.text)}</p></div>`).join('')}
+      ${(SITE.research || []).map((r, i) => `<div class="card rcard"><div class="sym icn" title="${esc(r.sym || '')}">${ico(r.icon && ICONS[r.icon] ? r.icon : ['scope', 'bolt', 'transformer', 'mosfet', 'inductor', 'chip'][i % 6], 26)}</div><h3>${esc(r.title)}</h3><p class="muted">${inl(r.text)}</p></div>`).join('')}
     </div>
   </div></section>
 
@@ -1523,7 +1792,7 @@ function artSvg(seed) {
 }
 const bg = u => u ? ` style="background-image:url('${esc(u)}')"` : '';
 function projCard(p) {
-  return `<a class="card proj" href="#project-${esc(p.id)}"><div class="img"${bg(p.image)}>${p.image ? '' : artSvg(p.title)}</div>
+  return `<a class="card proj" href="#project-${esc(p.id)}"><div class="img"${bg(p.image)}>${p.image ? '' : coverArt(p.id + p.title)}</div>
     <div class="in"><div class="meta-row"><span class="chip ${p.status === 'Ongoing' ? 'ok' : ''}">${esc(p.status)}</span>${p.period ? `<span>${esc(p.period)}</span>` : ''}${p.sample ? '<span class="chip warn">sample</span>' : ''}</div>
     <h3>${esc(p.title)}</h3><p class="muted" style="margin:0">${inl(p.summary)}</p></div></a>`;
 }
@@ -1548,7 +1817,7 @@ function pageProject(id) {
 const visiblePosts = () => (SITE.blog || []).filter(b => !b.hidden).sort((a, b) => String(b.date).localeCompare(String(a.date)));
 const readMins = t => Math.max(1, Math.round(String(t || '').split(/\s+/).length / 200));
 function postRow(b) {
-  return `<a class="post-row" href="#post-${esc(b.id)}"><div class="img"${bg(b.cover)}>${b.cover ? '' : artSvg(b.title)}</div>
+  return `<a class="post-row" href="#post-${esc(b.id)}"><div class="img"${bg(b.cover)}>${b.cover ? '' : coverArt(b.id + b.title)}</div>
     <div><div class="meta-row" style="margin-bottom:6px"><span>${fmtDate(b.date)}</span><span>${readMins(b.body)} min read</span>${b.sample ? '<span class="chip warn">sample</span>' : ''}</div>
     <h3 style="font-size:1.4rem;margin-bottom:8px">${esc(b.title)}</h3><p class="muted" style="margin:0">${inl(b.summary)}</p>
     ${b.tags ? `<div class="tags" style="margin-top:12px">${String(b.tags).split(',').map(t => t.trim()).filter(Boolean).map(t => `<span class="chip">${esc(t)}</span>`).join('')}</div>` : ''}</div></a>`;
@@ -1599,7 +1868,7 @@ function pageTeaching() {
   <div class="grid g2">
     ${SITE.courses.length ? SITE.courses.map(c => {
       const p = progress(c);
-      return `<a class="card course-card" href="#course-${c.id}" style="--c:${esc(c.color || '#b4562a')};color:var(--ink)"><span class="band"></span>
+      return `<a class="card course-card" href="#course-${c.id}" style="--c:${esc(c.color || '#b4562a')};color:var(--ink)"><span class="band"></span><div class="cc-cover">${coverArt(c.id + c.title, c.color)}<span class="ci">${ico(/bridge|dab|tab/i.test(c.title) ? 'transformer' : 'mosfet', 22)}</span></div>
         <div class="meta">${c.code ? `<span class="chip mono">${esc(c.code)}</span>` : ''}${c.term ? `<span class="chip">${esc(c.term)}</span>` : ''}${c.role ? `<span class="chip accent">${esc(c.role)}</span>` : ''}${c.sample ? '<span class="chip warn">sample content</span>' : ''}</div>
         <h3>${esc(c.title)}</h3><p class="muted" style="margin:0">${esc(c.blurb)}</p>
         <div class="faint" style="font-size:.88rem">${c.lectures.length} lectures · ${c.quizzes.length} quizzes · ${c.assignments.length} assignments</div>
@@ -1708,7 +1977,9 @@ function pageLecture(c, n) {
       <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0 26px">
         <button class="btn small ${isDone ? '' : 'primary'}" onclick="toggleDone('${c.id}',${+l.n})">${isDone ? '✓ Completed' : 'Mark as completed'}</button>
         ${quiz ? `<a class="btn small" href="#quiz-${c.id}-${quiz.id}">Take quiz: ${esc(quiz.title)}</a>` : ''}
+        <div class="read-tools"><button class="btn small" onclick="toggleFocus()" title="Hide everything except the notes">${ico('focus', 16)} Focus mode</button></div>
       </div>
+      <button class="btn small focus-exit" onclick="toggleFocus()">Exit focus mode</button>
       <div class="card notes" id="notes"><h2 style="font-size:1.4rem">Lecture notes</h2>${l.summary ? `<p class="muted">${esc(l.summary)}</p>` : ''}${l.notes ? mdLite(l.notes) : '<div class="empty">Notes coming soon.</div>'}</div>
       <div class="pager">${prev ? `<a class="btn" href="#lec-${c.id}-${prev.n}">← L${esc(prev.n)}: ${esc(prev.title)}</a>` : '<span></span>'}${nxt ? `<a class="btn" href="#lec-${c.id}-${nxt.n}">L${esc(nxt.n)}: ${esc(nxt.title)} →</a>` : ''}</div>
       <div class="card" style="margin:20px 0 60px" id="qa"></div>
@@ -1716,6 +1987,7 @@ function pageLecture(c, n) {
     <aside class="side">
       <div class="card"><h4>Documents</h4>${l.docs.length ? l.docs.map(d => `<a class="doc" ${docLink(d)}><span class="ftype ${esc(d.type)}">${TYPE_LABEL[d.type] || 'FILE'}</span><span><span class="dt">${esc(d.title)}</span><br><span class="faint mono" style="font-size:.76rem">${esc(d.size || '')}</span></span></a>`).join('') : '<p class="faint" style="margin:0">No files for this lecture.</p>'}</div>
       <div class="card"><h4>In this course</h4>${c.lectures.map(x => `<a class="doc" href="#lec-${c.id}-${x.n}" style="${x.n === l.n ? 'font-weight:600' : ''}"><span class="ftype" style="${done(c.id).includes(x.n) ? 'background:var(--ok-soft);color:var(--ok)' : ''}">${done(c.id).includes(x.n) ? '✓' : 'L' + esc(x.n)}</span><span class="dt">${esc(x.title)}</span></a>`).join('')}</div>
+      <div class="card toc" id="toc" hidden><h4>On this page</h4><nav></nav></div>
     </aside></div></div>`;
 }
 function renderQA(c, n) {
@@ -1800,7 +2072,15 @@ function submitAsg(cid, aid) {
     store.set(`sub_${cid}_${aid}`, { t: new Date().toISOString(), files }); closeModal(); route(); toast('Assignment submitted (preview)');
   };
 }
-function notFound() { return `<div class="wrap"><div class="page-head"><h1>Page not found</h1><p><a href="#home">Back to home</a></p></div></div>`; }
+function notFound() {
+  return `<div class="wrap nf"><svg viewBox="0 0 420 150" aria-hidden="true">
+    <path class="wire" d="M10 90 H120 c10 0 10-30 20-30 s10 30 20 30 s10-30 20-30 h10"/><circle cx="196" cy="60" r="5" fill="none" stroke="var(--ink-3)" stroke-width="3"/>
+    <circle cx="240" cy="78" r="5" fill="none" stroke="var(--ink-3)" stroke-width="3"/><path class="wire" d="M245 78 h30 v12 H410"/>
+    <path class="spark" d="M212 52 l6 -12 M222 66 l12 -4 M214 80 l8 10 M206 44 l-2 -12"/></svg>
+    <div class="code">Error 404 · open circuit</div><h1 style="margin-top:10px">This page isn't connected</h1>
+    <p class="lead" style="margin:0 auto 22px">The link may be old, or the page was moved. Try one of these instead.</p>
+    <div class="btn-row" style="justify-content:center"><a class="btn primary" href="#home">Home</a><a class="btn" href="#teaching">Courses</a><button class="btn" onclick="openSearch()">${ico('search', 16)} Search the site</button></div></div>`;
+}
 
 /* =====================================================================
    GITHUB — saves content.json and uploaded files into your repository
@@ -2160,7 +2440,7 @@ function adminSection() {
       <p class="muted" style="margin-top:14px">Your own visits to the Admin page are not counted.</p>`;
 
     case 'research': return `<h2>Research themes</h2><p class="muted">Cards in the Research section.</p>` +
-      listUI(s.research, r => `<div class="two">${F('Symbol (short)', r, 'sym')}${F('Title', r, 'title')}</div>${F('Description', r, 'text', 'textarea')}`,
+      listUI(s.research, (r, i) => `<div class="two">${F('Icon', r, 'icon', 'select', { options: [['', 'Automatic'], ...Object.entries(ICON_NAMES)] })}${F('Title', r, 'title')}</div>${F('Description', r, 'text', 'textarea')}`,
         { add: () => ({ sym: '★', title: 'New theme', text: '' }), addLabel: 'Add theme', name: r => r.title });
 
     case 'pubs': return `<h2>Publications</h2>` +
@@ -2644,7 +2924,7 @@ function route() {
     case 'lec': { const c = courseById(p[1]); html = c ? pageLecture(c, +p[2]) : notFound(); nav = 'teaching'; if (c) after = () => renderQA(c, +p[2]); break; }
     case 'quiz': { const c = courseById(p[1]); html = c ? pageQuiz(c, p[2]) : notFound(); nav = 'teaching'; if (c) after = () => bindQuiz(c, p[2]); break; }
     case 'admin': html = pageAdmin(); after = () => adminIn() ? renderAdmin() : showAdminLogin(false); break;
-    default: html = pageHome(); nav = 'home';
+    default: if (p[0] === '' || p[0] === 'home') { html = pageHome(); nav = 'home'; } else { html = notFound(); nav = ''; }
   }
   app.innerHTML = html;
   if (!['about', 'research', 'publications', 'contact'].includes(p[0])) window.scrollTo(0, 0);
@@ -2652,6 +2932,10 @@ function route() {
   if ($('#pubTabs')) { renderPubs('all'); $('#pubTabs').onclick = e => { if (e.target.dataset.f) renderPubs(e.target.dataset.f); }; }
   const v = $('#vid'); if (v) v.onclick = () => { v.outerHTML = `<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.dataset.yt)}?autoplay=1&rel=0" title="Lecture video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>`; };
   after && after();
+  bindScope();
+  if (p[0] === 'lec' || p[0] === 'post' || p[0] === 'project') { const nt = $('#notes'); if (nt && $('#toc')) setTimeout(() => buildToc(nt, '#toc'), 50); }
+  if (p[0] !== 'lec') document.body.classList.remove('focus');
+  renderFooter();
   document.querySelectorAll('nav.main a').forEach(a => a.classList.toggle('on', a.dataset.nav === nav));
   $('#nav').classList.remove('open');
   $('#updated').textContent = 'Last updated ' + (SITE.updated || '');
@@ -2723,7 +3007,8 @@ document.addEventListener('pointermove', e => {
     bar.style.transform = `scaleX(${max > 0 ? Math.min(1, h.scrollTop / max) : 0})`; hd.classList.toggle('scrolled', h.scrollTop > 8); };
   addEventListener('scroll', () => { if (!q) { q = true; requestAnimationFrame(upd); } }, { passive: true }); addEventListener('resize', upd); upd(); })();
 setInterval(() => document.querySelectorAll('[data-cd]').forEach(el => el.textContent = countdown(el.dataset.cd)), 30000);
-window.addEventListener('hashchange', route);
+if (document.startViewTransition && !calm()) document.documentElement.classList.add('vt');
+window.addEventListener('hashchange', () => { if (document.startViewTransition && !calm() && !A.on) { const t = document.startViewTransition(() => route()); [t.ready, t.finished, t.updateCallbackDone].forEach(pr => pr && pr.catch(() => {})); } else route(); });
 
 (async function init() {
   renderUser();
