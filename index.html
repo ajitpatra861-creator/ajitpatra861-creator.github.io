@@ -817,6 +817,7 @@ $$P = \frac{n\,V_1 V_2}{2\pi f_s L}\;\varphi\left(1 - \frac{|\varphi|}{\pi}\righ
   theme: "signature", accent: "",
   firebase: "",
   photo: "", formspree: "", goatcounter: "",
+  emailjs: { key: "", service: "", tplAlert: "", tplApproved: "" },
 
   announcements: [
     { date: "2026-11-15", course: "pe", text: "Quiz 1 (buck converter) is open. Attempt it before the next live class." },
@@ -983,6 +984,7 @@ function normalize(s) {
   for (const k in DEFAULT_SITE) if (!(k in s)) s[k] = clone(DEFAULT_SITE[k]);
   s.links = Object.assign({ scholar: '', ieee: '', orcid: '', linkedin: '' }, s.links);
   ['projects', 'blog', 'gallery'].forEach(k => s[k] = s[k] || []);
+  s.emailjs = Object.assign({ key: '', service: '', tplAlert: '', tplApproved: '' }, s.emailjs);
   s.courses.forEach(c => {
     ['lectures', 'live', 'quizzes', 'assignments'].forEach(k => c[k] = c[k] || []);
     c.discussion = c.discussion || {};
@@ -1376,12 +1378,31 @@ function registerFb() {
       <div class="fld"><label for="rCourse">Course</label><select id="rCourse">${SITE.courses.map(c => `<option value="${esc(c.id)}">${esc(c.title)}</option>`).join('')}</select></div>
       <button class="btn primary">Send registration</button></form>`;
 }
+/* ---------- email (EmailJS: sends from the instructor's own Gmail) ---------- */
+const mailOn = which => { const m = SITE.emailjs || {}; return !!(m.key && m.service && m[which]); };
+async function sendMail(which, params) {
+  if (!mailOn(which)) return false;
+  const m = SITE.emailjs, base = location.origin + location.pathname;
+  try {
+    const r = await fetch('https://api.emailjs.com/api/v1.0/email/send', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ service_id: m.service.trim(), template_id: m[which].trim(), user_id: m.key.trim(),
+        template_params: Object.assign({ site_url: base + '#teaching', admin_url: base + '#admin', site_name: SITE.name }, params) }) });
+    return r.ok;
+  } catch (e) { return false; }
+}
+const courseName = id => (courseById(id) || {}).title || id || '';
+function approvalDraft(email, name, course) {
+  const sub = `Approved: ${courseName(course) || 'course access'}`;
+  const body = `Hi ${name || ''},\n\nYour registration${course ? ' for ' + courseName(course) : ''} is approved. You can now sign in and open the lectures, notes and quizzes:\n${location.origin + location.pathname}#teaching\n\nUse the same account you registered with.\n\n${SITE.name}`;
+  return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
+}
 function bindRegister() {
   const f = $('#regForm'); if (!f) return;
   f.onsubmit = async e => {
     e.preventDefault(); const u = FB.user;
     try {
       await FB.db.doc('registrations/' + u.email).set({ name: $('#rName').value.trim().slice(0, 120), roll: $('#rRoll').value.trim().slice(0, 40), course: $('#rCourse').value, t: new Date().toISOString() });
+      sendMail('tplAlert', { to_email: SITE.email, student_name: $('#rName').value.trim(), student_email: u.email, roll: $('#rRoll').value.trim(), course: courseName($('#rCourse').value) });
       u.pending = true; route(); toast('Registration sent');
     } catch (er) { toast('Could not send: ' + er.message, 6000); }
   };
@@ -2211,7 +2232,7 @@ async function loadPublished() {
 const A = { on: false, sec: 'start', cid: null, sub: 'details', edit: null };
 let B = {}, LISTS = {}, bid = 0;
 const SECS = [['start', 'Start here'], ['profile', 'Profile & home'], ['look', 'Look & theme'], ['research', 'Research'], ['pubs', 'Publications'], ['exp', 'Experience & tools'], ['news', 'News'], ['projects', 'Projects'], ['blog', 'Blog'], ['gallery', 'Gallery'],
-  ['-'], ['courses', 'Courses & lectures'], ['ann', 'Announcements'], ['students', 'Students & registration'], ['secure', 'Secure sign-in'], ['stats', 'Visitors'], ['seo', 'Google search'], ['-'], ['github', 'GitHub connection'], ['backup', 'Backup']];
+  ['-'], ['courses', 'Courses & lectures'], ['ann', 'Announcements'], ['students', 'Students & registration'], ['secure', 'Secure sign-in'], ['mail', 'Email alerts'], ['stats', 'Visitors'], ['seo', 'Google search'], ['-'], ['github', 'GitHub connection'], ['backup', 'Backup']];
 
 function toLocal(iso) { const d = new Date(iso); return iso && !isNaN(d) ? new Date(d.getTime() + 330 * 60000).toISOString().slice(0, 16) : ''; }
 function ytId(v) { v = String(v || '').trim(); if (!v) return ''; if (/^[\w-]{11}$/.test(v)) return v; const m = v.match(/(?:youtu\.be\/|[?&]v=|embed\/|shorts\/|live\/)([\w-]{11})/); return m ? m[1] : ''; }
@@ -2339,11 +2360,19 @@ const ADMIN_ACTIONS = {
       try { toast('Uploading…', 30000); await GH.put(f.name, await fileB64(f), 'Google Search Console verification'); toast('Uploaded. Wait 2 minutes, then tap Verify in Search Console.', 6000); } catch (e) { toast(e.message, 6000); } };
     inp.click();
   },
+  async mailTest() {
+    if (!mailOn('tplAlert')) { toast('Fill in the Public Key, Service ID and the registration alert template first'); return; }
+    toast('Sending…', 15000);
+    const ok = await sendMail('tplAlert', { to_email: SITE.email, student_name: 'Test Student', student_email: 'test@example.com', roll: '00XX0000', course: (SITE.courses[0] || {}).title || 'Test course' });
+    toast(ok ? `Test email sent to ${SITE.email}. Check your inbox (and spam).` : 'Sending failed. Check the three IDs and that the Gmail service is connected in EmailJS.', 6000);
+  },
   copyRules() { navigator.clipboard.writeText(fbRules()).then(() => toast('Rules copied — paste them in Firebase → Firestore → Rules'), () => toast('Copy blocked: select the text and copy it')); },
   async fbApprove(t) {
     const e = t.dataset.e, r = (FB.regs || []).find(x => x.id === e) || {};
-    try { await FB.db.doc('roster/' + e).set({ name: r.name || '', roll: r.roll || '', course: r.course || '', t: new Date().toISOString() }); await FB.db.doc('registrations/' + e).delete(); toast('Approved ' + e); fbAdminLists(); }
-    catch (er) { toast(er.message, 6000); }
+    try { await FB.db.doc('roster/' + e).set({ name: r.name || '', roll: r.roll || '', course: r.course || '', t: new Date().toISOString() }); await FB.db.doc('registrations/' + e).delete(); fbAdminLists(); }
+    catch (er) { toast(er.message, 6000); return; }
+    if (mailOn('tplApproved')) { const ok = await sendMail('tplApproved', { to_email: e, student_name: r.name || 'there', course: courseName(r.course) }); toast(ok ? `Approved ${e} and emailed them` : `Approved ${e}, but the email could not be sent — check Admin → Email alerts`, 5000); }
+    else openModal(`<h3>Approved ${esc(r.name || e)}</h3><p class="muted">Let them know by email. Automatic emails can be switched on in <b>Admin → Email alerts</b>.</p><div class="row"><button class="btn" onclick="closeModal()">Skip</button><a class="btn primary" href="${approvalDraft(e, r.name, r.course)}" onclick="closeModal()">Write email</a></div>`);
   },
   fbReject(t) { const e = t.dataset.e; confirmBox(`Reject the registration from ${esc(e)}?`, async () => { try { await FB.db.doc('registrations/' + e).delete(); fbAdminLists(); } catch (er) { toast(er.message); } }, 'Reject'); },
   fbRemove(t) { const e = t.dataset.e; confirmBox(`Remove ${esc(e)}? They lose access to course material.`, async () => { try { await FB.db.doc('roster/' + e).delete(); fbAdminLists(); } catch (er) { toast(er.message); } }, 'Remove'); },
@@ -2361,8 +2390,8 @@ const ADMIN_ACTIONS = {
     if (!found.length) { toast('No email addresses found in that text'); return; }
     if (fbCfg()) {
       if (!(FB.on && FB.user && FB.user.inst)) { toast('Sign in with Google as the instructor first'); return; }
-      try { for (const e of new Set(found)) await FB.db.doc('roster/' + e).set({ name: '', roll: '', course: '', t: new Date().toISOString() }, { merge: true });
-        $('#approveTa').value = ''; toast(`Approved ${new Set(found).size} student(s)`); fbAdminLists(); } catch (er) { toast(er.message, 6000); }
+      try { let sent = 0; for (const e of new Set(found)) { await FB.db.doc('roster/' + e).set({ name: '', roll: '', course: '', t: new Date().toISOString() }, { merge: true }); if (await sendMail('tplApproved', { to_email: e, student_name: 'there', course: '' })) sent++; }
+        $('#approveTa').value = ''; toast(`Approved ${new Set(found).size} student(s)${mailOn('tplApproved') ? `, emailed ${sent}` : ''}`, 4000); fbAdminLists(); } catch (er) { toast(er.message, 6000); }
       return;
     }
     const have = new Set((SITE.students || []).map(e => e.toLowerCase()));
@@ -2428,6 +2457,27 @@ function adminSection() {
         <li>In Search Console, open <b>Sitemaps</b>, type <span class="mono">sitemap.xml</span> and tap <b>Submit</b>.</li></ol>
       <p style="margin:14px 0 0"><button class="btn primary" data-a="gscUpload">Upload verification file</button></p></div>
       <p class="muted" style="margin-top:14px">Google usually starts showing a new site within a few days to a few weeks.</p>`;
+
+    case 'mail': { const m = s.emailjs; return `<h2>Email alerts</h2>
+      <p class="lead">Get an email when a student registers, and send students an email automatically when you approve them. Emails go out from your own Gmail through <b>EmailJS</b> (free: 200 emails a month).</p>
+      <p>Status: ${mailOn('tplAlert') || mailOn('tplApproved') ? `<span class="status-ok">On ✓</span> — ${mailOn('tplAlert') ? 'registration alerts' : ''}${mailOn('tplAlert') && mailOn('tplApproved') ? ' and ' : ''}${mailOn('tplApproved') ? 'approval emails' : ''}` : '<span class="status-bad">Off</span>. Without it, Admin offers a ready-made email draft when you approve someone.'}</p>
+      <div class="card" style="margin:16px 0"><h3 style="margin-top:0">One-time setup (about 10 minutes)</h3><ol class="steps">
+        <li>Sign up free at <a href="https://www.emailjs.com" target="_blank" rel="noopener">emailjs.com</a>.</li>
+        <li><b>Email Services → Add New Service → Gmail → Connect Account</b> (choose ${esc(s.email)}, allow sending) → <b>Create Service</b>. Copy the <b>Service ID</b> into the box below.</li>
+        <li><b>Email Templates → Create New Template</b> for the alert to you:<br>
+          To Email: <span class="mono">{{to_email}}</span> · Subject: <span class="mono">New registration: {{student_name}}</span><br>
+          Content: <span class="mono">{{student_name}} ({{student_email}}), roll {{roll}}, registered for {{course}}. Approve: {{admin_url}}</span><br>
+          <b>Save</b>, then copy its <b>Template ID</b> into “Template ID: registration alert”.</li>
+        <li>Create a second template for students:<br>
+          To Email: <span class="mono">{{to_email}}</span> · Subject: <span class="mono">You're approved: {{course}}</span><br>
+          Content: <span class="mono">Hi {{student_name}}, your registration is approved. Sign in with the same account to open the lectures, notes and quizzes: {{site_url}} — {{site_name}}</span><br>
+          <b>Save</b>, then copy its <b>Template ID</b> into “Template ID: approval email”.</li>
+        <li><b>Account → General</b> → copy the <b>Public Key</b> into the box below.</li>
+        <li><b>Account → Security</b>: if there's a list of allowed domains, add <span class="mono">ajitpatra861-creator.github.io</span>.</li>
+        <li>Tap <b>Publish to website</b>, then <b>Send test email</b>.</li></ol></div>
+      <div class="two">${F('Public Key', m, 'key')}${F('Service ID', m, 'service')}${F('Template ID: registration alert', m, 'tplAlert')}${F('Template ID: approval email', m, 'tplApproved')}</div>
+      <p><button class="btn" data-a="mailTest">Send test email to ${esc(s.email)}</button></p>
+      <p class="muted">Alerts go to your contact email (${esc(s.email)}). Change it in Profile &amp; home.</p>`; }
 
     case 'stats': return `<h2>Visitors</h2>
       <p class="lead">See how many people visit and which pages they open, with GoatCounter. It's free for personal sites and doesn't track people or use cookies.</p>
